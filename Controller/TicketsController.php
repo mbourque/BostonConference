@@ -86,7 +86,7 @@ class TicketsController extends BostonConferenceAppController {
 		$items = array();
 
 		if ( !$this->Auth->loggedIn() ) {
-			$this->Session->setFlash(__('Please login before buying tickets'));
+			$this->Session->setFlash(__('Please register or login'));
 			$this->redirect($this->Auth->loginAction);
 		}
 
