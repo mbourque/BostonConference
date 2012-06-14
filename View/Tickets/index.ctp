@@ -86,8 +86,8 @@ if ( count( $ticketOptions ) > 0 )
 	</table>
 
 <?php
-
-	echo $this->Form->end( $availableToBuy ? __('Continue') : null );
+	$buttonLabel = ( count( $tickets ) > 0 ) ? __('Buy More Tickets') : __('Continue');
+	echo $this->Form->end( $availableToBuy ? $buttonLabel : null );
 
 } else {
 ?>

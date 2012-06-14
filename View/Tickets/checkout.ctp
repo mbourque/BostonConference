@@ -32,13 +32,16 @@ else
 
 echo '</p>';
 
-echo $this->Form->input('submit',array(
-	'type' => 'image',
-	'src' => 'https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif',
-	'style' => 'width:auto;height:auto',
-	'label' => false
-));
-
+if ( $totalPrice > 0 ) {
+	echo $this->Form->input('submit',array(
+		'type' => 'image',
+		'src' => 'https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif',
+		'style' => 'width:auto;height:auto',
+		'label' => false
+	));
+} else {
+	echo $this->Form->submit('Continue');
+}
 echo $this->Form->end();
 
 ?>
