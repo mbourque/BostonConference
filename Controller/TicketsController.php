@@ -214,6 +214,22 @@ class TicketsController extends BostonConferenceAppController {
 	}
 
 /**
+ * admin_by_user method
+ * Filters the list of tickets by user
+ *
+ ** @param string $user_id The user ID
+ * @return void
+ */
+	public function admin_by_user( $user_id ) {
+		$this->autoRender = false;
+		$this->Ticket->recursive = 0;
+		$this->paginate = array('conditions'=>array('Ticket.user_id' => $user_id ));
+		$this->set('tickets', $this->paginate());
+		$this->render('admin_index');
+	}
+
+
+/**
  * admin_view method
  *
  * @param string $id
