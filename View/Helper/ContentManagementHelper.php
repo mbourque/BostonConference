@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Content management helper - helps out with rich UI elements 
+ * Content management helper - helps out with rich UI elements
  *
  */
 class ContentManagementHelper extends AppHelper {
@@ -37,23 +37,24 @@ class ContentManagementHelper extends AppHelper {
 		$this->Form->Html->script('BostonConference.wysihtml5-0.3.0.min',array('inline' => false));
 
 		$toolbar = <<<EOMARKUP
-<div id="$id-toobar" class="wysiwyg-toolbar">
+<div id="$id-toolbar" class="wysiwyg-toolbar">
   <a data-wysihtml5-command="bold">bold</a>
   <a data-wysihtml5-command="italic">italic</a>
   <a data-wysihtml5-action="change_view" class="html-view">html</a>
 </div>
 EOMARKUP;
 
+		$init = $this->Form->Html->scriptBlock(sprintf($this->_richextInitjs,$id,$id.'-toolbar'),array('inline' => true));
 		$defaultOptions = array(
 			'type' => 'textarea',
-			'between' => $toolbar
+			'between' => $toolbar,
+			'after' => $init
 		);
 
 		$options = array_merge($defaultOptions,$options);
 
-		$init = $this->Form->Html->scriptBlock(sprintf($this->_richextInitjs,$id,$id.'-toobar'),array('inline' => true));
-
-		return $this->Form->input($fieldName,$options).$init;
+		$this->Form->unlockField('_wysihtml5_mode'); // Unlocks a field making it exempt from the SecurityComponent field hashing.
+		return $this->Form->input($fieldName,$options);
 	}
 
 }
