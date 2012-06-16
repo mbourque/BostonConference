@@ -140,7 +140,7 @@ class MenuComponent extends Component {
 			array(
 				'plugin' => 'BostonConference',
 				'controller' => 'talks',
-				'action' => 'schedule'
+				'action' => 'index'
 			),
 			30
 		);
