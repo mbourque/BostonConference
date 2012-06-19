@@ -96,7 +96,7 @@ class TicketOption extends BostonConferenceAppModel {
  */
 	public $hasMany = array(
 		'Ticket' => array(
-			'className' => 'Ticket',
+			'className' => 'BostonConference.Ticket',
 			'foreignKey' => 'ticket_option_id',
 			'dependent' => false,
 		)
