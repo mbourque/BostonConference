@@ -24,6 +24,8 @@ class SpeakersController extends BostonConferenceAppController {
  * @return void
  */
 	public function view( $id ) {
+		if( empty($id) )
+			$this->redirect( array('action'=>'index') );
 		$this->set('speakers', $this->Speaker->find('all', array('conditions'=>array('Speaker.id'=>$id))));
 		$this->render( 'index' );
 	}
