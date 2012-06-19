@@ -55,6 +55,7 @@ if ( $elements )
 
 		echo $this->fetch('css');
 		echo $this->fetch('script');
+		echo $this->fetch('before_closing_head');
 	?>
 </head>
 <body>
