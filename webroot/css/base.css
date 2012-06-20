@@ -772,6 +772,14 @@ div.schedule div.talk p span {
 	white-space: nowrap;
 }
 
+div.schedule div.talk p a {
+	text-decoration: none;
+}
+
+div.schedule div.talk p a:hover {
+	text-decoration: underline;
+}
+
 div.talks table tr td h3 a, div.speakers table tr td h3 a {
 	color: #2c6877;
 	font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif;

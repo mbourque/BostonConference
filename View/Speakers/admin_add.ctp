@@ -10,7 +10,7 @@
 		echo $this->Form->input('website');
 		echo $this->Form->input('email');
 		echo $this->Form->input('twitter');
-		echo $this->Form->input('featured', array('label'=>__('Featured on Speakers page')));
+		echo $this->Form->input('featured');
 		echo $this->Form->input('portrait_url', array('after'=>__('Leave blank to use a Gravatar using the email field.')));
 	?>
 	</fieldset>
