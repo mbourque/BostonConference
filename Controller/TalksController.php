@@ -69,7 +69,7 @@ class TalksController extends BostonConferenceAppController {
  * @return void
  */
 	public function view( $id ) {
-		$talk = $this->Talk->forCurrentEvent( true, array( 'Talk.id' => $id ));
+		$talk = $this->Talk->forCurrentEvent( true, array( 'conditions'=>array('Talk.id' => $id )));
 		$this->set('talks', $talk);
 		$this->render('index');
 	}

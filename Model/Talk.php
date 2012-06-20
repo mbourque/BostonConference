@@ -99,27 +99,27 @@ class Talk extends BostonConferenceAppModel {
  * Gets the talks for the current event.
  *
  * @param boolean $approved True to get only sponsors that have been approved or otherwise false.
- * @param array $conditions optional array of conditions
+ * @param array $optional optional array of options cake style
  * @returns array The talks for the current event.
  */
-	public function forCurrentEvent($approved = true, $conditions = array()) {
+	public function forCurrentEvent($approved = true, $options = array()) {
 		if ( !($event = $this->Event->current()) )
 			return array();
 
-		$defaultConditions = array(
-			'Talk.event_id' => $event['Event']['id']
+		$defaultOptions = array(
+			'conditions' => array(
+				'Talk.event_id' => $event['Event']['id']
+				),
+			'order' => 'start_time'
 		);
 
-		$conditions = array_merge( $conditions, $defaultConditions );
+		$options = array_merge( $defaultOptions, $options );
 
 		if ( $approved )
-			$conditions['Talk.approved'] = 1;
+			$options['conditions']['Talk.approved'] = 1;
 
 		$this->contain(array('Track','Speaker'));
 
-		return $this->find('all', array(
-			'conditions' => $conditions,
-			'order' => 'start_time'
-		));
+		return $this->find('all', $options);
 	}
 }

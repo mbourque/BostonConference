@@ -30,13 +30,13 @@ if ( $venue ) {
 	}
 
 	if ( $venue['Venue']['transportation_instructions'] ) {
-		echo '<h3>Transportation</h3>';
+		echo '<a name="transportation"></a><h3>Transportation</h3>';
 		echo '<p>'.$this->Html->clean(str_replace("\n","\n<br />",$venue['Venue']['transportation_instructions'])).'</p>';
 	}
 
 	if ( count($venue['Event']['EventHotel']) > 0 ) {
 	$address = $venue['Venue']['address'];
-		echo '<h3>Accomodations</h3>';
+		echo '<a name="accomodations" ></a><h3>Accomodations</h3>';
 
 		foreach ( $venue['Event']['EventHotel'] as $hotel ) {
 			$address = $hotel['Hotel']['address'];
@@ -56,7 +56,7 @@ if ( $venue ) {
 				if ( !empty($hotel['group_rate_instructions']) )
 					echo ': '.$this->Html->clean($hotel['group_rate_instructions']);
 			}
-			
+
 			echo '</p>';
 		}
 	}
