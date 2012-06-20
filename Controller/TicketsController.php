@@ -160,7 +160,7 @@ class TicketsController extends BostonConferenceAppController {
 				}
 
 				if ( $this->_completeRegistration() ) {
-					$this->Session->setFlash(__('Thank you'));
+					$this->Session->setFlash(__('Thank you! You are now registered for the conference!'));
 				} else {
 					$this->Session->setFlash(__('There was an error processing your tickets'));
 				}
@@ -179,7 +179,7 @@ class TicketsController extends BostonConferenceAppController {
  */
 	public function confirm() {
 		if ( $this->_completeRegistration(array($this->Payments,'confirm')) ) {
-			$this->Session->setFlash(__('Thank you'));
+			$this->Session->setFlash(__('Thank you! You are now registered for the conference!'));
 		} else {
 			$this->Session->setFlash(__('There was an error processing your tickets'));
 		}
