@@ -25,8 +25,7 @@ $this->end();
 					?>
 				</td>
 				<td><h3><?php echo $this->Html->link( $talk['Talk']['topic'], $talkLink );?></h3>
-				<address><?php echo $this->Html->link($talk['Speaker']['display_name'], $speakerLink); ?>, Track: <?php echo $talk['Track']['name']; ?></address>
-
+				<span class='talk-details'><?php echo $this->Html->link($talk['Speaker']['display_name'], $speakerLink); ?>, Track: <?php echo $talk['Track']['name']; ?></span>
 				<?php
 					$abstract = $talk['Talk']['abstract'];
 					$abstract = $this->Html->clean( $abstract );
