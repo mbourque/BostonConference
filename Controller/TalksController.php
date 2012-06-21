@@ -58,7 +58,7 @@ class TalksController extends BostonConferenceAppController {
  * @returns void
  */
 	public function index() {
-		$talks = $this->Talk->forCurrentEvent( true, array( 'Talk.speaker_id not' => null ));
+		$talks = $this->Talk->forCurrentEvent( true, array( 'order'=>array('Track.position','Talk.topic'),'conditions'=>array('Talk.speaker_id not' => null )));
 		$this->set('talks', $talks);
 	}
 
