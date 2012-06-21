@@ -25,8 +25,13 @@ $this->end();
 					?>
 				</td>
 				<td><h3><?php echo $this->Html->link( $talk['Talk']['topic'], $talkLink );?></h3>
-				<address>Speaker: <?php echo $this->Html->link($talk['Speaker']['display_name'], $speakerLink); ?>, Track: <?php echo $talk['Track']['name']; ?></address>
-				<p class='talk-abstract'><?php echo $this->Html->clean($talk['Talk']['abstract']);?></p>
+				<address><?php echo $this->Html->link($talk['Speaker']['display_name'], $speakerLink); ?>, Track: <?php echo $talk['Track']['name']; ?></address>
+
+				<?php
+					$abstract = $talk['Talk']['abstract'];
+					$abstract = $this->Html->clean( $abstract );
+				?>
+				<div class='talk-abstract'><?php echo $abstract;?></div>
 				</td>
 			</tr>
 			<?php endforeach; ?>

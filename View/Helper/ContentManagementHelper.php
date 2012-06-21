@@ -40,7 +40,19 @@ class ContentManagementHelper extends AppHelper {
 <div id="$id-toolbar" class="wysiwyg-toolbar">
   <a data-wysihtml5-command="bold">bold</a>
   <a data-wysihtml5-command="italic">italic</a>
-  <a data-wysihtml5-action="change_view" class="html-view">html</a>
+  <a data-wysihtml5-command="insertUnorderedList">ul</a>
+  <a data-wysihtml5-command="insertOrderedList">li</a>
+  <a data-wysihtml5-command="createLink">link</a>
+  <div data-wysihtml5-dialog="createLink" style="display: none;">
+    <label>
+      Link:
+      <input data-wysihtml5-dialog-field="href" value="http://" class="text">
+    </label>
+    <a data-wysihtml5-dialog-action="save">OK</a> <a data-wysihtml5-dialog-action="cancel">Cancel</a>
+  </div>
+	<a data-wysihtml5-command="undo">undo</a>
+    <a data-wysihtml5-command="redo">redo</a>
+	<a data-wysihtml5-action="change_view" class="html-view">html</a>
 </div>
 EOMARKUP;
 
