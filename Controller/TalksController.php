@@ -14,9 +14,9 @@ class TalksController extends BostonConferenceAppController {
  */
 	public $helpers = array('BostonConference.Schedule');
 
-/** 
+/**
  * Before filter
- * 
+ *
  * @return void
  */
 	public function beforeFilter() {
@@ -139,6 +139,12 @@ class TalksController extends BostonConferenceAppController {
  */
 	public function admin_index() {
 		$this->Talk->recursive = 0;
+		$this->paginate = array(
+			'limit' => 25,
+			'order' => array(
+				'Talk.start_time' => 'asc'
+			)
+		);
 		$this->set('talks', $this->paginate());
 	}
 
