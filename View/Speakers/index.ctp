@@ -15,7 +15,7 @@ $this->end();
 				<td><?php
 					$speakerLink = array( 'controller'=>'speakers','action'=>'view', $speaker['Speaker']['id'] );
 					if( !empty( $speaker['Speaker']['portrait_url'] ) ) {
-						echo $this->Html->image( $speaker['Speaker']['portrait_url'], array('url'=>$speakerLink) );
+						echo $this->Html->image( $speaker['Speaker']['portrait_url'], array('url'=>$speakerLink, 'style'=>'width:80px') );
 					} elseif( isset( $speaker['Speaker']['email'] ) ) {
 						echo $this->Gravatar->image($speaker['Speaker']['email'], null, array('url'=>$speakerLink));
 					} else {

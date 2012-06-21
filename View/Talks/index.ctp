@@ -16,7 +16,7 @@ $this->end();
 					$speakerLink = array( 'controller'=>'speakers','action'=>'view', $talk['Speaker']['id'] );
 					$talkLink = array( 'action'=>'view', $talk['Talk']['id'] );
 					if( !empty( $talk['Speaker']['portrait_url'] ) ) {
-						echo $this->Html->image( $talk['Speaker']['portrait_url'], array('url'=>$speakerLink) );
+						echo $this->Html->image( $talk['Speaker']['portrait_url'], array('url'=>$speakerLink, 'style'=>'width:80px') );
 					} elseif( isset( $talk['Speaker']['email'] ) ) {
 						echo $this->Gravatar->image($talk['Speaker']['email'], null, array('url'=>$speakerLink));
 					} else {
