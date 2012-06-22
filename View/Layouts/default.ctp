@@ -137,7 +137,7 @@ else if ( isset($skinny_sidebar) && $skinny_sidebar )
 
 				$organizationName = Configure::read('BostonConference.organizationName');
 				echo ' '.( $organizationName ? $organizationName : Configure::read('BostonConference.siteName') );
-			?>
+			?> | <?php echo $this->Html->link(__('Contact us'), array('plugin'=>null,'admin'=>false, 'controller'=>'pages','action'=>'display','contact')); ?>
 			<?php echo $this->fetch('footer'); ?>
 		</p>
 
