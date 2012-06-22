@@ -95,7 +95,8 @@ else if ( isset($skinny_sidebar) && $skinny_sidebar )
 					}
 
 					if ( !empty($authentication['login_url']) ) {
-						echo $this->Html->link('Login',$authentication['login_url']);
+						if( !Configure::read('BostonConference.login_menu') )
+							echo $this->Html->link('Login',$authentication['login_url']);
 					}
 
 					if ( !empty($authentication['logout_url']) ) {

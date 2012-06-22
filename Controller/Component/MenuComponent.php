@@ -96,8 +96,7 @@ class MenuComponent extends Component {
  * @returns void
  */
 	protected function _initDefaultMenu(Controller $controller) {
-		$isAdmin = $controller->params['admin'];
-
+		$isAdmin = ($controller->params['admin'] && $controller->Auth->loggedIn());
 		// Home link (0 - most important)
 		$this->addLink(
 			'Home',
