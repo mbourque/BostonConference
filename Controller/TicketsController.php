@@ -70,7 +70,7 @@ class TicketsController extends BostonConferenceAppController {
 		);
 
 		$this->set('ticketOptions', $this->Ticket->TicketOption->find('all',
-			array('order'=>array('label'),
+			array('order'=>array('price', 'label'),
 			'conditions' => $conditions
 		)));
 
