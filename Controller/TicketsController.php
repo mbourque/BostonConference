@@ -21,7 +21,6 @@ class TicketsController extends BostonConferenceAppController {
  */
 	public function beforeFilter() {
 		$this->Auth->allow(array('checkout'));
-
 		return parent::beforeFilter();
 	}
 
@@ -31,6 +30,11 @@ class TicketsController extends BostonConferenceAppController {
  * @return void
  */
 	public function index() {
+
+		if ( !$this->Auth->loggedIn() ) {
+			$this->redirect('/register');
+		}
+
 		if ($this->request->is('post')) {
 			$items = array();
 
