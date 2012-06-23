@@ -25,8 +25,7 @@ class GravatarHelper extends AppHelper {
 	public function image( $email, $s = 80, $options = array() ) {
 		$url = ($this->request->is('ssl')) ? 'https://secure.gravatar.com/avatar/' : 'http://www.gravatar.com/avatar/';
 		$url .= (!empty($email)) ? md5( strtolower( trim( $email ) ) ) : '00000000000000000000000000000000';
-		$url .= "?s={$s}&d=mm.jpg";
-
+		$url .= htmlentities("?s=".$s."&d=mm");
 		$output = $this->Html->image( $url, $options );
 		return $output;
 	}
