@@ -9,7 +9,7 @@ if ( count( $news ) > 0 )
 ?>
 <article>
 	<h2><?php echo h($news['News']['title']); ?>&nbsp;</h2>
-	<time><?php echo date(Configure::read('BostonConference.dateFormat'),strtotime($news['News']['created'])); ?></time>
+	<time datetime="<?php echo date('Y-m-d', strtotime($news['News']['created']));?>"><?php echo date(Configure::read('BostonConference.dateFormat'),strtotime($news['News']['created'])); ?></time>
 	<p><?php echo $this->Html->clean($news['News']['body']); ?>&nbsp;</p>
 </article>
 <?php
