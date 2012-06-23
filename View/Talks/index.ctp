@@ -8,7 +8,7 @@ $this->append('header');
 $this->end();
 ?>
 <div class="talks listing">
-	<table cellpadding='0' cellspacing='0'>
+	<table>
 		<tbody>
 			<?php foreach( $talks AS $talk ) : ?>
 			<tr>

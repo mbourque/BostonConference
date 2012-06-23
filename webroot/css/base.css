@@ -235,9 +235,9 @@ div.actions h3 {
 	color:#777;
 }
 
-
 /** Tables **/
 table {
+    border-collapse: collapse;
 	background: #fff;
 	border-right:0;
 	clear: left;

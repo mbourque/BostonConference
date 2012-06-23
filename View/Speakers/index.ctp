@@ -8,7 +8,7 @@ $this->append('header');
 $this->end();
 ?>
 <div class="speakers index">
-	<table cellpadding='0' cellspacing='0'>
+	<table>
 		<tbody>
 			<?php foreach( $speakers AS $speaker ) : ?>
 			<tr>
