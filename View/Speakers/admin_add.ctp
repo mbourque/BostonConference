@@ -6,7 +6,7 @@
 		echo $this->Form->input('user_id',array('empty'=>true));
 		echo $this->Form->input('first_name');
 		echo $this->Form->input('last_name');
-		echo $this->Form->input('bio');
+		echo $this->ContentManagement->richtext('Speaker.bio');
 		echo $this->Form->input('website');
 		echo $this->Form->input('email');
 		echo $this->Form->input('twitter');
