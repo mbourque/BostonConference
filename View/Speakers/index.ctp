@@ -19,7 +19,7 @@ $this->end();
 					} elseif( isset( $speaker['Speaker']['email'] ) ) {
 						echo $this->Gravatar->image($speaker['Speaker']['email'], null, array('url'=>$speakerLink));
 					} else {
-						echo $this->Gravatar->image( 'someone@example.com', null, array('url'=>$speakerLink) ); // Gets a default Gravatar
+						echo $this->Gravatar->image( null, null, array('url'=>$speakerLink) ); // Gets a default Gravatar
 					}
 					?>
 				</td>
