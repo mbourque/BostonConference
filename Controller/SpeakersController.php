@@ -14,7 +14,7 @@ class SpeakersController extends BostonConferenceAppController {
  * @return void
  */
 	public function index() {
-		$this->set('speakers', $this->Speaker->find('all', array( 'conditions' => array('Speaker.approved_talk_count >='=>1, 'Speaker.bio not'=>null),
+		$this->set('speakers', $this->Speaker->find('all', array( 'conditions' => array('Speaker.approved_talk_count >='=>1, 'Speaker.bio !='=>''),
 																 'order'=>array('Speaker.display_name'))));
 	}
 
