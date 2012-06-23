@@ -1,11 +1,13 @@
 <?php
-$this->append('header');
-?>
+if( $this->action == 'index' ) {
+	$this->append('header'); ?>
 <div class="speakers index">
-	<h2><?php echo ( $this->action == 'view' ) ? __('Speaker Profile') : __('Speakers');?></h2>
+	<h2><?php echo __('Speakers');?></h2>
 </div>
-<?php
-$this->end();
+<?php $this->end();
+} else {
+	$this->set('title_for_layout', $speakers[0]['Speaker']['display_name'] );
+}
 ?>
 <div class="speakers index">
 	<table>

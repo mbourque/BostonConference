@@ -1,11 +1,13 @@
 <?php
-$this->append('header');
-?>
-<div class="talks listing">
-	<h2><?php echo ( $this->action == 'view' ) ? __('Talk Abstract') : __('Talks');?></h2>
+if( $this->action == 'index' ) {
+	$this->append('header'); ?>
+<div class="talks index">
+	<h2><?php echo __('Talks');?></h2>
 </div>
-<?php
-$this->end();
+<?php $this->end();
+} else {
+	$this->set('title_for_layout', $talks[0]['Talk']['topic'] );
+}
 ?>
 <div class="talks listing">
 	<table>
