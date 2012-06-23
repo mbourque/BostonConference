@@ -65,7 +65,7 @@ if ( $elements )
 		<div id="header">
 		<?php
 			echo $this->Html->link(
-				$this->Html->image('/boston_conference/img/logo.png', array('alt'=> Configure::read('BostonConference.siteName'), 'border' => '0')),
+				$this->Html->image('/boston_conference/img/logo.png', array('alt'=> Configure::read('BostonConference.siteName'))),
 				array('plugin' => 'BostonConference', 'controller' => 'news', 'action' => 'index'),
 				array('escape' => false)
 			);
