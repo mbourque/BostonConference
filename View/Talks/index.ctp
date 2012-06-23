@@ -18,9 +18,9 @@ $this->end();
 					if( !empty( $talk['Speaker']['portrait_url'] ) ) {
 						echo $this->Html->image( $talk['Speaker']['portrait_url'], array('url'=>$speakerLink, 'style'=>'width:80px') );
 					} elseif( isset( $talk['Speaker']['email'] ) ) {
-						echo $this->Gravatar->image($talk['Speaker']['email'], null, array('url'=>$speakerLink));
+						echo $this->Gravatar->image($talk['Speaker']['email'], 80, array('url'=>$speakerLink));
 					} else {
-						echo $this->Gravatar->image( null, null, array('url'=>$speakerLink) ); // Gets a default Gravatar
+						echo $this->Gravatar->image( null, 80, array('url'=>$speakerLink) ); // Gets a default Gravatar
 					}
 					?>
 				</td>
