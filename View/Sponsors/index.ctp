@@ -39,7 +39,7 @@ $this->end();
 		echo '<h3>'.$level['SponsorshipLevel']['label'].'</h3>';
 
 		foreach ( $level['Sponsor'] as $sponsor ) {
-			echo '<a href="'.$sponsor['website'].'" class="sponsor-box '.$class.'" target="_NEW">';
+			echo '<a href="'.$sponsor['website'].'" class="sponsor-box '.$class.'" target="_blank">';
 			if ( $sponsor['logo_url'] )
 				echo '<img src="'.$sponsor['logo_url'].'" title="'.$sponsor['organization'].'" alt="Logo: '.$sponsor['organization'].'" />';
 			else

@@ -136,19 +136,19 @@ else if ( isset($skinny_sidebar) && $skinny_sidebar )
 
 				$organizationName = Configure::read('BostonConference.organizationName');
 				echo ' '.( $organizationName ? $organizationName : Configure::read('BostonConference.siteName') );
-			?> | <?php echo $this->Html->link(__('Contact us'), array('plugin'=>null,'admin'=>false, 'controller'=>'pages','action'=>'display','contact')); ?>
+			?> | <?php echo $this->Html->link(__('Contact us'), array('controller'=>'contact')); ?>
 			<?php echo $this->fetch('footer'); ?>
 		</p>
 
 		<?php
 			echo $this->Html->link(
-				$this->Html->image('BostonConference.boston.power.gif', array('alt'=> __('BostonConference: the open source conference framework', true), 'border' => '0')),
+				$this->Html->image('BostonConference.boston.power.gif', array('alt'=> __('BostonConference: the open source conference framework', true))),
 				'http://www.github.com/andrewcurioso/BostonConference',
 				array('target' => '_blank', 'escape' => false)
 			);
 			echo '&nbsp;';
 			echo $this->Html->link(
-				$this->Html->image('cake.power.gif', array('alt'=> __('CakePHP: the rapid development php framework', true), 'border' => '0')),
+				$this->Html->image('cake.power.gif', array('alt'=> __('CakePHP: the rapid development php framework', true))),
 				'http://www.cakephp.org/',
 				array('target' => '_blank', 'escape' => false)
 			);
