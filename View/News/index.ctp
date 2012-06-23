@@ -1,6 +1,6 @@
 <?php
 
-$this->set('title_for_layout','Home');
+$this->set('title_for_layout', '');
 
 if ( count( $news ) > 0 )
 {

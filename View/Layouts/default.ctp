@@ -44,9 +44,11 @@ if ( $elements )
 <html>
 <head>
 	<?php echo $this->Html->charset(); ?>
-	<title>
-		<?php echo $title_for_layout.' :: '.Configure::read('BostonConference.siteName'); ?>
-	</title>
+	<title><?php if( empty( $title_for_layout ) ) {
+				echo Configure::read('BostonConference.siteName');
+	} else {
+				echo $title_for_layout.' | '.Configure::read('BostonConference.siteName');
+	}?></title>
 	<?php
 		echo $this->fetch('meta');
 		echo $this->Html->meta('icon');
@@ -83,43 +85,40 @@ else if ( isset($skinny_sidebar) && $skinny_sidebar )
 
 ?>
 			<div id="content" class="<?php echo $content_class; ?>">
+
 				<div id="navigation">
 					<ul>
 					<?php
 					foreach( $navigation_links as $link )
 						echo '<li>'.$this->Html->link(__($link[0]),$link[1]).'</li>';
+					?>
 
-					echo '<li class="auth">';
+					<li class="auth">
+					<?php
 					if ( !empty($authentication['greeting']) ) {
 						echo $this->Html->clean($authentication['greeting']).'&nbsp-&nbsp;';
 					}
 
 					if ( !empty($authentication['login_url']) ) {
-						if( !Configure::read('BostonConference.login_menu') )
+						if( !Configure::read('BostonConference.hide_login_menu') )
 							echo $this->Html->link('Login',$authentication['login_url']);
 					}
 
 					if ( !empty($authentication['logout_url']) ) {
 						echo $this->Html->link('Logout',$authentication['logout_url']);
-					}
-
-
-					echo '</li>';
-					?>
+					} ?>
+					</li>
 					</ul>
 					<div class="sidebar-block"> </div>
 				</div>
-<?php
-
-?>
 				<div id="sidebar">
 					<?php
 						echo $sidebar_content;
 					?>
 				</div>
 				<div id="mainContent">
+					<?php echo $this->Session->flash();?>
 					<?php
-						echo $this->Session->flash();
 						echo $this->fetch('before-header');
 						echo $this->fetch('header');
 						echo $this->fetch('before-content');
