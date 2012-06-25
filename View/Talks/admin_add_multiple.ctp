@@ -52,7 +52,7 @@
 
 		echo $this->Form->input('event_id');
 		echo $this->Form->input('speaker_id', array('empty' => true));
-		echo $this->Form->input('topic', array('label'=>'Default Topic Name','after'=>__('An index number will be appended to the end')));
+		echo $this->Form->input('topic', array('label'=>'Default Topic Name','after'=>$this->Html->tag('span',__('An index number will be appended to the end'))));
 		echo $this->Form->input('abstract', array('label'=>'Default Abstract'));
 
 		$dateOptions['type']='datetime';
