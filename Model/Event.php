@@ -73,12 +73,19 @@ class Event extends BostonConferenceAppModel {
  * This will typically be the next event but could be the previous event if
  * there isn't any next event.
  *
+ * @param array $options (Optional) Option fields (conditions / fields / joins / limit / offset / order / page / group / callbacks)
+ * 		defaults to order => Event.start_date < now()
  * @returns array The current event.
  */
-	public function current() {
-		$this->contain();
-		return $this->find('first', array(
-			'order' => array( 'Event.start_date < NOW()', 'Event.start_date' )
-		));
+	public function current( $options = array() ) {
+
+		$defaultOptions = array(
+					'order' => array( 'Event.start_date < NOW()', 'Event.start_date' ),
+					'contain' => false,
+								);
+
+		$options = array_merge_recursive( $defaultOptions, $options );
+
+		return $this->find('first', $options );
 	}
 }

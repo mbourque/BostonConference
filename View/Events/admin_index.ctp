@@ -8,18 +8,21 @@ $this->append('header')
 $this->end();
 ?>
 <div class="events index">
+	<table>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id');?></th>
 			<th><?php echo $this->Paginator->sort('name');?></th>
-			<th><?php echo $this->Paginator->sort('modified');?></th>
+			<th><?php echo $this->Paginator->sort('start_date');?></th>
+			<th><?php echo $this->Paginator->sort('end_date');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
 	<?php
 	foreach ($events as $event): ?>
 	<tr>
 		<td><?php echo h($event['Event']['id']); ?>&nbsp;</td>
-		<td><?php echo h($event['Event']['name']); ?>&nbsp;</td>
-		<td><?php echo h($event['Event']['modified']); ?>&nbsp;</td>
+		<td><strong><?php echo h($event['Event']['name']); ?></strong><br/><?php echo h($event['Event']['description']); ?></td>
+		<td><?php echo h($event['Event']['start_date']); ?>&nbsp;</td>
+		<td><?php echo h($event['Event']['end_date']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $event['Event']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $event['Event']['id'])); ?>

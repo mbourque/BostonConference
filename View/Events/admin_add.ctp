@@ -5,6 +5,8 @@
 	<?php
 		echo $this->Form->input('name');
 		echo $this->Form->input('description');
+		echo $this->Form->input('start_date');
+		echo $this->Form->input('end_date');
 		echo $this->Form->input('available_tickets');
 		echo $this->Form->input('venue_id',array('empty' => true));
 	?>
