@@ -100,8 +100,11 @@ else if ( isset($skinny_sidebar) && $skinny_sidebar )
 					}
 
 					if ( !empty($authentication['login_url']) ) {
-						if( !Configure::read('BostonConference.hide_login_menu') )
+						if( !Configure::read('BostonConference.hide_login_menu') ) {
+							echo $this->Html->link('Create an account',$authentication['register_url']);
+							echo "&nbsp;|&nbsp;";
 							echo $this->Html->link('Login',$authentication['login_url']);
+						}
 					}
 
 					if ( !empty($authentication['logout_url']) ) {
