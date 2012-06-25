@@ -1,6 +1,6 @@
 <div class="tickets index">
 	<h2><?php echo __('Tickets');?></h2>
-	<table cellpadding="0" cellspacing="0">
+	<table>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id');?></th>
 			<th><?php echo $this->Paginator->sort('user_id');?></th>

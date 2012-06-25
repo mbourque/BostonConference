@@ -1,7 +1,7 @@
 <?php if ( count( $tickets ) > 0 ) : ?>
 <h2><?php echo __('Your Tickets');?></h2>
 <p><?php echo __('You are registered for the conference. Your tickets are below.');?></p>
-<table cellpadding="0" cellspacing="0">
+<table>
 	<thead>
 		<tr>
 			<th><?php echo __('Package'); ?></th>
@@ -28,7 +28,7 @@
 	$availableToBuy = false;
 ?>
 <h2><?php echo __('Buy Tickets');?></h2>
-<table cellpadding="0" cellspacing="0">
+<table>
 	<thead>
 		<tr>
 			<th><?php echo __('Package'); ?></th>

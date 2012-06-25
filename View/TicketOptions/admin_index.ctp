@@ -1,6 +1,6 @@
 <div class="ticketOptions index">
 	<h2><?php echo __('Ticket Options');?></h2>
-	<table cellpadding="0" cellspacing="0">
+	<table>
 	<tr>
 			<th><?php echo $this->Paginator->sort('label');?></th>
 			<th><?php echo $this->Paginator->sort('ticket_count');?></th>

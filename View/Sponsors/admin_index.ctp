@@ -8,7 +8,7 @@ $this->append('header')
 $this->end();
 ?>
 <div class="sponsors index">
-	<table cellpadding="0" cellspacing="0">
+	<table>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id');?></th>
 			<th><?php echo $this->Paginator->sort('organization');?></th>
