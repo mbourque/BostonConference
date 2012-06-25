@@ -84,7 +84,7 @@ class Event extends BostonConferenceAppModel {
 					'contain' => false,
 								);
 
-		$options = array_merge_recursive( $defaultOptions, $options );
+		$options = array_merge( $defaultOptions, $options );
 
 		return $this->find('first', $options );
 	}

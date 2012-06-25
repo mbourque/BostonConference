@@ -89,7 +89,7 @@ class TicketsController extends BostonConferenceAppController {
 	public function print_tickets() {
 
 		if ( !$this->Auth->loggedIn() ) {
-			$this->redirect('/');
+			$this->redirect(array('contoller'=>'news'));
 		}
 
 		$tickets = $this->Ticket->find('all',array(
