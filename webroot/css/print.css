@@ -1,0 +1,16 @@
+@import url("../../css/cake.generic.css");
+
+/** Styles **/
+
+div#footer, div#navigation, input[type=button] { display: none; }
+
+div#mainContent {
+	display: block;
+	width: auto;
+	margin: 0 5%;
+	padding: 0;
+	border: 0;
+	float: none !important;
+	color: black;
+	background: transparent;
+}

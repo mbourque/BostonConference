@@ -82,6 +82,34 @@ class TicketsController extends BostonConferenceAppController {
 	}
 
 /**
+ * Print tickets order
+ *
+ * @return void
+ */
+	public function print_tickets() {
+
+		if ( !$this->Auth->loggedIn() ) {
+			$this->redirect('/');
+		}
+
+		$tickets = $this->Ticket->find('all',array(
+			'order'=>array('Ticket.badge_name','Ticket.id'),
+			'conditions'=>array('Ticket.user_id' => $this->Auth->user('id'),
+								'Ticket.paid' => 1,
+								),
+			'recursive' => 1
+		));
+		$event = $this->Ticket->TicketOption->Event->current(array('contain'=>true));
+		$user = array_shift(Set::extract('/User/.[:first]', $tickets));
+		$sale['subtotal'] = array_sum(Set::extract('/TicketOption/price', $tickets));
+		$sale['count'] = count(Set::extract('/Ticket/id', $tickets));
+		$sale['date'] = max(Set::extract('/Ticket/created', $tickets));
+
+		$this->set( compact( 'event', 'user', 'sale', 'tickets' ) );
+
+	}
+
+/**
  * checkout method
  *
  * @return void
