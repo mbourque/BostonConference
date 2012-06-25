@@ -60,7 +60,7 @@ class Speaker extends BostonConferenceAppModel {
 		),
 		'website' => array(
 			'url' => array(
-				'rule' => array('url'),
+				'rule' => array('url', true),
 				'message' => 'Website must be a valid URL.',
 				'allowEmpty' => true,
 				'required' => false,
@@ -73,11 +73,17 @@ class Speaker extends BostonConferenceAppModel {
 				'allowEmpty' => true,
 				'required' => false,
 			),
+			'isUnique' => array(
+				'rule' => array('isUnique'),
+				'message' => 'That email is already in use.',
+				'allowEmpty' => true,
+				'required' => false,
+			),
 		),
 		'twitter' => array(
 			'twitter' => array(
-				'rule' => '/\@[a-z0-9_]+$/i',
-				'message' => 'Please supply a valid twitter username (@username).',
+				'rule' => '/[a-zA-Z0-9_]{1,20}/',
+				'message' => 'Please supply a valid twitter username with the @',
 				'allowEmpty' => true,
 				'required' => false,
 			),

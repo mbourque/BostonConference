@@ -7,9 +7,9 @@
 		echo $this->Form->input('first_name');
 		echo $this->Form->input('last_name');
 		echo $this->ContentManagement->richtext('Speaker.bio');
-		echo $this->Form->input('website');
+		echo $this->Form->input('website', array('after'=>__('Must include http://')));
 		echo $this->Form->input('email');
-		echo $this->Form->input('twitter');
+		echo $this->Form->input('twitter', array('after'=>__('Do not include the @')));
 		echo $this->Form->input('featured');
 		echo $this->Form->input('portrait_url', array('after'=>__('Leave blank to use a Gravatar using the email field.')));
 	?>
