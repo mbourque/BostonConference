@@ -99,6 +99,11 @@ class TicketsController extends BostonConferenceAppController {
 								),
 			'recursive' => 1
 		));
+
+		if( count( $tickets ) == 0 ) { // No tickets
+			$this->redirect(array('controller'=>'news'));
+		}
+
 		$event = $this->Ticket->TicketOption->Event->current(array('contain'=>true));
 		$user = array_shift(Set::extract('/User/.[:first]', $tickets));
 		$sale['subtotal'] = array_sum(Set::extract('/TicketOption/price', $tickets));
