@@ -35,7 +35,7 @@ echo '</p>';
 if ( $totalPrice > 0 ) {
 	echo $this->Form->input('submit',array(
 		'type' => 'image',
-		'src' => 'https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif',
+		'src' => 'https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif',
 		'style' => 'width:auto;height:auto',
 		'label' => false
 	));
