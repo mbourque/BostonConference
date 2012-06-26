@@ -6,6 +6,7 @@
 		echo $this->Form->input('id');
 		echo $this->Form->input('event_id');
 		echo $this->Form->input('label');
+		echo $this->Form->input('description');
 		echo $this->Form->input('available');
 		echo $this->Form->input('price');
 		echo $this->Form->input('refundable');

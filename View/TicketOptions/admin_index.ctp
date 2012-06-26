@@ -6,17 +6,16 @@
 			<th><?php echo $this->Paginator->sort('ticket_count');?></th>
 			<th><?php echo $this->Paginator->sort('available');?></th>
 			<th><?php echo $this->Paginator->sort('price');?></th>
-			<th><?php echo $this->Paginator->sort('modified');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
 	<?php
 	foreach ($ticketOptions as $ticketOption): ?>
 	<tr>
-		<td><?php echo h($ticketOption['TicketOption']['label']); ?>&nbsp;</td>
+		<td><strong><?php echo h($ticketOption['TicketOption']['label']); ?></strong><br />
+		<?php echo h($ticketOption['TicketOption']['description']); ?></td>
 		<td><?php echo h($ticketOption['TicketOption']['ticket_count']); ?>&nbsp;</td>
 		<td><?php echo h($ticketOption['TicketOption']['available']); ?>&nbsp;</td>
 		<td><?php echo h($ticketOption['TicketOption']['price']); ?>&nbsp;</td>
-		<td><?php echo h($ticketOption['TicketOption']['modified']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $ticketOption['TicketOption']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $ticketOption['TicketOption']['id'])); ?>

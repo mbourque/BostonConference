@@ -37,20 +37,19 @@
 <table>
 	<thead>
 		<tr>
-			<th>Qty</th>
-			<th>Package</th>
-			<th>Organization</th>
 			<th>Badge Name</th>
+			<th>Organization</th>
+			<th>Package</th>
 			<th>Price</th>
 		</tr>
 	</thead>
 	<tbody>
 	<?php foreach( $tickets as $ticket ) : ?>
 		<tr>
-			<td><?php echo $ticket['Ticket']['paid'];?></td>
-			<td><?php echo $ticket['TicketOption']['label'];?></td>
 			<td><?php echo $ticket['Ticket']['badge_name'];?></td>
 			<td><?php echo $ticket['Ticket']['organization'];?></td>
+			<td><strong><?php echo $ticket['TicketOption']['label'];?></strong><br />
+			<?php echo $ticket['TicketOption']['description'];?></td>
 			<td><?php echo $ticket['TicketOption']['price'];?></td>
 		</tr>
 	<?php endforeach;?>

@@ -4,17 +4,18 @@
 <table>
 	<thead>
 		<tr>
-			<th><?php echo __('Package'); ?></th>
 			<th><?php echo __('Badge Name');?></th>
 			<th><?php echo __('Organization');?></th>
+			<th><?php echo __('Package'); ?></th>
 		</tr>
 	</thead>
 	<tbody>
 		<?php foreach( $tickets as $ticket ) : ?>
 		<tr>
-			<td><?php echo $ticket['TicketOption']['label']; ?></td>
 			<td><?php echo $ticket['Ticket']['badge_name']; ?></td>
 			<td><?php echo $ticket['Ticket']['organization']; ?></td>
+			<td><span class='ticket-option'><?php echo $ticket['TicketOption']['label']; ?></span>
+			<span class='ticket-description'><?php echo h($ticket['TicketOption']['description']); ?></span></td>
 		</tr>
 		<?php endforeach; ?>
 	</tbody>
@@ -27,7 +28,7 @@
 	echo $this->Form->create('Ticket');
 	$availableToBuy = false;
 ?>
-<h2><?php echo __('Buy Tickets');?></h2>
+<h2><?php echo ( count( $tickets ) <= 0 ) ? __('Buy Tickets') : __('Buy More Tickets');?></h2>
 <table>
 	<thead>
 		<tr>
@@ -39,7 +40,8 @@
 	<tbody>
 	<?php foreach ($ticketOptions as $ticketOption): ?>
 		<tr>
-			<td><?php echo $ticketOption['TicketOption']['label']; ?></td>
+			<td><span class='ticket-option'><?php echo h($ticketOption['TicketOption']['label']); ?></span>
+			<span class='ticket-description'><?php echo h($ticketOption['TicketOption']['description']); ?></span></td>
 			<td><?php
 				if ( $ticketOption['TicketOption']['price'] > 0 )
 					echo '$'.number_format($ticketOption['TicketOption']['price'],2);

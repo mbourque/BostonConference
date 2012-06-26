@@ -16,6 +16,11 @@
 			<?php echo h($ticketOption['TicketOption']['label']); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('Label'); ?></dt>
+		<dd>
+			<?php echo h($ticketOption['TicketOption']['description']); ?>
+			&nbsp;
+		</dd>
 		<dt><?php echo __('Ticket Count'); ?></dt>
 		<dd>
 			<?php echo h($ticketOption['TicketOption']['ticket_count']); ?>

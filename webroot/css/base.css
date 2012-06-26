@@ -848,3 +848,14 @@ article time {
 	top: -6px;
 	right: 0px;
 }
+
+/* Tickets */
+
+table tr td span.ticket-option {
+  color: #2C6877;
+  display: block;
+}
+
+table tr td span.ticket-description {
+  font-size: smaller;
+}
