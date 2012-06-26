@@ -8,9 +8,11 @@
 		echo $this->Form->input('description');
 		echo $this->Form->input('available');
 		echo $this->Form->input('price');
-		echo $this->Form->input('refundable');
+		echo $this->Form->input('refundable', array('disabled'=>true));
 		echo $this->Form->input('sale_start',array('empty'=>true));
 		echo $this->Form->input('sale_end',array('empty'=>true));
+		echo $this->Form->input('disabled');
+
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>

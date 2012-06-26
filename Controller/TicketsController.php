@@ -53,7 +53,7 @@ class TicketsController extends BostonConferenceAppController {
 		}
 
 		// Conditions to return TicketOptions that are within the specified start & end dates,
-		// or that have no start date, or no end date
+		// or that have no start date, or no end date, or disabled=>true
 		$conditions = array(
 			array( 'OR' =>
 				array(
@@ -65,6 +65,11 @@ class TicketsController extends BostonConferenceAppController {
 				array(
 					'TicketOption.sale_end > NOW()',
 					'TicketOption.sale_end IS NULL'
+				)
+			),
+			array( 'AND' =>
+				array(
+					'TicketOption.disabled' => 0
 				)
 			)
 		);
