@@ -128,6 +128,12 @@ h2 {
 }
     #navigation ul {
         line-height: 18px;
+        overflow: hidden;
+        float: left;
+    }
+    #navigation ul.nav-main {}
+    #navigation ul.nav-auth {
+        float: right;
     }
         #navigation li {
         	float: left;
@@ -155,15 +161,18 @@ h2 {
                 font-weight: bold;
             }
         #navigation li.account {
-        	float: right;
+        	/* float: right; */
         }
         #navigation li.auth {
-            float: right;
+            /* float: right; */
+        }
+        #navigation .nav-auth .logout {
+            display: inline-block;
         }
 
 #navigation div.sidebar-block {
   position: absolute;
-  bottom: 0;
+  bottom: -1px;
   right: 0;
   height: 4px;
   width: 310px;

@@ -87,34 +87,35 @@ else if ( isset($skinny_sidebar) && $skinny_sidebar )
 			<div id="content" class="<?php echo $content_class; ?>">
 
 				<div id="navigation">
-					<ul>
+					<ul class="nav-main">
 					<?php
                     foreach( $navigation_links as $link )
-                        if ($link[0] == $title_for_layout) {
+                        if ($link[1]['controller'] == $this->params['controller']) {
                             echo '<li class="current">'.$this->Html->link(__($link[0]),$link[1]).'</li>';
                         } else {
                             echo '<li>'.$this->Html->link(__($link[0]),$link[1]).'</li>';
                         }
                     ?>
-
-					<li class="auth">
-					<?php
-					if ( !empty($authentication['greeting']) ) {
-						echo $this->Html->clean($authentication['greeting']).'&nbsp-&nbsp;';
-					}
-
-					if ( !empty($authentication['login_url']) ) {
-						if( !Configure::read('BostonConference.hide_login_menu') ) {
-							echo $this->Html->link('Create an account',$authentication['register_url']);
-							echo "&nbsp;|&nbsp;";
-							echo $this->Html->link('Login',$authentication['login_url']);
-						}
-					}
-
-					if ( !empty($authentication['logout_url']) ) {
-						echo $this->Html->link('Logout',$authentication['logout_url']);
-					} ?>
-					</li>
+                    </ul>
+                    <ul class="nav-auth">
+    					<li>
+    					<?php
+    					if ( !empty($authentication['greeting']) ) {
+    						echo $this->Html->clean($authentication['greeting']).'.';
+    					}
+    
+    					if ( !empty($authentication['login_url']) ) {
+    						if( !Configure::read('BostonConference.hide_login_menu') ) {
+    							echo $this->Html->link('Create an account',$authentication['register_url']);
+    							echo "</li><li>";
+    							echo $this->Html->link('Login',$authentication['login_url']);
+    						}
+    					}
+    
+    					if ( !empty($authentication['logout_url']) ) {
+    						echo $this->Html->link('Logout',$authentication['logout_url'], array('class'=>'logout'));
+    					} ?>
+    					</li>
 					</ul>
 					<div class="sidebar-block"> </div>
 				</div>
