@@ -89,9 +89,13 @@ else if ( isset($skinny_sidebar) && $skinny_sidebar )
 				<div id="navigation">
 					<ul>
 					<?php
-					foreach( $navigation_links as $link )
-						echo '<li>'.$this->Html->link(__($link[0]),$link[1]).'</li>';
-					?>
+                    foreach( $navigation_links as $link )
+                        if ($link[0] == $title_for_layout) {
+                            echo '<li class="current">'.$this->Html->link(__($link[0]),$link[1]).'</li>';
+                        } else {
+                            echo '<li>'.$this->Html->link(__($link[0]),$link[1]).'</li>';
+                        }
+                    ?>
 
 					<li class="auth">
 					<?php

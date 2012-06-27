@@ -125,34 +125,40 @@ h2 {
 	width: 920px;
 	height: 50px;
 }
+    #navigation ul {
+        line-height: 18px;
+    }
+        #navigation li {
+        	float: left;
+        	list-style-type: none;
+        	color: #999;
+        	margin: 0 2px;
+        	padding: 9px 0;
+        }
+            #navigation li a {
+              color: #fff;
+              font-weight: normal;
+              text-decoration: none;
+              display: block;
+              padding: 5px 10px 6px;
+            }
+            #navigation li a:hover, #navigation li a:active {
+            	text-decoration: underline;
+            }
 
-#navigation ul {
-	line-height: 50px;
-}
-
-#navigation li {
-	float: left;
-	list-style-type: none;
-	color: #999;
-}
-
-#navigation li.account {
-	float: right;
-}
-
-#navigation li a {
-  color: #fff;
-  font-weight: normal;
-  text-decoration: none;
-}
-
-#navigation li a:hover {
-	text-decoration: underline;
-}
-
-#navigation li.auth {
-  float: right;
-}
+        #navigation li.current {
+        }
+            #navigation li.current a {
+                background: #555;
+                color: #eee;
+                font-weight: bold;
+            }
+        #navigation li.account {
+        	float: right;
+        }
+        #navigation li.auth {
+            float: right;
+        }
 
 #navigation div.sidebar-block {
   position: absolute;
