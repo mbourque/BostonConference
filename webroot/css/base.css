@@ -824,9 +824,7 @@ article h2 {
 }
 
 article time {
-	position: absolute;
-	right: 0;
-	top: 10px;
+    font-size: 86%;
 }
 
 /* Editor */
