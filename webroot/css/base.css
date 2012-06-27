@@ -12,6 +12,7 @@ body {
 	color: #3c3c3e;
 	font-family:helvetica,arial,sans-serif;
 	font-size:90%;
+	line-height: 1.5;
 	margin: 0;
 	position: relative;
 }
@@ -515,8 +516,9 @@ div.actions ul li a:hover {
 input[type=submit],
 div.actions ul li a,
 td.actions a {
+    display: inline-block;
 	font-weight:normal;
-	padding: 4px 8px;
+	padding: 4px 12px;
 	background:#e6e49f;
 	background: -webkit-gradient(linear, left top, left bottom, from(#f1f1d4), to(#e6e49f));
 	background-image: -moz-linear-gradient(top, #f1f1d4, #e6e49f);
@@ -528,12 +530,14 @@ td.actions a {
 	text-decoration:none;
 	text-shadow: #fff 0px 1px 0px;
 	min-width: 0;
+	width: auto;
 }
 input[type=submit]:hover,
 div.actions ul li a:hover,
 td.actions a:hover {
 	background: #f0f09a;
 	background: -webkit-gradient(linear, left top, left bottom, from(#f7f7e1), to(#eeeca9));
+	text-decoration:none;
 }
 
 /** Related **/
