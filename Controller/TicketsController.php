@@ -20,8 +20,12 @@ class TicketsController extends BostonConferenceAppController {
  * @return void
  */
 	public function beforeFilter() {
-		$this->Auth->allow(array('checkout', 'print_tickets'));
+		$this->Auth->allow(array('checkout', 'print_tickets', 'sales'));
 		return parent::beforeFilter();
+	}
+
+	public function sales() {
+
 	}
 
 /**
