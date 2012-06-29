@@ -7,6 +7,20 @@ if( $this->action == 'index' ) {
 <?php $this->end();
 } else {
 	$this->set('title_for_layout', $speakers[0]['Speaker']['display_name'] );
+
+	// More about...
+	if( !empty( $speakers[0]['Speaker']['website'] ) || !empty( $speakers[0]['Speaker']['twitter'] ) ) {
+
+	$this->append('after-sidebar'); ?>
+
+	<h3>More about me</h3>
+	<ul>
+		<?php echo (!empty($speakers[0]['Speaker']['website'])) ? $this->Html->tag('li', $this->Html->link('My Website',$speakers[0]['Speaker']['website'])) : null;?>
+		<?php echo (!empty($speakers[0]['Speaker']['twitter'])) ? $this->Html->tag('li', 'Follow me ' . $this->Html->link('@'.$speakers[0]['Speaker']['twitter'],'http://twitter.com/'.$speakers[0]['Speaker']['twitter'])) : null;?>
+	</ul>
+
+	<?php $this->end();
+	}
 }
 ?>
 <div class="speakers index">

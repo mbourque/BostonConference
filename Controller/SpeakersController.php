@@ -1,5 +1,7 @@
 <?php
 App::uses('BostonConferenceAppController', 'BostonConference.Controller');
+App::uses('CakeEmail', 'Network/Email');
+
 /**
  * Speakers Controller
  *
@@ -120,4 +122,32 @@ class SpeakersController extends BostonConferenceAppController {
 		$this->Session->setFlash(__('Speaker was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
+
+/**
+ * admin_email method
+ *
+ * @param string $speaker_id Optional
+ * @return void
+ */
+	public function admin_email( $speaker_id = false ) {
+
+		if( $speaker_id )
+			$options['conditions'] = array('Speaker.id'=>$speaker_id);
+		$options['fields'] = array('Speaker.email', 'Speaker.display_name');
+
+		$this->Speaker->recursive = 0;
+		$speakers = $this->Speaker->find( 'all', $options );
+
+		foreach( $speakers AS $speaker ) {
+			//$speakers['email'][] = "{$speaker['Speaker']['email']} <{$speaker['Speaker']['display_name']}>";
+			$speakers['email'][] = "{$speaker['Speaker']['email']}";
+		}
+
+		$speakers['email'] = implode(', ', $speakers['email']);
+
+		$this->set('speakers', $speakers );
+	}
+
+
+
 }

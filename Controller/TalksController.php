@@ -20,7 +20,7 @@ class TalksController extends BostonConferenceAppController {
  * @return void
  */
 	public function beforeFilter() {
-		$this->Auth->allow(array('schedule'));
+		$this->Auth->allow(array('schedule', 'by_keyword'));
 
 		return parent::beforeFilter();
 	}
@@ -57,10 +57,29 @@ class TalksController extends BostonConferenceAppController {
  *
  * @returns void
  */
-	public function index() {
-		$talks = $this->Talk->forCurrentEvent( true, array( 'order'=>array('Track.position','Talk.topic'),'conditions'=>array('Talk.speaker_id not' => null )));
-		$this->set('talks', $talks);
+	public function index( $keyword = false ) {
+
+		if( $keyword )
+			//$options['conditions'][] = array( "match(keywords) against ('{$keyword}')");
+			$options['conditions'][] = array( "LOCATE('{$keyword}', Talk.keywords)");
+		$options['conditions'][] = array('Talk.speaker_id not' => null);
+		$options['order'] = array('Track.position','Talk.topic');
+
+		$talks = $this->Talk->forCurrentEvent( true, $options );
+		$this->set( compact( 'talks', 'keyword') );
 	}
+
+
+/**
+ * index method
+ *
+ * @returns void
+ */
+	public function by_keyword( $keyword ) {
+		$this->setAction( 'index', $keyword );
+	}
+
+
 
 /**
  * view method.
