@@ -1,28 +1,20 @@
 <?php
-if( $this->action == 'index' ) {
-	$this->append('header'); ?>
-<div class="speakers index">
-	<h2><?php echo __('Speakers');?></h2>
-</div>
-<?php $this->end();
-} else {
-	$this->set('title_for_layout', $speakers[0]['Speaker']['display_name'] );
+if( $this->action == 'view' ) :
+	$title = 'Speaker : ' . $speakers[0]['Speaker']['display_name'];
+else :
+	$title = __('Speakers');
+endif;
 
-	// More about...
-	if( !empty( $speakers[0]['Speaker']['website'] ) || !empty( $speakers[0]['Speaker']['twitter'] ) ) {
+// Set title
+$this->set('title_for_layout',  $title );
 
-	$this->append('after-sidebar'); ?>
-
-	<h3>More about me</h3>
-	<ul>
-		<?php echo (!empty($speakers[0]['Speaker']['website'])) ? $this->Html->tag('li', $this->Html->link('My Website',$speakers[0]['Speaker']['website'])) : null;?>
-		<?php echo (!empty($speakers[0]['Speaker']['twitter'])) ? $this->Html->tag('li', 'Follow me ' . $this->Html->link('@'.$speakers[0]['Speaker']['twitter'],'http://twitter.com/'.$speakers[0]['Speaker']['twitter'])) : null;?>
-	</ul>
-
-	<?php $this->end();
-	}
-}
 ?>
+<?php $this->append('header'); ?>
+<div class="talks index">
+	<h2><?php echo $title;?></h2>
+</div>
+<?php $this->end(); ?>
+
 <div class="speakers index">
 	<table>
 		<tbody>
@@ -39,7 +31,10 @@ if( $this->action == 'index' ) {
 					}
 					?>
 				</td>
-				<td><h3><?php echo $this->Html->link($speaker['Speaker']['display_name'], $speakerLink);?></h3>
+				<td>
+				<?php if( sizeof( $speakers ) > 1 ) : ?>
+					<h3><?php echo $this->Html->link($speaker['Speaker']['display_name'], $speakerLink);?></h3>
+				<?php endif; ?>
 				<p class='speaker-bio'><?php echo $this->Html->clean($speaker['Speaker']['bio']);?></p>
 
 				<? if( !empty( $speaker['Talk'] ) ) : ?>
@@ -57,3 +52,22 @@ if( $this->action == 'index' ) {
 		</tbody>
 	</table>
 </div>
+
+<?php
+
+// More about...
+if( $this->action == 'view' &&
+   !(empty( $speakers[0]['Speaker']['website'] ) || empty( $speakers[0]['Speaker']['twitter'] ) ) ) {
+
+	$this->append('after-sidebar'); ?>
+
+	<h3>More about me</h3>
+	<ul>
+		<?php echo (!empty($speakers[0]['Speaker']['website'])) ? $this->Html->tag('li', $this->Html->link('My Website',$speakers[0]['Speaker']['website'])) : null;?>
+		<?php echo (!empty($speakers[0]['Speaker']['twitter'])) ? $this->Html->tag('li', 'Follow me ' . $this->Html->link('@'.$speakers[0]['Speaker']['twitter'],'http://twitter.com/'.$speakers[0]['Speaker']['twitter'])) : null;?>
+	</ul>
+
+	<?php $this->end();
+}
+
+?>

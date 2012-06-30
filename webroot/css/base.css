@@ -397,6 +397,12 @@ form div.submit {
 	clear: left;
 	margin-top: 10px;
 }
+
+form div.submit img {
+  vertical-align: middle;
+  padding: 0 0 10px 10px;
+}
+
 label {
 	display: block;
 	font-size: 110%;

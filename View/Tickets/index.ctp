@@ -78,7 +78,15 @@
 </table>
 <?php
 	$buttonLabel = ( count( $tickets ) > 0 ) ? __('Buy More Tickets') : __('Continue');
-	echo $this->Form->end( $availableToBuy ? $buttonLabel : null );
+
+	if( $availableToBuy ) {
+
+		echo $this->Form->submit($buttonLabel, array(
+			'after' => $this->Html->image('BostonConference.credit_cards-trans.png')
+		));
+	}
+
+	echo $this->Form->end();
 } else {
 ?>
 <p><?php echo __('There are no ticket options available yet. Please check back later.'); ?></p>

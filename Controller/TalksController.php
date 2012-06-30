@@ -1,5 +1,6 @@
 <?php
 App::uses('BostonConferenceAppController', 'BostonConference.Controller');
+App::uses('Sanitize', 'Utility');
 /**
  * Talks Controller
  *
@@ -21,7 +22,6 @@ class TalksController extends BostonConferenceAppController {
  */
 	public function beforeFilter() {
 		$this->Auth->allow(array('schedule', 'by_keyword'));
-
 		return parent::beforeFilter();
 	}
 
@@ -54,29 +54,38 @@ class TalksController extends BostonConferenceAppController {
 
 /**
  * index method
- *
+ * Return talks that have speakers associated
+ * @param array $options Optional. Array of find options
  * @returns void
  */
-	public function index( $keyword = false ) {
+	public function index( $options = array() ) {
 
-		if( $keyword )
-			//$options['conditions'][] = array( "match(keywords) against ('{$keyword}')");
-			$options['conditions'][] = array( "LOCATE('{$keyword}', Talk.keywords)");
-		$options['conditions'][] = array('Talk.speaker_id not' => null);
-		$options['order'] = array('Track.position','Talk.topic');
+		$default_options['conditions'][] = array('Talk.speaker_id not' => null);
+		$default_options['order'] = array('Track.position','Talk.topic');
+
+		$options = array_merge_recursive( $default_options, $options );
 
 		$talks = $this->Talk->forCurrentEvent( true, $options );
-		$this->set( compact( 'talks', 'keyword') );
+		$this->set( 'talks', $talks );
 	}
 
 
 /**
- * index method
+ * by_keyword method
  *
  * @returns void
  */
 	public function by_keyword( $keyword ) {
-		$this->setAction( 'index', $keyword );
+
+		if( !isset( $keyword ) ) return false;
+
+		$keyword = Sanitize::paranoid( $keyword );
+		$options['conditions'] = array( "LOCATE('{$keyword}', Talk.keywords)");
+
+		$this->setAction( 'index', $options );
+		$this->action = 'by_keyword';
+		$this->set( compact( 'talks', 'keyword') );
+
 	}
 
 

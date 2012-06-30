@@ -33,14 +33,13 @@ else
 echo '</p>';
 
 if ( $totalPrice > 0 ) {
-	echo $this->Form->input('submit',array(
-		'type' => 'image',
-		'src' => 'https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif',
-		'style' => 'width:auto;height:auto',
-		'label' => false
+	echo $this->Form->submit('Order Now',array(
+		'after' => $this->Html->image('credit_cards-trans.png')
 	));
 } else {
-	echo $this->Form->submit('Continue');
+	echo $this->Form->submit('Continue',array(
+		'after' => $this->Html->image('BostonConference.credit_cards-trans.png')
+	));
 }
 echo $this->Form->end();
 
