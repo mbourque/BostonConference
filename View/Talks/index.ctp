@@ -15,6 +15,20 @@ endif;
 	<h2><?php echo $title;?></h2>
 </div>
 <?php $this->end();?>
+
+
+<?php $this->append('after-sidebar'); ?>
+<div class='sidebar-box'>
+	<h3>Tracks</h3>
+<?php
+foreach( $tracks AS $key => $track ) {
+	$talkLinks[] = $this->Html->link($track, array('action'=>'by_track', $key) );
+}
+?>
+<?php echo $this->Html->nestedList( $talkLinks, array( 'class'=>'track-list' ) ); ?>
+</div>
+<?php $this->end();?>
+
 <div class="talks listing">
 	<table>
 		<tbody>
@@ -59,14 +73,15 @@ endif;
 if( $this->action == 'view' &&
    (!empty( $talks[0]['Speaker']['website'] ) || !empty( $talks[0]['Speaker']['twitter'] ) ) ) {
 
-	$this->append('after-sidebar'); ?>
+	$this->append('before-sidebar'); ?>
 
-	<h3>More about me</h3>
+<div class='sidebar-box'>
+	<h3>More about <?php echo $talks[0]['Speaker']['display_name']?></h3>
 	<ul>
-		<?php echo (!empty($talks[0]['Speaker']['website'])) ? $this->Html->tag('li', $this->Html->link('My Website',$talks[0]['Speaker']['website'])) : null;?>
-		<?php echo (!empty($talks[0]['Speaker']['twitter'])) ? $this->Html->tag('li', 'Follow me ' . $this->Html->link('@'.$talks[0]['Speaker']['twitter'],'http://twitter.com/'.$talks[0]['Speaker']['twitter'])) : null;?>
+		<?php echo (!empty($talks[0]['Speaker']['website'])) ? $this->Html->tag('li', $this->Html->link('Website',$talks[0]['Speaker']['website'], array('target'=>'_new'))) : null;?>
+		<?php echo (!empty($talks[0]['Speaker']['twitter'])) ? $this->Html->tag('li', 'Follow ' . $this->Html->link('@'.$talks[0]['Speaker']['twitter'],'http://twitter.com/'.$talks[0]['Speaker']['twitter'])) : null;?>
 	</ul>
-
+</div>
 	<?php $this->end();
 }
 
@@ -77,12 +92,11 @@ if( $this->action != 'index' && count( $talk_keywords ) != 0 ) {
 	$keywords = _keyword_links( $talk_keywords, $this );
 
 	$this->append('after-sidebar'); ?>
-
-	<h3>Related talks</h3>
-	<ul>
-		<li><?php echo implode( ', ', $keywords ) ;?></li>
-	</ul>
-
+<div class='sidebar-box'>
+	<h3>Related keywords</h3>
+	<p>Click to find other talks.</p>
+	<p><?php echo implode( ', ', $keywords ) ;?></p>
+</div>
 	<?php $this->end();
 }
 

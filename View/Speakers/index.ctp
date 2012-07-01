@@ -59,16 +59,16 @@ $this->set('title_for_layout',  $title );
 
 // More about...
 if( $this->action == 'view' &&
-   !(empty( $speakers[0]['Speaker']['website'] ) || empty( $speakers[0]['Speaker']['twitter'] ) ) ) {
+   (!empty( $speakers[0]['Speaker']['website'] ) || !empty( $speakers[0]['Speaker']['twitter'] ) ) ) {
 
 	$this->append('after-sidebar'); ?>
-
-	<h3>More about me</h3>
+<div class='sidebar-box'>
+	<h3>More about <?php echo $speakers[0]['Speaker']['display_name'];?></h3>
 	<ul>
-		<?php echo (!empty($speakers[0]['Speaker']['website'])) ? $this->Html->tag('li', $this->Html->link('My Website',$speakers[0]['Speaker']['website'])) : null;?>
-		<?php echo (!empty($speakers[0]['Speaker']['twitter'])) ? $this->Html->tag('li', 'Follow me ' . $this->Html->link('@'.$speakers[0]['Speaker']['twitter'],'http://twitter.com/'.$speakers[0]['Speaker']['twitter'])) : null;?>
+		<?php echo (!empty($speakers[0]['Speaker']['website'])) ? $this->Html->tag('li', $this->Html->link('Website',$speakers[0]['Speaker']['website'])) : null;?>
+		<?php echo (!empty($speakers[0]['Speaker']['twitter'])) ? $this->Html->tag('li', 'Follow ' . $this->Html->link('@'.$speakers[0]['Speaker']['twitter'],'http://twitter.com/'.$speakers[0]['Speaker']['twitter'])) : null;?>
 	</ul>
-
+</div>
 	<?php $this->end();
 }
 

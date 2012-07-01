@@ -68,7 +68,10 @@ class TalksController extends BostonConferenceAppController {
 		$options = array_merge_recursive( $default_options, $options );
 
 		$talks = $this->Talk->forCurrentEvent( true, $options );
-		$this->set( 'talks', $talks );
+
+		$tracks = $this->Talk->Track->find( 'list' );
+
+		$this->set( compact('talks', 'tracks') );
 	}
 
 
@@ -131,8 +134,9 @@ class TalksController extends BostonConferenceAppController {
  * @return void
  */
 	public function view( $id ) {
-		$talk = $this->Talk->forCurrentEvent( true, array( 'conditions'=>array('Talk.id' => $id )));
-		$this->set('talks', $talk);
+		$talks = $this->Talk->forCurrentEvent( true, array( 'conditions'=>array('Talk.id' => $id )));
+		$tracks = $this->Talk->Track->find( 'list' );
+		$this->set(compact('talks', 'tracks'));
 		$this->render('index');
 	}
 
