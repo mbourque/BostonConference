@@ -39,8 +39,9 @@ endif;
 
 				<p class='talk-details'>By: <?php echo $this->Html->link($talk['Speaker']['display_name'], $speakerLink); ?>
 				<?php if( !empty( $talk['Track']['id'] ) ) : ?>
-					Track: <?php echo $this->Html->link($talk['Track']['name'], array('action'=>'by_track', $talk['Track']['id'])); ?></p>
+					<br/> Track: <?php echo $this->Html->link($talk['Track']['name'], array('action'=>'by_track', $talk['Track']['id'])); ?>
 				<?php endif; ?>
+				</p>
 				<?php
 					$abstract = $talk['Talk']['abstract'];
 					$abstract = $this->Html->clean( $abstract );
