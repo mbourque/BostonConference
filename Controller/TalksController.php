@@ -21,7 +21,7 @@ class TalksController extends BostonConferenceAppController {
  * @return void
  */
 	public function beforeFilter() {
-		$this->Auth->allow(array('schedule', 'by_keyword'));
+		$this->Auth->allow(array('schedule', 'by_keyword', 'by_track'));
 		return parent::beforeFilter();
 	}
 
@@ -60,6 +60,8 @@ class TalksController extends BostonConferenceAppController {
  */
 	public function index( $options = array() ) {
 
+		if( !is_array($options) ) $options = array();
+
 		$default_options['conditions'][] = array('Talk.speaker_id not' => null);
 		$default_options['order'] = array('Track.position','Talk.topic');
 
@@ -75,12 +77,17 @@ class TalksController extends BostonConferenceAppController {
  *
  * @returns void
  */
-	public function by_keyword( $keyword ) {
+	public function by_keyword( $keyword = false ) {
 
-		if( !isset( $keyword ) ) return false;
+		$options = array();
 
-		$keyword = Sanitize::paranoid( $keyword );
-		$options['conditions'] = array( "LOCATE('{$keyword}', Talk.keywords)");
+		if( $keyword ) {
+			$keyword = Sanitize::clean( $keyword );
+			$options['conditions'] = array( "LOCATE('{$keyword}', Talk.keywords)");
+		}
+
+			//$this->redirect(array('action'=>'index'));
+
 
 		$this->setAction( 'index', $options );
 		$this->action = 'by_keyword';
@@ -88,6 +95,33 @@ class TalksController extends BostonConferenceAppController {
 
 	}
 
+/**
+ * by_track method
+ *
+ * @returns void
+ */
+	public function by_track( $id = false ) {
+
+		$this->Talk->Track->recursive = -1;
+		$track = $this->Talk->Track->findById( $id );
+		if( empty( $track ) )
+			$this->redirect( array( 'action' => 'index' ) );
+
+		$options = array();
+
+		if( $id ) {
+			$options['conditions'] = array( 'Track.id' => $id );
+			$options['order'] = array('Track.position','Talk.topic');
+		}
+
+
+		$track = $track['Track']['name'];
+
+		$this->setAction( 'index', $options );
+		$this->action = 'by_track';
+		$this->set( compact( 'talks', 'track') );
+
+	}
 
 
 /**

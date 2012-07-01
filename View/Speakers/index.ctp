@@ -35,7 +35,6 @@ $this->set('title_for_layout',  $title );
 				<?php if( sizeof( $speakers ) > 1 ) : ?>
 					<h3><?php echo $this->Html->link($speaker['Speaker']['display_name'], $speakerLink);?></h3>
 				<?php endif; ?>
-				<p class='speaker-bio'><?php echo $this->Html->clean($speaker['Speaker']['bio']);?></p>
 
 				<? if( !empty( $speaker['Talk'] ) ) : ?>
 					<?php
@@ -44,8 +43,11 @@ $this->set('title_for_layout',  $title );
 							$talks[] = $this->Html->link($talk['topic'], array('controller'=>'talks','action'=>'view', $talk['id']));
 						}
 					?>
-					<cite><?php echo __('My talks:');?>&nbsp;<?php echo implode(', ', $talks); ?></cite>
+				<p class='talk-details'><?php echo ( count($talks) >1) ? 'Talks:' : 'Talk:' ;?>&nbsp;<?php echo implode(', ', $talks); ?></p>
 				<? endif; ?>
+
+				<p class='speaker-bio'><?php echo $this->Html->clean($speaker['Speaker']['bio']);?></p>
+
 				</td>
 			</tr>
 			<?php endforeach; ?>

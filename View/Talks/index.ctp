@@ -1,6 +1,8 @@
 <?php
 if( $this->action == 'by_keyword' && isset($keyword) ) :
 	$title = $keyword . ' ' .  __('Talks');
+elseif( $this->action == 'by_track' && isset($track) ) :
+	$title = 'Track : ' . $track;
 elseif( $this->action == 'view' ) :
 	$title = 'Talk : ' . $talks[0]['Talk']['topic'];
 else :
@@ -35,11 +37,10 @@ endif;
 					<h3><?php echo $this->Html->link( $talk['Talk']['topic'], $talkLink , array('class'=>'talk-topic'));?></h3>
 				<? endif; ?>
 
-				<?php if( !empty($talk['Talk']['keyword'] ) ) : ?>
-
-				<? endif; ?>
-
-				<p class='talk-details'><?php echo $this->Html->link($talk['Speaker']['display_name'], $speakerLink); ?>, Track: <?php echo $talk['Track']['name']; ?></p>
+				<p class='talk-details'>By: <?php echo $this->Html->link($talk['Speaker']['display_name'], $speakerLink); ?>
+				<?php if( !empty( $talk['Track']['id'] ) ) : ?>
+					Track: <?php echo $this->Html->link($talk['Track']['name'], array('action'=>'by_track', $talk['Track']['id'])); ?></p>
+				<?php endif; ?>
 				<?php
 					$abstract = $talk['Talk']['abstract'];
 					$abstract = $this->Html->clean( $abstract );
