@@ -103,7 +103,7 @@ else if ( isset($skinny_sidebar) && $skinny_sidebar )
     					if ( !empty($authentication['greeting']) ) {
     						echo $this->Html->clean($authentication['greeting']).'.';
     					}
-    
+
     					if ( !empty($authentication['login_url']) ) {
     						if( !Configure::read('BostonConference.hide_login_menu') ) {
     							echo $this->Html->link('Create an account',$authentication['register_url']);
@@ -111,7 +111,7 @@ else if ( isset($skinny_sidebar) && $skinny_sidebar )
     							echo $this->Html->link('Login',$authentication['login_url']);
     						}
     					}
-    
+
     					if ( !empty($authentication['logout_url']) ) {
     						echo $this->Html->link('Logout',$authentication['logout_url'], array('class'=>'logout'));
     					} ?>
@@ -143,8 +143,10 @@ else if ( isset($skinny_sidebar) && $skinny_sidebar )
 				echo date('Y');
 
 				$organizationName = Configure::read('BostonConference.organizationName');
-				echo ' '.( $organizationName ? $organizationName : Configure::read('BostonConference.siteName') );
-			?> | <?php echo $this->Html->link(__('Contact us'), array('admin'=>false,'plugin'=>null,'controller'=>'contact')); ?>
+				echo ' '.( $organizationName ? $organizationName : Configure::read('BostonConference.siteName') );?>
+				| <?php echo $this->Html->link(__('About us'), array('admin'=>false,'plugin'=>null,'controller'=>'about'));?>
+				| <?php echo $this->Html->link(__('Contact us'), array('admin'=>false,'plugin'=>null,'controller'=>'contact'));?>
+				| <?php echo $this->Html->link(__('Code of Conduct'), array('admin'=>false,'plugin'=>null,'controller'=>'conduct')); ?>
 			<?php echo $this->fetch('footer'); ?>
 		</p>
 
