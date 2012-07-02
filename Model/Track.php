@@ -12,6 +12,7 @@ class Track extends BostonConferenceAppModel {
  * @var string
  */
 	public $displayField = 'name';
+	public $order = array('Track.position' => 'asc');
 /**
  * Validation rules
  *
