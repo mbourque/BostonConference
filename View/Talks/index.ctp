@@ -38,11 +38,11 @@ foreach( $tracks AS $key => $track ) {
 					$speakerLink = array( 'controller'=>'speakers','action'=>'view', $talk['Speaker']['id'] );
 					$talkLink = array( 'action'=>'view', $talk['Talk']['id'] );
 					if( !empty( $talk['Speaker']['portrait_url'] ) ) {
-						echo $this->Html->image( $talk['Speaker']['portrait_url'], array('url'=>$speakerLink, 'style'=>'width:80px') );
+						echo $this->Html->image( $talk['Speaker']['portrait_url'], array('url'=>$speakerLink, 'style'=>'width:100px') );
 					} elseif( isset( $talk['Speaker']['email'] ) ) {
-						echo $this->Gravatar->image($talk['Speaker']['email'], 80, array('url'=>$speakerLink));
+						echo $this->Gravatar->image($talk['Speaker']['email'], 100, array('url'=>$speakerLink));
 					} else {
-						echo $this->Gravatar->image( null, 80, array('url'=>$speakerLink) ); // Gets a default Gravatar
+						echo $this->Gravatar->image( null, 100, array('url'=>$speakerLink) ); // Gets a default Gravatar
 					}
 					?>
 				</td>

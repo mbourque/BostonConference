@@ -23,11 +23,11 @@ $this->set('title_for_layout',  $title );
 				<td><?php
 					$speakerLink = array( 'controller'=>'speakers','action'=>'view', $speaker['Speaker']['id'] );
 					if( !empty( $speaker['Speaker']['portrait_url'] ) ) {
-						echo $this->Html->image( $speaker['Speaker']['portrait_url'], array('url'=>$speakerLink, 'style'=>'width:80px') );
+						echo $this->Html->image( $speaker['Speaker']['portrait_url'], array('url'=>$speakerLink, 'style'=>'width:100px') );
 					} elseif( isset( $speaker['Speaker']['email'] ) ) {
-						echo $this->Gravatar->image($speaker['Speaker']['email'], 80, array('url'=>$speakerLink));
+						echo $this->Gravatar->image($speaker['Speaker']['email'], 100, array('url'=>$speakerLink));
 					} else {
-						echo $this->Gravatar->image( null, 80, array('url'=>$speakerLink) ); // Gets a default Gravatar
+						echo $this->Gravatar->image( null, 100, array('url'=>$speakerLink) ); // Gets a default Gravatar
 					}
 					?>
 				</td>

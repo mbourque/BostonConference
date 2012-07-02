@@ -13,7 +13,6 @@ class NewsController extends BostonConferenceAppController {
  * @var array
  */
 	public $paginate = array( 'order' => 'News.created DESC' );
-
 /**
  * index method
  *
@@ -22,6 +21,11 @@ class NewsController extends BostonConferenceAppController {
 	public function index() {
 		$this->News->recursive = 0;
 		$this->set('news', $this->paginate());
+
+		//Controller::loadModel('Track');
+		Controller::loadModel('Track');
+		//$this->Track->uses = array('Track' );
+		$this->set('tracks', $this->Track->find('list', array('Track.track_id not null')));
 	}
 
 /**
