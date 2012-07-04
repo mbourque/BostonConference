@@ -38,6 +38,8 @@ class ContentManagementHelper extends AppHelper {
 
 		$toolbar = <<<EOMARKUP
 <div id="$id-toolbar" class="wysiwyg-toolbar">
+	<a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h3">h3</a>
+	<a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h4">h4</a>
   <a data-wysihtml5-command="bold">bold</a>
   <a data-wysihtml5-command="italic">italic</a>
   <a data-wysihtml5-command="insertUnorderedList">ul</a>
