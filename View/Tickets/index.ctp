@@ -42,8 +42,14 @@
 		<tr>
 			<td><span class='ticket-option'><?php echo h($ticketOption['TicketOption']['label']); ?></span>
 			<span class='ticket-description'><?php echo h($ticketOption['TicketOption']['description']); ?></span></td>
+			<?php if ( $ticketOption['TicketOption']['disable_purchase'] == 1 ): ?>
+			<td colspan='2'><?php echo $this->Html->link('Contact Us',array('admin'=>false,'plugin'=>null,'controller'=>'contact'));?></td>
+			<?php continue;?>
+			<?php endif;?>
 			<td><?php
-				if ( $ticketOption['TicketOption']['price'] > 0 )
+				if ( $ticketOption['TicketOption']['disable_purchase'] == 1 )
+					echo '&nbsp;';
+				elseif ( $ticketOption['TicketOption']['price'] > 0 )
 					echo '$'.number_format($ticketOption['TicketOption']['price'],2);
 				else
 					echo __('Free');
@@ -51,25 +57,30 @@
 			</td>
 			<td>
 			<?php
-				if ( $ticketOption['TicketOption']['available'] !== null )
-					$canBuy = $ticketOption['TicketOption']['available']-$ticketOption['TicketOption']['ticket_count'];
-				else
-					$canBuy = 999;
+				if ( $ticketOption['TicketOption']['disable_purchase'] == 0 ) {
 
-				if ( $ticketOption['Event']['available_tickets'] !== null )
-					$canBuy = min($ticketOption['Event']['available_tickets']-$ticketOption['Event']['ticket_count'],$canBuy);
+					if ( $ticketOption['TicketOption']['available'] !== null )
+						$canBuy = $ticketOption['TicketOption']['available']-$ticketOption['TicketOption']['ticket_count'];
+					else
+						$canBuy = 999;
 
-				if ( $canBuy <= 0 ) {
-					echo __('Sold Out');
-				} else {
-					$availableToBuy = true;
-					$options = array();
-					for ( $i=0; $i <= $canBuy && $i <= 10; $i++ ) {
-						$options[] = number_format($i,0);
+					if ( $ticketOption['Event']['available_tickets'] !== null )
+						$canBuy = min($ticketOption['Event']['available_tickets']-$ticketOption['Event']['ticket_count'],$canBuy);
+
+					if ( $canBuy <= 0 ) {
+						echo __('Sold Out');
+					} else {
+						$availableToBuy = true;
+						$options = array();
+						for ( $i=0; $i <= $canBuy && $i <= 10; $i++ ) {
+							$options[] = number_format($i,0);
+						}
+
+
+						echo $this->Form->select('quantity.'.$ticketOption['TicketOption']['id'],$options,array('empty'=>false));
 					}
-
-					echo $this->Form->select('quantity.'.$ticketOption['TicketOption']['id'],$options,array('empty'=>false));
 				}
+
 			?>
 			</td>
 		</tr>

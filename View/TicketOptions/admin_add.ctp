@@ -12,7 +12,7 @@
 		echo $this->Form->input('sale_start',array('empty'=>true));
 		echo $this->Form->input('sale_end',array('empty'=>true));
 		echo $this->Form->input('disabled');
-
+		echo $this->Form->input('disable_purchase');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>
