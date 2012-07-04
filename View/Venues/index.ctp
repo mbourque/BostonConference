@@ -31,7 +31,7 @@ if ( $venue ) {
 
 	if ( $venue['Venue']['transportation_instructions'] ) {
 		echo '<h3><a name="transportation"></a>Transportation</h3>';
-		echo '<p>'.$this->Html->clean(str_replace("\n","\n<br />",$venue['Venue']['transportation_instructions'])).'</p>';
+		echo '<p>'.$this->Html->clean($venue['Venue']['transportation_instructions']).'</p>';
 	}
 
 	if ( count($venue['Event']['EventHotel']) > 0 ) {

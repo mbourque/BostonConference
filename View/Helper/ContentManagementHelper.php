@@ -60,7 +60,8 @@ EOMARKUP;
 		$defaultOptions = array(
 			'type' => 'textarea',
 			'between' => $toolbar,
-			'after' => $init
+			'after' => $init,
+			'class' => 'wysiwyg-textarea'
 		);
 
 		$options = array_merge($defaultOptions,$options);

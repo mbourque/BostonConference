@@ -6,7 +6,7 @@
 		echo $this->Form->input('name');
 		echo $this->Form->input('website');
 		echo $this->Form->input('address');
-		echo $this->Form->input('transportation_instructions');
+		echo $this->ContentManagement->richtext('Venue.transportation_instructions');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>

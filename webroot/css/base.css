@@ -872,6 +872,11 @@ article time {
 	right: 0px;
 }
 
+.wysiwyg-textarea {
+  height: 300px;
+  font-size: small;
+}
+
 /* Tickets */
 
 table tr td span.ticket-option {
