@@ -33,7 +33,7 @@ else
 echo '</p>';
 
 if ( $totalPrice > 0 ) {
-	echo $this->Form->submit('Order Now',array(
+	echo $this->Form->submit('Pay Now',array(
 		'after' => $this->Html->image('credit_cards-trans.png')
 	));
 } else {
