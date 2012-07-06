@@ -42,12 +42,8 @@
 		<tr>
 			<td><span class='ticket-option'><?php echo h($ticketOption['TicketOption']['label']); ?></span>
 			<span class='ticket-description'><?php echo h($ticketOption['TicketOption']['description']); ?></span></td>
-			<?php if ( $ticketOption['TicketOption']['disable_purchase'] == 1 ): ?>
-			<td colspan='2'><?php echo $this->Html->link('Contact Us',array('admin'=>false,'plugin'=>null,'controller'=>'contact'));?></td>
-			<?php continue;?>
-			<?php endif;?>
 			<td><?php
-				if ( $ticketOption['TicketOption']['disable_purchase'] == 1 )
+				if ( $ticketOption['TicketOption']['hide_price'] == 1 )
 					echo '&nbsp;';
 				elseif ( $ticketOption['TicketOption']['price'] > 0 )
 					echo '$'.number_format($ticketOption['TicketOption']['price'],2);
@@ -79,6 +75,8 @@
 
 						echo $this->Form->select('quantity.'.$ticketOption['TicketOption']['id'],$options,array('empty'=>false));
 					}
+				} else {
+					echo $this->Html->link('Contact Us',array('admin'=>false,'plugin'=>null,'controller'=>'contact'));
 				}
 
 			?>
