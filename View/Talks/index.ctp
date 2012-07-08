@@ -33,33 +33,66 @@ foreach( $tracks AS $key => $track ) {
 	<table>
 		<tbody>
 			<?php foreach( $talks AS $talk ) : ?>
-			<tr>
-				<td><?php
-					$speakerLink = array( 'controller'=>'speakers','action'=>'view', $talk['Speaker']['id'] );
-					$talkLink = array( 'action'=>'view', $talk['Talk']['id'] );
-					if( !empty( $talk['Speaker']['portrait_url'] ) ) {
-						echo $this->Html->image( $talk['Speaker']['portrait_url'], array('url'=>$speakerLink, 'style'=>'width:100px') );
-					} elseif( isset( $talk['Speaker']['email'] ) ) {
-						echo $this->Gravatar->image($talk['Speaker']['email'], 100, array('url'=>$speakerLink));
-					} else {
-						echo $this->Gravatar->image( null, 100, array('url'=>$speakerLink) ); // Gets a default Gravatar
-					}
-					?>
-				</td>
-				<td>
-				<?php if( $this->action == 'by_keyword' || sizeof( $talks ) > 1 ) : ?>
-					<h3><?php echo $this->Html->link( $talk['Talk']['topic'], $talkLink , array('class'=>'talk-topic'));?></h3>
-				<? endif; ?>
+			<?php
 
-				<p class='talk-details'>By: <?php echo $this->Html->link($talk['Speaker']['display_name'], $speakerLink); ?>
-				<?php if( !empty( $talk['Track']['id'] ) ) : ?>
-					<br/> Track: <?php echo $this->Html->link($talk['Track']['name'], array('action'=>'by_track', $talk['Track']['id'])); ?>
+				$id = $talk['Talk']['id'];
+
+				$topic = $this->Html->clean( $talk['Talk']['topic'] );
+				$abstract = $this->Html->clean( $talk['Talk']['abstract'] );
+				$speaker = $this->Html->clean($talk['Speaker']['display_name']);
+
+				$talkLink = $this->Html->link( $topic, array( 'action'=>'view', $id ), array('class'=>'talk-topic'));
+				$speakerLink = $this->Html->link( $speaker, array( 'controller'=>'speakers','action'=>'view', $talk['Speaker']['id'] ));
+
+				// Track
+				if( !empty($talk['Track']['id']) ) {
+					$track = $this->Html->clean($talk['Track']['name']);
+					$trackLink = $this->Html->link($track, array('action'=>'by_track', $talk['Track']['id']));
+				}  else {
+					$track = false;
+				}
+
+				// Keywords
+				if( !empty($talk['Talk']['keywords']) ) {
+					$keywords = $this->Html->clean( $talk['Talk']['keywords'] );
+					$keywords = explode( ', ', $keywords );
+					$keywords = _keyword_links( $keywords, $this );
+					$keywords = implode( ', ', $keywords );
+				} else {
+					$keywords = false;
+				}
+
+				// Highlight
+				if( isset($highlight) ) {
+					$talk = $this->Text->highlight( $talk, $highlight );
+					$keywords = $this->Text->highlight( $keywords, $highlight );
+				}
+
+				// Avatar
+				if( !empty( $talk['Speaker']['portrait_url'] ) ) {
+					$gravatarImage = $this->Html->image( $talk['Speaker']['portrait_url'], array('url'=>$speakerLink, 'style'=>'width:100px') );
+				} elseif( isset( $talk['Speaker']['email'] ) ) {
+					$gravatarImage = $this->Gravatar->image($talk['Speaker']['email'], 100, array('url'=>$speakerLink));
+				} else {
+					$gravatarImage = $this->Gravatar->image( null, 100, array('url'=>$speakerLink) ); // Gets a default Gravatar
+				}
+
+			?>
+
+			<tr>
+				<td><?php echo $gravatarImage;?></td>
+				<td>
+				<?php if( $this->action == 'by_keyword' || sizeof( $talks ) > 1 ) echo $this->Html->tag('h3', $talkLink) ;?>
+
+				<p class='talk-details'>By: <?php echo $speakerLink; ?>
+
+				<?php if( $track ) : ?>
+					<br/> Track: <?php echo $trackLink; ?>
+				<?php endif; ?>
+				<?php if( $keywords ) : ?>
+					<br/> Keywords:	<?php echo $keywords; ?>
 				<?php endif; ?>
 				</p>
-				<?php
-					$abstract = $talk['Talk']['abstract'];
-					$abstract = $this->Html->clean( $abstract );
-				?>
 				<div class='talk-abstract'><?php echo $abstract;?></div>
 				</td>
 			</tr>
@@ -86,18 +119,20 @@ if( $this->action == 'view' &&
 }
 
 // Keywords...
-$talk_keywords = array_filter( Set::extract('{n}.Talk.keywords', $talks) );
-if( $this->action != 'index' && count( $talk_keywords ) != 0 ) {
+if( sizeof( $talks ) > 1 ) {
+	$talk_keywords = array_filter( Set::extract('{n}.Talk.keywords', $talks) );
+	if( $this->action != 'index' && count( $talk_keywords ) != 0 ) {
 
-	$keywords = _keyword_links( $talk_keywords, $this );
+		$keywords = _keyword_links( $talk_keywords, $this );
 
-	$this->append('after-sidebar'); ?>
-<div class='sidebar-box'>
-	<h3>Related keywords</h3>
-	<p>Click to find other talks.</p>
-	<p><?php echo implode( ', ', $keywords ) ;?></p>
-</div>
-	<?php $this->end();
+		$this->append('after-sidebar'); ?>
+	<div class='sidebar-box'>
+		<h3>Related keywords</h3>
+		<p>Click to find other talks.</p>
+		<p><?php echo implode( ', ', $keywords ) ;?></p>
+	</div>
+		<?php $this->end();
+	}
 }
 
 
