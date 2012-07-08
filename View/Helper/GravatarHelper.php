@@ -23,6 +23,11 @@ class GravatarHelper extends AppHelper {
  * @return String containing either just a URL or a complete image tag
  */
 	public function image( $email, $s = 80, $options = array() ) {
+
+		$defaultOptions['class'] = 'gravatar';
+
+		$options = array_merge_recursive( $defaultOptions, $options );
+
 		$url = ($this->request->is('ssl')) ? 'https://secure.gravatar.com/avatar/' : 'http://www.gravatar.com/avatar/';
 		$url .= (!empty($email)) ? md5( strtolower( trim( $email ) ) ) : '00000000000000000000000000000000';
 		$url .= htmlentities("?s=".$s."&d=mm");
