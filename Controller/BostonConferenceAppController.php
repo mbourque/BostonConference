@@ -20,14 +20,14 @@ class BostonConferenceAppController extends AppController {
  *
  * @var array
  */
-	public $helpers = array('BostonConference.ContentManagement', 'BostonConference.Gravatar');
+	public $helpers = array('BostonConference.ContentManagement', 'BostonConference.Gravatar', 'Js' => array('Jquery'));
 
 /**
  * components
  *
  * @var array
  */
-	public $components = array('BostonConference.Menu');
+	public $components = array('BostonConference.Menu', 'RequestHandler' );
 
 /**
  * Called before the controller action.  You can use this method to configure and customize components
