@@ -70,6 +70,14 @@ class Ticket extends BostonConferenceAppModel {
 		)
 	);
 
+	public $hasMany = array(
+		'TicketAnswer' => array(
+			'className' => 'BostonConference.TicketAnswer',
+			'foreignKey' => 'ticket_id',
+		)
+	);
+
+
 /**
  * Validates a badge name and calls invalidate if appropriate.
  *
@@ -101,7 +109,7 @@ class Ticket extends BostonConferenceAppModel {
  * @param string $userId The user id the tickets belong to.
  * @param array $data The ticket data to save.
  * @param Callback $callback An optional callback to confirm that the save should happen.
- * @return void 
+ * @return void
  */
 	public function completeRegistration( $userId, $data, $callback = null ) {
 

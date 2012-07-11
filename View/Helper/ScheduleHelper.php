@@ -13,7 +13,7 @@ class ScheduleHelper extends AppHelper {
  *
  * @var array
  */
-	public $helpers = array('Html');
+	public $helpers = array('Html','Gravatar');
 
 
 /**
@@ -256,11 +256,28 @@ class ScheduleHelper extends AppHelper {
 				$topicTitle = Sanitize::HTML($talk['Talk']['topic']);
 				$action = ( $edit == true ) ? 'edit' : 'view';
 				$topicTitle = $this->Html->link( $topicTitle, array('action'=>$action, $talk['Talk']['id'] ), array('escape'=>false) );
-				$output .= '<div class="talk '.$this->getTalkClass($talk,$colCount, $col).'"><p>'.$topicTitle;
+				$output .= '<div class="talk '.$this->getTalkClass($talk,$colCount, $col).'">';
+				$output .= '<div class="edge '.$this->getTalkClass($talk,$colCount, $col).'"></div>';
 
-				if ( !empty($talk['Speaker']['display_name']) )
-					$output .= ' <span>-&nbsp;'.Sanitize::HTML($talk['Speaker']['display_name']).'</span>';
+				if ( !empty($talk['Speaker']['display_name']) ) {
 
+					$display_name = $talk['Speaker']['display_name'];
+
+					if( !empty( $talk['Speaker']['portrait_url'] ) ) {
+						$output .= $this->Html->image( $talk['Speaker']['portrait_url'], array('style'=>'width:40px','title'=>$display_name) );
+					} elseif( isset( $talk['Speaker']['email'] ) ) {
+						$output .= $this->Gravatar->image($talk['Speaker']['email'], 40, array('title'=>$display_name));
+					} else {
+						$output .= $this->Gravatar->image( null, 40, array('title'=>$display_name) ); // Gets a default Gravatar
+					}
+
+					//$output .= ' <span>-&nbsp;'.Sanitize::HTML($talk['Speaker']['display_name']).'</span>';
+					//$output .= ' <span>-&nbsp;'.Sanitize::HTML($talk['Speaker']['display_name']).'</span>';
+
+				}
+
+				$output .= '<p>';
+				$output .= $topicTitle;
 
 				$output .= '</p></div>';
 				$blockMap[$col] += ceil($talk['Talk']['duration']/30);

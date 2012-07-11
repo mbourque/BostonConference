@@ -1,4 +1,7 @@
 <?php
+	$this->Html->script('BostonConference.jquery_1.7.2.min', array('inline'=>false));
+?>
+<?php
 if( $this->action == 'by_keyword' && isset($keyword) ) :
 	$title = $keyword . ' ' .  __('Talks');
 elseif( $this->action == 'by_track' && isset($track) ) :
@@ -44,6 +47,13 @@ foreach( $tracks AS $key => $track ) {
 				$talkLink = $this->Html->link( $topic, array( 'action'=>'view', $id ), array('class'=>'talk-topic'));
 				$speakerLink = $this->Html->link( $speaker, array( 'controller'=>'speakers','action'=>'view', $talk['Speaker']['id'] ));
 
+				$likes = $talk['Talk']['talk_like_count'];
+				$likes = ($likes==0) ? ($likes||0) : $likes;
+				$likesLabel = $this->Html->tag('span',$likes);
+				$likesLabel = ($likes > 1) ? $likesLabel . ' Likes' : $likesLabel . ' Like' ;
+
+				$likeButton = $this->Js->link($likesLabel, array('action'=>'like', $id), array('update' => "#like-{$id} span",'id'=>"like-{$id}",'class'=>'button like', 'style'=>'float:right', 'escape'=>false,'rel'=>'nofollow'));
+
 				// Track
 				if( !empty($talk['Track']['id']) ) {
 					$track = $this->Html->clean($talk['Track']['name']);
@@ -54,10 +64,7 @@ foreach( $tracks AS $key => $track ) {
 
 				// Keywords
 				if( !empty($talk['Talk']['keywords']) ) {
-					$keywords = $this->Html->clean( $talk['Talk']['keywords'] );
-					$keywords = explode( ', ', $keywords );
-					$keywords = _keyword_links( $keywords, $this );
-					$keywords = implode( ', ', $keywords );
+					$keywords = implode( ', ', _keyword_links( $talk['Talk']['keywords'], $this ) );
 				} else {
 					$keywords = false;
 				}
@@ -82,6 +89,7 @@ foreach( $tracks AS $key => $track ) {
 			<tr>
 				<td><?php echo $gravatarImage;?></td>
 				<td>
+				<?php echo $likeButton; ?>
 				<?php if( $this->action == 'by_keyword' || sizeof( $talks ) > 1 ) echo $this->Html->tag('h3', $talkLink) ;?>
 
 				<p class='talk-details'>By: <?php echo $speakerLink; ?>
@@ -119,34 +127,18 @@ if( $this->action == 'view' &&
 }
 
 // Keywords...
-if( sizeof( $talks ) > 1 ) {
-	$talk_keywords = array_filter( Set::extract('{n}.Talk.keywords', $talks) );
-	if( $this->action != 'index' && count( $talk_keywords ) != 0 ) {
-
-		$keywords = _keyword_links( $talk_keywords, $this );
-
-		$this->append('after-sidebar'); ?>
-	<div class='sidebar-box'>
-		<h3>Related keywords</h3>
-		<p>Click to find other talks.</p>
-		<p><?php echo implode( ', ', $keywords ) ;?></p>
-	</div>
-		<?php $this->end();
-	}
-}
 
 
 function _keyword_links( $keywords, $view ) {
+	$ret = array();
 
-	$keywords = array_unique( $keywords );
-
-	foreach( $keywords AS $list ) {
-		$items = explode( ',', $list );
-		foreach( $items AS $keyword ) {
-			$keyword = trim( $keyword );
-			$ret[$keyword] = $view->Html->link($keyword, array('action'=>'by_keyword', $keyword ));
-		}
+	$keywords = (is_array( $keywords )) ? $keywords : explode(',', $keywords);
+	foreach( $keywords AS $keyword) {
+		$ret[] = $view->Html->link($keyword, array('action'=>'by_keyword', $keyword ));
 	}
+
 	return $ret;
 
 }
+
+echo $this->Js->writeBuffer();

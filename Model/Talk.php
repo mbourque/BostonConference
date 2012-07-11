@@ -14,6 +14,23 @@ class Talk extends BostonConferenceAppModel {
  * @var string
  */
 	public $displayField = 'topic';
+
+	public function keywords( $data ) {
+
+		$keywords = array();
+
+		$extracted = Set::extract('{n}.Talk.keywords', $data);
+		if( (sizeof( $extracted ) === 0) )
+			return $keywords;
+
+		array_walk_recursive($extracted, function($a) use (&$keywords) { $keywords = array_filter(array_merge($keywords, array_map('trim',explode(',',$a)))); });
+		$keywords = array_count_values( $keywords );
+		arsort( $keywords );
+		$keywords = array_keys( $keywords );
+		return $keywords;
+
+	}
+
 /**
  * Validation rules
  *
@@ -67,6 +84,20 @@ class Talk extends BostonConferenceAppModel {
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
+
+/**
+ * hasMany associations
+ *
+ * @var array
+ */
+
+	public $hasMany = array(
+		'TalkLike' => array(
+			'className' => 'BostonConference.TalkLike',
+			'foreignKey' => 'talk_id'
+		)
+	);
+
 
 /**
  * belongsTo associations

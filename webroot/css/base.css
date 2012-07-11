@@ -508,6 +508,10 @@ p.error em {
 	color: #fff;
 }
 
+div.message.good {
+	background: green !important;
+}
+
 /**  Actions  **/
 div.actions ul {
 	margin: 0 0 20px 0;
@@ -810,6 +814,30 @@ div.talks table tr td h3 a, div.speakers table tr td h3 a {
 	font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif;
 	text-decoration: none;
 	font-weight: normal;
+}
+
+
+a.button.like {
+  color: ButtonShadow;
+  background:none;
+  background-color: #fff;
+  border:1px solid #eee;
+}
+
+a.button.like:hover {
+	font-weight:normal;
+	padding: 4px 8px;
+	background:#e6e49f;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f1f1d4), to(#e6e49f));
+	background-image: -moz-linear-gradient(top, #f1f1d4, #e6e49f);
+	color:#333;
+	border:1px solid #aaac62;
+	-webkit-border-radius:8px;
+	-moz-border-radius:8px;
+	border-radius:8px;
+	text-decoration:none;
+	text-shadow: #fff 0px 1px 0px;
+	min-width: 0;
 }
 
 ul.tracks {

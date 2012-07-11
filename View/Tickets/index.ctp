@@ -28,7 +28,7 @@
 	echo $this->Form->create('Ticket');
 	$availableToBuy = false;
 ?>
-<h2><?php echo ( count( $tickets ) <= 0 ) ? __('Buy Tickets') : __('Buy More Tickets');?></h2>
+<h2><?php echo __n( __('Buy Tickets'), __('Buy More Tickets'), count( $tickets ) > 1 );?></h2>
 <table>
 	<thead>
 		<tr>

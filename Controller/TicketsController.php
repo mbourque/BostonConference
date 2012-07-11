@@ -123,6 +123,30 @@ class TicketsController extends BostonConferenceAppController {
 
 	}
 
+	public function preferences() {
+		if ( $this->Auth->loggedIn() ) {
+			$id = $this->Auth->user('id');
+		} else {
+			$this->Session->setFlash(__('Not logged in'));
+			$this->redirect($this->Auth->logout());
+		}
+
+		if ($this->request->is('post')) {
+			if ($this->Ticket->TicketAnswer->saveAll($this->request->data['TicketAnswer'])) {
+				$this->Session->setFlash(__('Your preferences have been saved'));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The preference could not be saved. Please, try again.'));
+			}
+		}
+
+		$tickets = $this->Ticket->find('all', array('contain'=>'TicketAnswer','conditions'=>array('Ticket.user_id'=>$id)));
+		$ticketQuestions = $this->Ticket->TicketAnswer->TicketQuestion->find('all');
+		$this->set(compact('tickets', 'ticketQuestions', 'options'));
+	}
+
+
+
 /**
  * checkout method
  *

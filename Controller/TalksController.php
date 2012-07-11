@@ -21,12 +21,46 @@ class TalksController extends BostonConferenceAppController {
  * @return void
  */
 	public function beforeFilter() {
-		$this->Auth->allow(array('schedule', 'by_keyword', 'by_track'));
+		$this->Auth->allow(array('schedule', 'by_keyword', 'by_track', 'like'));
 		return parent::beforeFilter();
 	}
 
+
+	public function like( $talk_id ) {
+
+		$this->autoRender = false;
+
+		if (!$this->request->is('ajax')) {
+			throw new MethodNotAllowedException();
+		}
+
+		$this->Talk->TalkLike->like( $talk_id, $this->Session->read('Config.userAgent'));
+		return $this->Talk->TalkLike->likes( $talk_id );
+
+	}
+
+	public function search( $term = false, $options = array() ) {
+
+		$term = Sanitize::clean( $term, array('encode'=>true, 'remove_html'=>true) );
+		if( empty($term) || strlen( $term ) < 3 ) {
+			$this->Session->setFlash(__('Missing search term') );
+			$this->redirect(array('action'=>'index'));
+		}
+
+		$this->Talk->virtualFields = array(
+			'fulltext' => "CONCAT_WS('|',Talk.topic,Talk.abstract,Talk.keywords)"
+		);
+		$options = array( 'conditions'=>array('fulltext LIKE' => "%{$term}%"));
+
+		$this->autoRender = false;
+		$this->Session->setFlash(__("Showing search results for '%s'", $term) );
+		$this->setAction('index', $options);
+		$this->render('index');
+
+	}
+
 /**
- * index method
+ * schedule method
  *
  * @return void
  */
@@ -68,10 +102,10 @@ class TalksController extends BostonConferenceAppController {
 		$options = array_merge_recursive( $default_options, $options );
 
 		$talks = $this->Talk->forCurrentEvent( true, $options );
-
+		$all_keywords = $this->Talk->keywords( $talks );
 		$tracks = $this->Talk->Track->find( 'list' );
 
-		$this->set( compact('talks', 'tracks') );
+		$this->set( compact('talks', 'tracks', 'all_keywords') );
 	}
 
 
@@ -87,14 +121,14 @@ class TalksController extends BostonConferenceAppController {
 		if( $keyword ) {
 			$keyword = Sanitize::clean( $keyword );
 			$options['conditions'] = array( "LOCATE('{$keyword}', Talk.keywords)");
+		} else {
+			$this->Session->setFlash(__('Missing keyword') );
+			$this->redirect(array('action'=>'index'));
 		}
-
-			//$this->redirect(array('action'=>'index'));
-
 
 		$this->setAction( 'index', $options );
 		$this->action = 'by_keyword';
-		$this->set( compact( 'talks', 'keyword') );
+		$this->set( compact( 'talks', 'keyword', 'all_keywords') );
 
 	}
 

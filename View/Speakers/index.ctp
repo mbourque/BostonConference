@@ -23,12 +23,13 @@ $this->set('title_for_layout',  $title );
 				<td><?php
 					$speakerLink = array( 'controller'=>'speakers','action'=>'view', $speaker['Speaker']['id'] );
 					if( !empty( $speaker['Speaker']['portrait_url'] ) ) {
-						echo $this->Html->image( $speaker['Speaker']['portrait_url'], array('url'=>$speakerLink, 'style'=>'width:100px') );
+						$gravatar = $this->Html->image( $speaker['Speaker']['portrait_url'], array('url'=>$speakerLink, 'style'=>'width:100px') );
 					} elseif( isset( $speaker['Speaker']['email'] ) ) {
-						echo $this->Gravatar->image($speaker['Speaker']['email'], 100, array('url'=>$speakerLink));
+						$gravatar = $this->Gravatar->image($speaker['Speaker']['email'], 100, array('url'=>$speakerLink));
 					} else {
-						echo $this->Gravatar->image( null, 100, array('url'=>$speakerLink) ); // Gets a default Gravatar
+						$gravatar = $this->Gravatar->image( null, 100, array('url'=>$speakerLink) ); // Gets a default Gravatar
 					}
+					echo $gravatar;
 					?>
 				</td>
 				<td>
@@ -43,7 +44,7 @@ $this->set('title_for_layout',  $title );
 							$talks[] = $this->Html->link($talk['topic'], array('controller'=>'talks','action'=>'view', $talk['id']));
 						}
 					?>
-				<p class='talk-details'><?php echo ( count($talks) >1) ? 'Talks:' : 'Talk:' ;?>&nbsp;<?php echo implode(', ', $talks); ?></p>
+				<p class='talk-details'><?php echo __n('Talk:','Talks:', count($talks));?>&nbsp;<?php echo implode(', ', $talks); ?></p>
 				<? endif; ?>
 
 				<p class='speaker-bio'><?php echo $this->Html->clean($speaker['Speaker']['bio']);?></p>
