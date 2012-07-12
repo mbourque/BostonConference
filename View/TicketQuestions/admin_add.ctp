@@ -11,6 +11,7 @@
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>
 </div>
+<?php $this->start('sidebar'); ?>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
@@ -20,3 +21,4 @@
 		<li><?php echo $this->Html->link(__('New Ticket Answer'), array('controller' => 'ticket_answers', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
+<?php $this->end(); ?>

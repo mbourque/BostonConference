@@ -57,6 +57,8 @@ $this->start('sidebar');
 		<li><?php echo $this->Html->link(__('New Ticket'), array('action' => 'add')); ?></li>
 		<li><?php echo $this->Html->link(__('List Ticket Options'), array('controller' => 'ticket_options', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Ticket Option'), array('controller' => 'ticket_options', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Questions'), array('controller' => 'ticket_questions', 'action' => 'index'));?></li>
+		<li><?php echo $this->Html->link(__('List Answers'), array('controller' => 'ticket_answers', 'action' => 'index')); ?> </li>
 	</ul>
 </div>
 <?php

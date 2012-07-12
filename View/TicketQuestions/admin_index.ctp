@@ -38,11 +38,13 @@
 	?>
 	</div>
 </div>
+<?php $this->start('sidebar'); ?>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('New Ticket Question'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Ticket Answers'), array('controller' => 'ticket_answers', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Ticket Answer'), array('controller' => 'ticket_answers', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Tickets'), array('controller' => 'tickets')); ?></li>
+		<li><?php echo $this->Html->link(__('Add Question'), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('List Answers'), array('controller' => 'ticket_answers', 'action' => 'index')); ?> </li>
 	</ul>
 </div>
+<?php $this->end(); ?>

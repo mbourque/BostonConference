@@ -13,7 +13,7 @@
 		</dd>
 		<dt><?php echo __('Options'); ?></dt>
 		<dd>
-			<?php echo h($ticketQuestion['TicketQuestion']['options']); ?>
+			<?php echo nl2br(h($ticketQuestion['TicketQuestion']['options'])); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Required'); ?></dt>
@@ -23,17 +23,19 @@
 		</dd>
 	</dl>
 </div>
+<?php $this->start('sidebar'); ?>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('Edit Ticket Question'), array('action' => 'edit', $ticketQuestion['TicketQuestion']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Ticket Question'), array('action' => 'delete', $ticketQuestion['TicketQuestion']['id']), null, __('Are you sure you want to delete # %s?', $ticketQuestion['TicketQuestion']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Ticket Questions'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Ticket Question'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Ticket Answers'), array('controller' => 'ticket_answers', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Ticket Answer'), array('controller' => 'ticket_answers', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Edit Question'), array('action' => 'edit', $ticketQuestion['TicketQuestion']['id'])); ?> </li>
+		<li><?php echo $this->Form->postLink(__('Delete Question'), array('action' => 'delete', $ticketQuestion['TicketQuestion']['id']), null, __('Are you sure you want to delete # %s?', $ticketQuestion['TicketQuestion']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('List Questions'), array('action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Question'), array('action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Answers'), array('controller' => 'ticket_answers', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Answer'), array('controller' => 'ticket_answers', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
+<?php $this->end(); ?>
 <div class="related">
 	<h3><?php echo __('Related Ticket Answers');?></h3>
 	<?php if (!empty($ticketQuestion['TicketAnswer'])):?>
@@ -62,10 +64,9 @@
 	<?php endforeach; ?>
 	</table>
 <?php endif; ?>
-
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Html->link(__('New Ticket Answer'), array('controller' => 'ticket_answers', 'action' => 'add'));?> </li>
+			<li><?php echo $this->Html->link(__('New Answer'), array('controller' => 'ticket_answers', 'action' => 'add'));?> </li>
 		</ul>
 	</div>
 </div>
