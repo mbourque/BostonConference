@@ -43,6 +43,38 @@
 		</dd>
 	</dl>
 </div>
+
+
+<div class="related">
+	<h3><?php echo __('Ticket Answers');?></h3>
+	<?php if (!empty($ticket['TicketAnswer'])):?>
+	<table cellpadding = "0" cellspacing = "0">
+	<tr>
+		<th><?php echo __('Id'); ?></th>
+		<th><?php echo __('Ticket Id'); ?></th>
+		<th><?php echo __('Ticket Question Id'); ?></th>
+		<th><?php echo __('Answer'); ?></th>
+		<th class="actions"><?php echo __('Actions');?></th>
+	</tr>
+	<?php
+		$i = 0;
+		foreach ($ticket['TicketAnswer'] as $ticketAnswer): ?>
+		<tr>
+			<td><?php echo $ticketAnswer['id'];?></td>
+			<td><?php echo $ticketAnswer['ticket_id'];?></td>
+			<td><?php echo $ticketAnswer['ticket_question_id'];?></td>
+			<td><?php echo $ticketAnswer['answer'];?></td>
+			<td class="actions">
+				<?php echo $this->Html->link(__('View'), array('controller' => 'ticket_answers', 'action' => 'view', $ticketAnswer['id'])); ?>
+				<?php echo $this->Html->link(__('Edit'), array('controller' => 'ticket_answers', 'action' => 'edit', $ticketAnswer['id'])); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'ticket_answers', 'action' => 'delete', $ticketAnswer['id']), null, __('Are you sure you want to delete # %s?', $ticketAnswer['id'])); ?>
+			</td>
+		</tr>
+		<?php endforeach; ?>
+	</table>
+<?php endif; ?>
+</div>
+
 <?php
 $this->start('sidebar');
 ?>
