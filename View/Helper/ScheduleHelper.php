@@ -255,11 +255,11 @@ class ScheduleHelper extends AppHelper {
 
 				$topicTitle = Sanitize::HTML($talk['Talk']['topic']);
 				$action = ( $edit == true ) ? 'edit' : 'view';
-				$topicTitle = $this->Html->link( $topicTitle, array('action'=>$action, $talk['Talk']['id'] ), array('escape'=>false) );
+				$topicTitle = $this->Html->link( $topicTitle, array('action'=>$action, $talk['Talk']['id'] ), array('class'=>'talk_title','escape'=>false) );
 				$output .= '<div class="talk '.$this->getTalkClass($talk,$colCount, $col).'"><p>'.$topicTitle;
 
-				if ( !empty($talk['Speaker']['display_name']) )
-					$output .= ' <span>-&nbsp;'.Sanitize::HTML($talk['Speaker']['display_name']).'</span>';
+				//if ( !empty($talk['Speaker']['display_name']) )
+				//	$output .= ' <span>-&nbsp;'.Sanitize::HTML($talk['Speaker']['display_name']).'</span>';
 
 
 				$output .= '</p></div>';
