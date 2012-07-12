@@ -311,6 +311,7 @@ class TicketsController extends BostonConferenceAppController {
 			throw new NotFoundException(__('Invalid ticket'));
 		}
 		$this->set('ticket', $this->Ticket->read(null, $id));
+		$this->set('ticket_questions', $this->Ticket->TicketAnswer->TicketQuestion->find('list'));
 	}
 
 /**

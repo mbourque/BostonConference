@@ -51,7 +51,6 @@
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
 		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Ticket Id'); ?></th>
 		<th><?php echo __('Ticket Question Id'); ?></th>
 		<th><?php echo __('Answer'); ?></th>
 		<th class="actions"><?php echo __('Actions');?></th>
@@ -61,8 +60,7 @@
 		foreach ($ticket['TicketAnswer'] as $ticketAnswer): ?>
 		<tr>
 			<td><?php echo $ticketAnswer['id'];?></td>
-			<td><?php echo $ticketAnswer['ticket_id'];?></td>
-			<td><?php echo $ticketAnswer['ticket_question_id'];?></td>
+			<td><?php echo $ticket_questions[$ticketAnswer['ticket_question_id']];?></td>
 			<td><?php echo $ticketAnswer['answer'];?></td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('controller' => 'ticket_answers', 'action' => 'view', $ticketAnswer['id'])); ?>
