@@ -89,12 +89,16 @@ else if ( isset($skinny_sidebar) && $skinny_sidebar )
 				<div id="navigation">
 					<ul class="nav-main">
 					<?php
-                    foreach( $navigation_links as $link )
-                        if ($link[1]['controller'] == $this->params['controller']) {
-                            echo '<li class="current">'.$this->Html->link(__($link[0]),$link[1]).'</li>';
-                        } else {
-                            echo '<li>'.$this->Html->link(__($link[0]),$link[1]).'</li>';
-                        }
+                    foreach( $navigation_links as $link ) {
+
+						$class = ($link[1]['controller'] == $this->params['controller']) ? 'current' : null;
+
+						// Hack
+						if( ($link[0] == 'Talks' && $this->params['action']=='schedule') ||
+						   ( $link[0] == 'Schedule' && $this->params['action']!='schedule')) $class = null;
+
+						echo $this->Html->tag('li', $this->Html->link(__($link[0]),$link[1]), array('class'=>$class));
+                    }
                     ?>
                     </ul>
                     <ul class="nav-auth">
