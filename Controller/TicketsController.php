@@ -20,7 +20,7 @@ class TicketsController extends BostonConferenceAppController {
  * @return void
  */
 	public function beforeFilter() {
-		$this->Auth->allow(array('checkout', 'print_tickets', 'sales'));
+		$this->Auth->allow(array('checkout', 'print_tickets', 'sales', 'preferences'));
 		return parent::beforeFilter();
 	}
 
@@ -141,6 +141,9 @@ class TicketsController extends BostonConferenceAppController {
 		}
 
 		$tickets = $this->Ticket->find('all', array('contain'=>'TicketAnswer','conditions'=>array('Ticket.user_id'=>$id)));
+		if( count( $tickets ) == 0 ) { // No tickets
+			$this->redirect(array('controller'=>'news'));
+		}
 		$ticketQuestions = $this->Ticket->TicketAnswer->TicketQuestion->find('all');
 		$this->set(compact('tickets', 'ticketQuestions', 'options'));
 	}
