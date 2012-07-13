@@ -169,8 +169,9 @@ class TalksController extends BostonConferenceAppController {
  */
 	public function view( $id ) {
 		$talks = $this->Talk->forCurrentEvent( true, array( 'conditions'=>array('Talk.id' => $id )));
+		$all_keywords = $this->Talk->keywords( $talks );
 		$tracks = $this->Talk->Track->find( 'list' );
-		$this->set(compact('talks', 'tracks'));
+		$this->set(compact('talks', 'tracks', 'all_keywords'));
 		$this->render('index');
 	}
 
