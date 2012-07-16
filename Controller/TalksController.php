@@ -26,6 +26,124 @@ class TalksController extends BostonConferenceAppController {
 	}
 
 
+/**
+ * index method
+ * Return talks that have speakers associated
+ * @param array $options Optional. Array of find options
+ * @returns void
+ */
+	public function index( $options = array() ) {
+
+		if( !is_array($options) ) $options = array();
+
+		$default_options['conditions'][] = array('Talk.speaker_id not' => null);
+		$default_options['order'] = array('Talk.talk_like_count'=>'desc','Track.position','Talk.topic');
+
+		$options = array_merge_recursive( $default_options, $options );
+
+		$talks = $this->Talk->forCurrentEvent( true, $options );
+		$all_keywords = $this->Talk->keywords( $talks );
+		$tracks = $this->Talk->Track->find( 'list' );
+
+		$this->set( compact('talks', 'tracks', 'all_keywords') );
+
+		// Rest
+		$this->set(array('talks'=>$talks, '_serialize' => array('talks')));
+
+	}
+
+/**
+ * view method.
+ * Displays talk by id.
+ *
+ * @return void
+ */
+	public function view( $id ) {
+
+		if (!$this->Talk->exists( $id )) {
+			throw new NotFoundException(__('Invalid talk'));
+		}
+
+		$talks = $this->Talk->forCurrentEvent( true, array( 'conditions'=>array('Talk.id' => $id )));
+		$all_keywords = $this->Talk->keywords( $talks );
+		$tracks = $this->Talk->Track->find( 'list' );
+		$this->set(compact('talks', 'tracks', 'all_keywords'));
+
+		// Rest
+		$this->set(array('talks'=>$talks, '_serialize' => array('talks')));
+
+		$this->render('index');
+
+
+	}
+
+
+/**
+ * schedule method
+ *
+ * @return void
+ */
+	public function schedule() {
+		$tracks = array();
+		$talks = $this->Talk->forCurrentEvent();
+
+		foreach( $talks as $track ) {
+			if ( $track['Track']['id'] )
+				$tracks[$track['Track']['id']] = $track['Track'];
+		}
+
+		$this->set('tracks', array_values($tracks));
+		$this->set('talks', $talks);
+	}
+
+
+/**
+ * by_keyword method
+ *
+ * @returns void
+ */
+	public function by_keyword( $keyword = false ) {
+
+		$options = array();
+
+		if( $keyword ) {
+			$keyword = Sanitize::clean( $keyword );
+			$options['conditions'] = array( "LOCATE('{$keyword}', Talk.keywords)");
+		} else {
+			$this->Session->setFlash(__('Missing keyword') );
+			$this->redirect(array('action'=>'index'));
+		}
+
+		$this->setAction( 'index', $options );
+		$this->action = 'by_keyword';
+		$this->set( compact( 'talks', 'keyword', 'all_keywords') );
+
+	}
+
+/**
+ * by_track method
+ *
+ * @returns void
+ */
+	public function by_track( $track_id = null ) {
+
+		if ( !isset($track_id) || !$this->Talk->Track->exists( $track_id )) {
+			$this->Session->setFlash(__('Invalid track') );
+			$this->redirect(array('action'=>'index'), 301 );
+		}
+
+		$options['conditions'] = array( 'Track.id' => $track_id );
+		$options['order'] = array('Track.position','Talk.topic');
+		$this->setAction( 'index', $options );
+
+		$track = $this->Talk->Track->field('name',array('id'=>$track_id));
+
+		$this->action = 'by_track';
+		$this->set( compact( 'talks', 'track') );
+
+	}
+
+
 	public function like( $talk_id ) {
 
 		$this->autoRender = false;
@@ -59,121 +177,6 @@ class TalksController extends BostonConferenceAppController {
 
 	}
 
-/**
- * schedule method
- *
- * @return void
- */
-	public function schedule() {
-		$tracks = array();
-		$talks = $this->Talk->forCurrentEvent();
-
-		foreach( $talks as $track ) {
-			if ( $track['Track']['id'] )
-				$tracks[$track['Track']['id']] = $track['Track'];
-		}
-
-		$this->set('tracks', array_values($tracks));
-		$this->set('talks', $talks);
-	}
-
-/**
- * admin_schedule method
- *
- * @returns void
- */
-	public function admin_schedule() {
-		$this->setAction('schedule');
-	}
-
-/**
- * index method
- * Return talks that have speakers associated
- * @param array $options Optional. Array of find options
- * @returns void
- */
-	public function index( $options = array() ) {
-
-		if( !is_array($options) ) $options = array();
-
-		$default_options['conditions'][] = array('Talk.speaker_id not' => null);
-		$default_options['order'] = array('Track.position','Talk.topic');
-
-		$options = array_merge_recursive( $default_options, $options );
-
-		$talks = $this->Talk->forCurrentEvent( true, $options );
-		$all_keywords = $this->Talk->keywords( $talks );
-		$tracks = $this->Talk->Track->find( 'list' );
-
-		$this->set( compact('talks', 'tracks', 'all_keywords') );
-	}
-
-
-/**
- * by_keyword method
- *
- * @returns void
- */
-	public function by_keyword( $keyword = false ) {
-
-		$options = array();
-
-		if( $keyword ) {
-			$keyword = Sanitize::clean( $keyword );
-			$options['conditions'] = array( "LOCATE('{$keyword}', Talk.keywords)");
-		} else {
-			$this->Session->setFlash(__('Missing keyword') );
-			$this->redirect(array('action'=>'index'));
-		}
-
-		$this->setAction( 'index', $options );
-		$this->action = 'by_keyword';
-		$this->set( compact( 'talks', 'keyword', 'all_keywords') );
-
-	}
-
-/**
- * by_track method
- *
- * @returns void
- */
-	public function by_track( $id = false ) {
-
-		$this->Talk->Track->recursive = -1;
-		$track = $this->Talk->Track->findById( $id );
-		if( empty( $track ) )
-			$this->redirect( array( 'action' => 'index' ) );
-
-		$options = array();
-
-		if( $id ) {
-			$options['conditions'] = array( 'Track.id' => $id );
-			$options['order'] = array('Track.position','Talk.topic');
-		}
-
-
-		$track = $track['Track']['name'];
-
-		$this->setAction( 'index', $options );
-		$this->action = 'by_track';
-		$this->set( compact( 'talks', 'track') );
-
-	}
-
-
-/**
- * view method.
- * Displays talk by id.
- *
- * @return void
- */
-	public function view( $id ) {
-		$talks = $this->Talk->forCurrentEvent( true, array( 'conditions'=>array('Talk.id' => $id )));
-		$all_keywords = $this->Talk->keywords( $talks );
-		$tracks = $this->Talk->Track->find( 'list' );
-		$this->set(compact('talks', 'tracks', 'all_keywords'));
-		$this->render('index');
-	}
 
 /**
  * admin_add_multiple method
@@ -232,6 +235,15 @@ class TalksController extends BostonConferenceAppController {
 		$this->set(compact('events', 'speakers', 'tracks'));
 	}
 
+
+/**
+ * admin_schedule method
+ *
+ * @returns void
+ */
+	public function admin_schedule() {
+		$this->setAction('schedule');
+	}
 
 /**
  * admin_index method
