@@ -25,7 +25,6 @@ class TalksController extends BostonConferenceAppController {
 		return parent::beforeFilter();
 	}
 
-
 /**
  * index method
  * Return talks that have speakers associated
@@ -47,9 +46,6 @@ class TalksController extends BostonConferenceAppController {
 
 		$this->set( compact('talks', 'tracks', 'all_keywords') );
 
-		// Rest
-		$this->set(array('talks'=>$talks, '_serialize' => array('talks')));
-
 	}
 
 /**
@@ -69,11 +65,7 @@ class TalksController extends BostonConferenceAppController {
 		$tracks = $this->Talk->Track->find( 'list' );
 		$this->set(compact('talks', 'tracks', 'all_keywords'));
 
-		// Rest
-		$this->set(array('talks'=>$talks, '_serialize' => array('talks')));
-
 		$this->render('index');
-
 
 	}
 

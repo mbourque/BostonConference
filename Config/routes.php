@@ -68,10 +68,6 @@ Router::connect(
 
 // Rest mapping
 
-Router::resourceMap(array(
-    array('plugin' => 'BostonConference','action' => 'index', 'method' => 'GET', 'id' => false),
-    array('plugin' => 'BostonConference','action' => 'view', 'method' => 'GET', 'id' => true),
-));
 
-Router::mapResources('BostonConference.talks');
-Router::parseExtensions('json','xml');
+//Router::mapResources('BostonConference.talks');
+Router::parseExtensions('json');
