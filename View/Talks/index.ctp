@@ -44,8 +44,10 @@ foreach( $tracks AS $key => $track ) {
 				$abstract = $this->Html->clean( $talk['Talk']['abstract'] );
 				$speaker = $this->Html->clean($talk['Speaker']['display_name']);
 
-				$talkLink = $this->Html->link( $topic, array( 'action'=>'view', $id ), array('class'=>'talk-topic'));
-				$speakerLink = $this->Html->link( $speaker, array( 'controller'=>'speakers','action'=>'view', $talk['Speaker']['id'] ));
+				$talkUrl = array( 'action'=>'view', $id );
+				$talkLink = $this->Html->link( $topic, $talkUrl, array('class'=>'talk-topic'));
+				$speakerUrl = array( 'controller'=>'speakers', 'action'=>'view', $talk['Speaker']['id'] );
+				$speakerLink = $this->Html->link( $speaker, $speakerUrl );
 
 				$likes = $talk['Talk']['talk_like_count'];
 				$likes = ($likes==0) ? ($likes||0) : $likes;
@@ -77,17 +79,17 @@ foreach( $tracks AS $key => $track ) {
 
 				// Avatar
 				if( !empty( $talk['Speaker']['portrait_url'] ) ) {
-					$gravatarImage = $this->Html->image( $talk['Speaker']['portrait_url'], array('url'=>$speakerLink, 'style'=>'width:100px') );
+					$gravatarImage = $this->Html->image( $talk['Speaker']['portrait_url'], array('url'=>$speakerUrl, 'style'=>'width:100px') );
 				} elseif( isset( $talk['Speaker']['email'] ) ) {
-					$gravatarImage = $this->Gravatar->image($talk['Speaker']['email'], 100, array('url'=>$speakerLink));
+					$gravatarImage = $this->Gravatar->image($talk['Speaker']['email'], 100, array('url'=>$speakerUrl));
 				} else {
-					$gravatarImage = $this->Gravatar->image( null, 100, array('url'=>$speakerLink) ); // Gets a default Gravatar
+					$gravatarImage = $this->Gravatar->image( null, 100, array('url'=>$speakerUrl) ); // Gets a default Gravatar
 				}
 
 			?>
 
 			<tr>
-				<td><?php echo $gravatarImage;?></td>
+				<td><?php echo $gravatarImage ;?></td>
 				<td>
 				<?php echo $likeButton; ?>
 				<?php if( $this->action == 'by_keyword' || sizeof( $talks ) > 1 ) echo $this->Html->tag('h3', $talkLink) ;?>
