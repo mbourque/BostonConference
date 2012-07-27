@@ -36,7 +36,7 @@
 		<td><?php echo h($ticket['Ticket']['badge_name']); ?>&nbsp;</td>
 		<td><?php echo h($ticket['Ticket']['organization']); ?>&nbsp;</td>
 		<td>
-			<?php echo $this->Html->link($ticket['User']['name'], array('controller' => 'tickets', 'action' => 'by_user', $ticket['User']['id'])); ?>
+			<?php echo $this->Html->link($ticket['User']['name'], array('plugin'=>null,'controller' => 'users', 'action' => 'view', $ticket['User']['id'])); ?>
 		</td>
 		<td>
 			<?php echo $this->Html->link(h($ticket['TicketOption']['label']), array('controller' => 'ticket_options', 'action' => 'view', $ticket['TicketOption']['id'])); ?>
