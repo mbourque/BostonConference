@@ -1,30 +1,48 @@
 <div class="tickets index">
 	<h2><?php echo __('Tickets');?></h2>
+
+<?php
+
+	$fields = array(
+					'Ticket.badge_name'=>'Badge Name',
+					'Ticket.id'=>'Ticket ID',
+					'User.email'=>'Users Email',
+					'User.name'=>'Users Name',
+					'Ticket.organization'=>'Badge Organization',
+					);
+
+	echo $this->Form->create(false, array('action'=>'lookup','inputDefaults'=>array('div'=>false, 'label'=>false, 'empty'=>false)));
+	echo $this->Form->input('search_term', array('placeholder'=>'Search for tickets'));
+	echo $this->Form->input('field', array('type'=>'select','options'=>$fields));
+	echo $this->Form->submit(null, array('div'=>false, 'label'=>false, 'empty'=>false));
+	echo $this->Form->end();
+
+?>
 	<table>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id');?></th>
-			<th><?php echo $this->Paginator->sort('user_id');?></th>
-			<th><?php echo $this->Paginator->sort('ticket_option_id');?></th>
 			<th><?php echo $this->Paginator->sort('badge_name');?></th>
 			<th><?php echo $this->Paginator->sort('organization');?></th>
+			<th><?php echo $this->Paginator->sort('User');?></th>
+			<th><?php echo $this->Paginator->sort('ticket_option_id');?></th>
 			<th><?php echo $this->Paginator->sort('paid');?></th>
-			<th><?php echo $this->Paginator->sort('modified');?></th>
+			<th><?php echo $this->Paginator->sort('created');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
 	<?php
 	foreach ($tickets as $ticket): ?>
 	<tr>
 		<td><?php echo h($ticket['Ticket']['id']); ?>&nbsp;</td>
+		<td><?php echo h($ticket['Ticket']['badge_name']); ?>&nbsp;</td>
+		<td><?php echo h($ticket['Ticket']['organization']); ?>&nbsp;</td>
 		<td>
-			<?php echo $this->Html->link($ticket['User']['last_name'], array('controller' => 'tickets', 'action' => 'by_user', $ticket['User']['id'])); ?>
+			<?php echo $this->Html->link($ticket['User']['name'], array('controller' => 'tickets', 'action' => 'by_user', $ticket['User']['id'])); ?>
 		</td>
 		<td>
 			<?php echo $this->Html->link(h($ticket['TicketOption']['label']), array('controller' => 'ticket_options', 'action' => 'view', $ticket['TicketOption']['id'])); ?>
 		</td>
-		<td><?php echo h($ticket['Ticket']['badge_name']); ?>&nbsp;</td>
-		<td><?php echo h($ticket['Ticket']['organization']); ?>&nbsp;</td>
 		<td><?php echo h($ticket['Ticket']['paid']); ?>&nbsp;</td>
-		<td><?php echo h($ticket['Ticket']['modified']); ?>&nbsp;</td>
+		<td><?php echo h($ticket['Ticket']['created']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $ticket['Ticket']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $ticket['Ticket']['id'])); ?>

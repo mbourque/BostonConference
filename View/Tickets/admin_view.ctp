@@ -8,7 +8,7 @@
 		</dd>
 		<dt><?php echo __('User'); ?></dt>
 		<dd>
-			<?php echo $this->Html->link($ticket['User']['last_name'], array('controller' => 'users', 'action' => 'view', $ticket['User']['id'])); ?>
+			<?php echo $this->Html->link($ticket['User']['name'], array('plugin'=>null,'controller' => 'users', 'action' => 'view', $ticket['User']['id'])); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Ticket Option'); ?></dt>

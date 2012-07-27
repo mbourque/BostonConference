@@ -6,6 +6,20 @@ var wysihtml5ParserRules = {
     b: {},
     i: {},
     em: {},
+    img: {
+        check_attributes: {
+            width: "numbers",
+            alt: "alt",
+            src: "url",
+            height: "numbers"
+        }},
+    table: {},
+    tbody: {},
+    thead: {},
+    th: {},
+    style: {},
+    tr: {},
+    td: {},
     br: {},
     p: {},
     div: {},

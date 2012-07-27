@@ -281,8 +281,44 @@ class TicketsController extends BostonConferenceAppController {
  *
  * @return void
  */
+	public function admin_lookup( $field = null ) {
+
+		$search_term = $this->request->data['search_term'];
+		$field = $this->request->data['field'];
+
+		switch ($field) {
+
+			default:
+			case 'Ticket.badge_name':
+			case 'User.name':
+			case 'User.email':
+			case 'Ticket.organization':
+			$this->paginate = array( 'conditions' => array("LOCATE('{$search_term}', {$field})"));
+			break;
+
+			case 'Ticket.id':
+			$this->paginate = array( 'conditions' => array('Ticket.id'=>$search_term));
+			break;
+
+		}
+
+		$this->autoRender = false;
+		$this->Ticket->recursive = 0;
+		$this->set('tickets', $this->paginate());
+
+		$this->render('admin_index');
+
+	}
+
+
+/**
+ * admin_index method
+ *
+ * @return void
+ */
 	public function admin_index() {
 		$this->Ticket->recursive = 0;
+		$this->Ticket->order = array('Ticket.created'=>'desc');
 		$this->set('tickets', $this->paginate());
 	}
 
