@@ -14,6 +14,9 @@ class ApiController extends BostonConferenceAppController {
 			$this->set('callback', $this->params->query['callback'] );
 		}
 
+		//debug( $this->viewVars );
+
+
 	}
 
 /**
@@ -22,16 +25,13 @@ class ApiController extends BostonConferenceAppController {
  * @return void
  */
 	public function beforeFilter() {
-
 		$this->Auth->allow(array('talks','speakers'));
 		return parent::beforeFilter();
 	}
 
-
 	public function speakers( $id = false, $options = array() ) {
 
 		$this->loadModel('BostonConference.Speaker');
-
 
 		$this->Speaker->virtualFields = array_merge_recursive(
 			$this->Speaker->virtualFields,
@@ -39,8 +39,6 @@ class ApiController extends BostonConferenceAppController {
 				'gravatar' => "md5('Speaker.email')",
 			)
 		);
-
-
 
 		$default_options['contain'] = array('Talk.id', 'Talk.topic');
 		$default_options['fields'] = array('Speaker.display_name',
@@ -64,8 +62,9 @@ class ApiController extends BostonConferenceAppController {
 
 		$this->loadModel('BostonConference.Talk');
 
-		$default_options['contain'] = array('Speaker.email');
-		$default_options['fields'] = array('Talk.topic',
+		$default_options['contain'] = array('Speaker.first_name', 'Speaker.last_name');
+		$default_options['fields'] = array('Talk.id',
+										   'Talk.topic',
 										   'Talk.abstract',
 										   'Talk.talk_like_count'
 										   );
@@ -75,7 +74,7 @@ class ApiController extends BostonConferenceAppController {
 		}
 
 		$default_options['conditions'][] = array('Talk.speaker_id not' => null);
-		$default_options['order'] = array('Track.position','Talk.topic');
+		$default_options['order'] = array('Talk.topic');
 
 		$options = array_merge_recursive( $default_options, $options );
 
