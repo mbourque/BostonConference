@@ -21,8 +21,27 @@ class TalksController extends BostonConferenceAppController {
  * @return void
  */
 	public function beforeFilter() {
-		$this->Auth->allow(array('schedule', 'by_keyword', 'by_track', 'like'));
+		$this->Auth->allow(array('agenda','schedule', 'by_keyword', 'by_track', 'like'));
 		return parent::beforeFilter();
+	}
+
+	public function agenda() {
+
+		$this->Talk->contain();
+		$talks = $this->Talk->find( 'all', array(
+												 'fields'=>array(
+																 'Talk.topic',
+																 'Talk.abstract',
+																 'Talk.start_time',
+																 'Talk.room',
+																 'Talk.speaker_id'
+																 ),
+												 'order' => array('Talk.start_time', 'Talk.room')
+												 )
+								   );
+
+		$this->set( 'talks', $talks );
+
 	}
 
 /**
