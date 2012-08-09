@@ -15,7 +15,7 @@
 	);
 
 	function mystriptag( &$item ) {
-		$item = strip_tags($item, '<br>');
+		$item = strip_tags($item, '<br><ul><li><ol><p><a>');
 		// $item = htmlspecialchars_decode($item);
 	}
 
