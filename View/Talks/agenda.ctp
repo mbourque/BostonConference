@@ -1,6 +1,6 @@
 <?php
 $this->set('skinny_sidebar',true);
-$this->set('title_for_layout','Schedule');
+$this->set('title_for_layout','Agenda');
 
 if ( count( $tracks ) > 0 )
 {
@@ -40,9 +40,14 @@ if ( count( $tracks ) > 0 )
 
 
 ?>
-<h2>Agenda</h2>
+<h2>Full Agenda</h2>
+<p>Here is the daily agenda for the conference.</p>
+<a  class='button' style='float:right' href='#day2'>Jump to day 2</a>
 <div class='agenda'>
+<?php $i = 0;?>
 <?php foreach( $days as $day => $times ) : ?>
+<?php $i++; ?>
+	<a name='day<?php echo $i;?>'/></a>
 	<h3><?php echo date( 'l, F jS', strtotime($day)); ?></h3>
 	<table>
 		<thead>
