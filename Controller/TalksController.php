@@ -27,20 +27,32 @@ class TalksController extends BostonConferenceAppController {
 
 	public function agenda() {
 
-		$this->Talk->contain();
+		$this->Talk->contain(array('Track', 'Speaker'));
 		$talks = $this->Talk->find( 'all', array(
 												 'fields'=>array(
+																 'Talk.id',
 																 'Talk.topic',
 																 'Talk.abstract',
 																 'Talk.start_time',
+																 'Talk.duration',
 																 'Talk.room',
-																 'Talk.speaker_id'
+																 'Talk.speaker_id',
+																 'Track.*',
+																 'Speaker.*',
 																 ),
 												 'order' => array('Talk.start_time', 'Talk.room')
 												 )
 								   );
 
 		$this->set( 'talks', $talks );
+
+		foreach( $talks as $track ) {
+			if ( $track['Track']['id'] )
+				$tracks[$track['Track']['id']] = $track['Track'];
+		}
+
+		$this->set('tracks', array_values($tracks));
+
 
 	}
 

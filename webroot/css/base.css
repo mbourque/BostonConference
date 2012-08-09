@@ -659,6 +659,34 @@ a.sponsor-box.looking:hover {
 	font-weight: normal;
 }
 
+/* Agenda */
+
+div.agenda table tr td {
+  padding: 3px;
+  margin: 0;
+}
+
+div.agenda table tr td div.talk {
+  text-align: center;
+  padding: 3px;
+  font-size: 13px;
+  height: 100px;
+}
+
+div.agenda a.agenda-topic {
+  font-weight: bold;
+}
+
+div.agenda td.center {
+	text-align: center;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+div.agenda td p {
+  font-size: 12px;
+}
+
 /* schedule */
 
 div.schedule {
