@@ -33,21 +33,26 @@ class ApiController extends BostonConferenceAppController {
 
 		$this->loadModel('BostonConference.Speaker');
 
-		$this->Speaker->virtualFields = array_merge_recursive(
-			$this->Speaker->virtualFields,
-			array(
-				'gravatar' => "md5('Speaker.email')",
-			)
-		);
-
-		$default_options['contain'] = array('Talk.id', 'Talk.topic');
-		$default_options['fields'] = array('Speaker.display_name',
-										   'Speaker.gravatar',
+		$default_options['contain'] = array('Talk.id', 'Talk.topic', 'Talk.abstract', 'Talk.talk_like_count');
+		$default_options['fields'] = array('Speaker.id',
+										   'Speaker.first_name',
+										   'Speaker.last_name',
 										   );
 
 		if( $id ) {
 			$default_options['conditions'][] = array('Speaker.id' => $id);
 		}
+
+		if( isset($this->params->query['sort'] ) ) {
+			$sort = $this->params->query['sort'];
+
+			if( $sort == 'id' ) $default_options['order'] = array('Speaker.id');
+			if( $sort == 'alpha' ) $default_options['order'] = array('Speaker.last_name');
+
+		} else {
+			$default_options['order'] = array('Speaker.last_name');
+		}
+
 
 		$options = array_merge_recursive( $default_options, $options );
 
@@ -62,10 +67,13 @@ class ApiController extends BostonConferenceAppController {
 
 		$this->loadModel('BostonConference.Talk');
 
-		$default_options['contain'] = array('Speaker.first_name', 'Speaker.last_name');
+		$default_options['contain'] = array('Speaker.first_name', 'Speaker.last_name', 'Track.name');
 		$default_options['fields'] = array('Talk.id',
 										   'Talk.topic',
 										   'Talk.abstract',
+										   'Talk.room',
+										   'Talk.start_time',
+										   'Talk.duration',
 										   'Talk.talk_like_count'
 										   );
 
@@ -74,7 +82,22 @@ class ApiController extends BostonConferenceAppController {
 		}
 
 		$default_options['conditions'][] = array('Talk.speaker_id not' => null);
-		$default_options['order'] = array('Talk.topic');
+
+		if( isset($this->params->query['sort'] ) ) {
+			$sort = $this->params->query['sort'];
+
+			if( $sort == 'id' ) $default_options['order'] = array('Talk.id');
+			if( $sort == 'alpha' ) $default_options['order'] = array('Talk.id');
+			if( $sort == 'likes' ) $default_options['order'] = array('Talk.talk_like_count DESC');
+			if( $sort == 'speaker' ) $default_options['order'] = array('Speaker.last_name');
+			if( $sort == 'time' ) {
+				$default_options['order'] = array('Talk.start_time');
+				$default_options['conditions'][] = array('Talk.start_time >=' => date('Y-m-d H:i:s', strtotime('-1 hour')));
+			}
+
+		} else {
+			$default_options['order'] = array('Talk.topic');
+		}
 
 		$options = array_merge_recursive( $default_options, $options );
 
