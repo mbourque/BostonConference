@@ -10,9 +10,13 @@ var wysihtml5ParserRules = {
         check_attributes: {
             width: "numbers",
             alt: "alt",
-            src: "url",
+            src: "src",
             height: "numbers"
-        }},
+        },
+        add_class: {
+          align: "align_img"
+        }
+    },
     table: {},
     tbody: {},
     thead: {},
