@@ -18,7 +18,7 @@ class ContentManagementHelper extends AppHelper {
  *
  * @var string
  */
-	protected $_richextInitjs = 'new wysihtml5.Editor("%s", { toolbar: "%s", parserRules: wysihtml5ParserRules });';
+	//protected $_richextInitjs = 'new wysihtml5.Editor("%s", { toolbar: "%s", parserRules: wysihtml5ParserRules});';
 
 /**
  * Create a rich text edit field.
@@ -35,6 +35,7 @@ class ContentManagementHelper extends AppHelper {
 
 		$this->Form->Html->script('BostonConference.wysihtml5-rules',array('inline' => false));
 		$this->Form->Html->script('BostonConference.wysihtml5-0.3.0.min',array('inline' => false));
+		//$this->Form->Html->css('BostonConference.wysihtml5.css',null,array('inline' => false));
 
 		$toolbar = <<<EOMARKUP
 <div id="$id-toolbar" class="wysiwyg-toolbar">
@@ -69,14 +70,16 @@ class ContentManagementHelper extends AppHelper {
       </label>
       <a data-wysihtml5-dialog-action="save">OK</a>&nbsp;<a data-wysihtml5-dialog-action="cancel">Cancel</a>
     </div>
-	
+
 	<a data-wysihtml5-command="undo">undo</a>
     <a data-wysihtml5-command="redo">redo</a>
 	<a data-wysihtml5-action="change_view" class="html-view">html</a>
 </div>
 EOMARKUP;
 
-		$init = $this->Form->Html->scriptBlock(sprintf($this->_richextInitjs,$id,$id.'-toolbar'),array('inline' => true));
+		$richextInitjs = 'new wysihtml5.Editor("%s", { toolbar: "%s", parserRules: wysihtml5ParserRules, stylesheets: "'.$this->assetUrl('BostonConference.wysihtml5', array('pathPrefix' => CSS_URL, 'ext' => '.css')) . '"});';
+
+		$init = $this->Form->Html->scriptBlock(sprintf($richextInitjs,$id,$id.'-toolbar'),array('inline' => true));
 		$defaultOptions = array(
 			'type' => 'textarea',
 			'between' => $toolbar,
