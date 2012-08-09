@@ -94,8 +94,8 @@ else if ( isset($skinny_sidebar) && $skinny_sidebar )
 						$class = ($link[1]['controller'] == $this->params['controller']) ? 'current' : null;
 
 						// Hack
-						if( ($link[0] == 'Talks' && $this->params['action']=='schedule') ||
-						   ( $link[0] == 'Schedule' && $this->params['action']!='schedule')) $class = null;
+						if( ($link[0] == 'Talks' && $this->params['action']=='agenda') ||
+						   ( $link[0] == 'Agenda' && $this->params['action']!='agenda')) $class = null;
 
 						echo $this->Html->tag('li', $this->Html->link(__($link[0]),$link[1]), array('class'=>$class));
                     }
