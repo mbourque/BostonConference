@@ -64,7 +64,7 @@ if ( count( $tracks ) > 0 )
 				<td><nobr><?php echo date('g:i a', strtotime( $number ));?></nobr></td>
 				<?php
 				$talk_blocks = $this->Schedule->getTalksInBlock( strtotime($number), $talks );
-				if( count( $talk_blocks ) == 1 && empty($talk_blocks[0]['Talk']['room']) ) {
+				if( count( $talk_blocks ) == 1 && empty($talk_blocks[0]['Talk']['track_id']) ) {
 					echo '<td class="" colspan="' . count($rooms) . '">';
 					echo '<h4>';
 					echo $this->Html->link($talk_blocks[0]['Talk']['topic'], array('action'=>'view', $talk_blocks[0]['Talk']['id']));
