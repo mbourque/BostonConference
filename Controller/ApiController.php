@@ -58,9 +58,11 @@ class ApiController extends BostonConferenceAppController {
 
 		$speakers = $this->Speaker->find( 'all', $options );
 
-		// Rest
-		$this->set(array('speakers'=>$speakers, '_serialize' => array('speakers')));
 
+		$this->set('response', compact('speakers'));
+		$this->layout = false;
+		$this->render( 'json' );
+		
 	}
 
 	public function talks( $id = false, $options = array() ) {
