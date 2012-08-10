@@ -181,8 +181,6 @@ var wysihtml5ParserRules = {
                 "href": "url"
             },
             "set_attributes": {
-                "rel": "nofollow",
-                "target": "_blank"
             }
         },
         "img": {
