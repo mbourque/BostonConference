@@ -37,6 +37,7 @@ class ApiController extends BostonConferenceAppController {
 		$default_options['fields'] = array('Speaker.id',
 										   'Speaker.first_name',
 										   'Speaker.last_name',
+										   'Speaker.email',
 										   );
 
 		if( $id ) {
@@ -62,14 +63,14 @@ class ApiController extends BostonConferenceAppController {
 		$this->set('response', compact('speakers'));
 		$this->layout = false;
 		$this->render( 'json' );
-		
+
 	}
 
 	public function talks( $id = false, $options = array() ) {
 
 		$this->loadModel('BostonConference.Talk');
 
-		$default_options['contain'] = array('Speaker.first_name', 'Speaker.last_name', 'Track.name');
+		$default_options['contain'] = array('Speaker.first_name', 'Speaker.last_name', 'Speaker.email', 'Speaker.twitter', 'Track.name');
 		$default_options['fields'] = array('Talk.id',
 										   'Talk.topic',
 										   'Talk.abstract',
