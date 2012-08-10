@@ -7,25 +7,31 @@ if ( count( $tracks ) > 0 )
 	$this->append('sidebar');
 ?>
 
-<h2>Tracks</h2>
-<ul class="tracks">
-<?php
+<div class='sidebar-box'>
+	Download the schedule <?php echo $this->Html->link('here', '/uploads/pdf/nephp-agenda.pdf', array('class'=>'red')); ?>.
+</div>
 
-	$trackCss = "";
+<div class='sidebar-box'>
+	<h3>Tracks</h3>
+	<ul class="tracks">
+	<?php
 
-	foreach( $tracks as $track )
-	{
-		echo '<li class="track-'.$track['id'].'">'.$track['name'].'</li>';
+		$trackCss = "";
 
-		if ( !empty($track['color']) ) {
-			$trackCss .= '#content .track-'.$track['id'].' { background-color: #'.$track['color'].'; } ';
+		foreach( $tracks as $track )
+		{
+			echo '<li class="track-'.$track['id'].'">'.$track['name'].'</li>';
+
+			if ( !empty($track['color']) ) {
+				$trackCss .= '#content .track-'.$track['id'].' { background-color: #'.$track['color'].'; } ';
+			}
 		}
-	}
 
-	if ( !empty($trackCss) )
-		$this->append('css',$this->Html->tag('style',$trackCss));
-?>
-</ul>
+		if ( !empty($trackCss) )
+			$this->append('css',$this->Html->tag('style',$trackCss));
+	?>
+	</ul>
+</div>
 <?php
 	$this->end();
 }
@@ -40,15 +46,13 @@ if ( count( $tracks ) > 0 )
 
 
 ?>
-<h2>Full Agenda</h2>
-<p>Here is the daily agenda for the conference.</p>
 <a  class='button' style='float:right' href='#day2'>Jump to day 2</a>
 <div class='agenda'>
 <?php $i = 0;?>
 <?php foreach( $days as $day => $times ) : ?>
 <?php $i++; ?>
 	<a name='day<?php echo $i;?>'/></a>
-	<h3><?php echo date( 'l, F jS', strtotime($day)); ?></h3>
+	<h3>Day <?php echo $i;?> - <?php echo date( 'l, F jS', strtotime($day)); ?></h3>
 	<table>
 		<thead>
 			<tr>
