@@ -844,15 +844,14 @@ div.talks table tr td h3 a, div.speakers table tr td h3 a {
 	font-weight: normal;
 }
 
-
-a.button.like {
+a.button.feedback-off {
   color: ButtonShadow;
   background:none;
   background-color: #fff;
   border:1px solid #eee;
 }
 
-a.button.like:hover {
+a.button.feedback-on {
 	font-weight:normal;
 	padding: 4px 8px;
 	background:#e6e49f;

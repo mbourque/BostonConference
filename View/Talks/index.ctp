@@ -1,5 +1,45 @@
 <?php
 	$this->Html->script('BostonConference.jquery_1.7.2.min', array('inline'=>false));
+	$this->Html->script('//joind.in/widget/widget.php', array('inline'=>false));
+	//$this->Html->scriptBlock("var disqus_identifier = '{$this->here}';var disqus_developer = 1; var disqus_shortname = 'nephp';(function () {var s = document.createElement('script'); s.async = true;s.type = 'text/javascript';s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);}());", array('inline'=>false));
+
+//	$disqusIdentifier[] = $this->params['controller'];
+//	$disqusIdentifier[] = ( isset($this->params['action']) ) ? $this->params['action'] : null;
+//	$disqusIdentifier[] = ( isset($this->params['pass'][0]) ) ? $this->params['pass'][0] : null;
+//	$disqusIdentifier = implode(DS, array_filter($disqusIdentifier));
+//
+//$disqusCommentCode = <<<EOD
+//	var disqus_developer = 1;
+//	var disqus_shortname = 'nephp';
+//	var disqus_category_id = '1555478';
+//	var disqus_identifier = '{$disqusIdentifier}';
+//    /* * * DON'T EDIT BELOW THIS LINE * * */
+//    (function() {
+//        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+//        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+//        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+//    })();
+//EOD;
+//
+//$disqusCommentCountCode = <<<EOD
+//	var disqus_developer = 1;
+//	var disqus_shortname = 'nephp';
+//	var disqus_category_id = '1555478';
+//	var disqus_identifier = '{$disqusIdentifier}';
+//    /* * * DON'T EDIT BELOW THIS LINE * * */
+//	(function () {
+//		var s = document.createElement('script');
+//		s.async = true;
+//		s.type = 'text/javascript';
+//		s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+//		(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+//	}());
+//EOD;
+//
+//	$disqusCode = ( $this->action == 'view' ) ? $disqusCommentCode : $disqusCommentCountCode ;
+//
+//	$this->Html->scriptBlock($disqusCode, array('inline'=>false));
+//
 ?>
 <?php
 if( $this->action == 'by_keyword' && isset($keyword) ) :
@@ -43,6 +83,9 @@ foreach( $tracks AS $key => $track ) {
 				$topic = $this->Html->clean( $talk['Talk']['topic'] );
 				$abstract = $this->Html->clean( $talk['Talk']['abstract'] );
 				$speaker = $this->Html->clean($talk['Speaker']['display_name']);
+				$time = $this->Time->format( "D M jS \a\\t g:ia", $talk['Talk']['start_time']);
+				$where = $this->Html->clean( $talk['Talk']['room']);
+
 
 				$talkUrl = array( 'action'=>'view', $id );
 				$talkLink = $this->Html->link( $topic, $talkUrl, array('class'=>'talk-topic'));
@@ -54,7 +97,16 @@ foreach( $tracks AS $key => $track ) {
 				$likesLabel = $this->Html->tag('span',$likes);
 				$likesLabel = ($likes > 1) ? $likesLabel . ' Likes' : $likesLabel . ' Like' ;
 
-				$likeButton = $this->Js->link($likesLabel, array('action'=>'like', $id), array('update' => "#like-{$id} span",'id'=>"like-{$id}",'class'=>'button like', 'style'=>'float:right', 'escape'=>false,'rel'=>'nofollow'));
+				//$likeButton = $this->Js->link($likesLabel, array('action'=>'like', $id), array('update' => "#like-{$id} span",'id'=>"like-{$id}",'class'=>'button like', 'style'=>'float:right', 'escape'=>false,'rel'=>'nofollow'));
+				//$likeButton = $this->Html->link('Rate', array('action'=>'like', $id), array('update' => "#like-{$id} span",'id'=>"like-{$id}",'class'=>'button like', 'style'=>'float:right', 'escape'=>false,'rel'=>'nofollow'));
+
+				if( strtotime($talk['Talk']['start_time']) <= strtotime('now') ) {
+					$feedbackButton = $this->Html->link( 'Rate this talk', 'http://joind.in/talk/view/'.$talk['Talk']['joindin_id'], array('class'=>'button feedback-on', 'style'=>'float:right', 'escape'=>false,'rel'=>'nofollow') );
+				} else {
+					$feedbackButton = $this->Html->link( 'Rate this talk', 'javascript:void(0)', array('class'=>'button feedback-off', 'target'=>'_blank', 'style'=>'float:right', 'title'=>'You can rate this talk when it starts', 'escape'=>false,'rel'=>'nofollow'),'You can rate this talk when it starts' );
+				}
+
+				// $disqusComments = $this->Html->link($topic, array_merge($talkUrl, array('#'=>'disqus_thread')));
 
 				// Track
 				if( !empty($talk['Track']['id']) ) {
@@ -91,7 +143,8 @@ foreach( $tracks AS $key => $track ) {
 			<tr>
 				<td><?php echo $gravatarImage ;?></td>
 				<td>
-				<?php echo $likeButton; ?>
+				<?php echo $feedbackButton; ?>
+
 				<?php if( $this->action == 'by_keyword' || sizeof( $talks ) > 1 ) echo $this->Html->tag('h3', $talkLink) ;?>
 
 				<p class='talk-details'>By: <?php echo $speakerLink; ?>
@@ -102,8 +155,11 @@ foreach( $tracks AS $key => $track ) {
 				<?php if( $keywords ) : ?>
 					<br/> Keywords:	<?php echo $keywords; ?>
 				<?php endif; ?>
+					<br/>When:	<?php echo $time; ?>
+					<br/>Were:	<?php echo $where; ?>
 				</p>
 				<div class='talk-abstract'><?php echo $abstract;?></div>
+				<?php // echo $disqusComments; ?>
 				</td>
 			</tr>
 			<?php endforeach; ?>
@@ -125,6 +181,7 @@ if( $this->action == 'view' &&
 		<?php echo (!empty($talks[0]['Speaker']['twitter'])) ? $this->Html->tag('li', 'Follow ' . $this->Html->link('@'.$talks[0]['Speaker']['twitter'],'http://twitter.com/'.$talks[0]['Speaker']['twitter'])) : null;?>
 	</ul>
 </div>
+
 	<?php $this->end();
 }
 
@@ -144,3 +201,7 @@ function _keyword_links( $keywords, $view ) {
 }
 
 echo $this->Js->writeBuffer();
+?>
+
+<div id="disqus_thread">
+</div>
