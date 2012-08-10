@@ -38,6 +38,9 @@ class ApiController extends BostonConferenceAppController {
 										   'Speaker.first_name',
 										   'Speaker.last_name',
 										   'Speaker.email',
+										   'Speaker.bio',
+										   'Speaker.website',
+										   'Speaker.twitter',
 										   );
 
 		if( $id ) {
