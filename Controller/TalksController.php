@@ -67,7 +67,7 @@ class TalksController extends BostonConferenceAppController {
 		if( !is_array($options) ) $options = array();
 
 		$default_options['conditions'][] = array('Talk.speaker_id not' => null);
-		$default_options['order'] = array('Talk.talk_like_count'=>'desc','Track.position','Talk.topic');
+		$default_options['order'] = array('Talk.start_time'=>'asc','Track.position','Talk.topic');
 
 		$options = array_merge_recursive( $default_options, $options );
 

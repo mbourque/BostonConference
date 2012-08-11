@@ -156,7 +156,7 @@ foreach( $tracks AS $key => $track ) {
 					<br/> Keywords:	<?php echo $keywords; ?>
 				<?php endif; ?>
 					<br/>When:	<?php echo $time; ?>
-					<br/>Were:	<?php echo $where; ?>
+					<br/>Where:	<?php echo $where; ?>
 				</p>
 				<div class='talk-abstract'><?php echo $abstract;?></div>
 				<?php // echo $disqusComments; ?>
