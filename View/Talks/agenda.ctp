@@ -44,8 +44,8 @@ if ( count( $tracks ) > 0 )
 	}
 	$rooms = array_unique( array_filter(Set::extract('{n}/Talk/room', $talks) ) );
 
-	$day1 = array_pop( $days );
 	$day2 = array_pop( $days );
+	$day1 = array_pop( $days );
 	unset( $days );
 	$days[20120812] = $day2;
 	$days[20120811] = $day1;
