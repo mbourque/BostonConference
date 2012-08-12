@@ -47,9 +47,9 @@ if ( count( $tracks ) > 0 )
 	$day1 = array_pop( $days );
 	$day2 = array_pop( $days );
 	unset( $days );
-	$days[] = $day1;
-	$days[] = $day2;
-	//rsort( $days );
+	$days[20120812] = $day2;
+	$days[20120811] = $day1;
+
 
 ?>
 <a  class='button' style='float:right' href='#day1'>Jump to day 1</a>
