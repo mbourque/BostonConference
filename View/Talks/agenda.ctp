@@ -44,13 +44,19 @@ if ( count( $tracks ) > 0 )
 	}
 	$rooms = array_unique( array_filter(Set::extract('{n}/Talk/room', $talks) ) );
 
+	$day1 = array_pop( $days );
+	$day2 = array_pop( $days );
+	unset( $days );
+	$days[] = $day1;
+	$days[] = $day2;
+	//rsort( $days );
 
 ?>
-<a  class='button' style='float:right' href='#day2'>Jump to day 2</a>
+<a  class='button' style='float:right' href='#day1'>Jump to day 1</a>
 <div class='agenda'>
-<?php $i = 0;?>
+<?php $i = 3;?>
 <?php foreach( $days as $day => $times ) : ?>
-<?php $i++; ?>
+<?php $i--; ?>
 	<a name='day<?php echo $i;?>'/></a>
 	<h3>Day <?php echo $i;?> - <?php echo date( 'l, F jS', strtotime($day)); ?></h3>
 	<table>
