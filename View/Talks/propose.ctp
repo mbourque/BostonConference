@@ -1,9 +1,8 @@
 <?php
 		$durationOptions = array(
 			'options' => array(
-				60  => '1 hour talk',
-				120 => '2 hour session',
-				180 => '3 hour workshop'
+				60  => '50 Minute talk (Aug 17-18th)',
+				180 => '3 hour workshop (Aug 16th)'
 			),
 			'value' => 60,
 			'label'=>__('What sort of talk is this?')
@@ -11,11 +10,12 @@
 
 		$userdefined1Options = array(
 			'options' => array(
-				'none' => 'Beginner & Advanced',
+				'all' => 'All Skill Levels',
 				'beginner'  => 'Beginner',
+				'intermediate'  => 'Intermediate',
 				'advanced' => 'Advanced',
 			),
-			'value' => 'begineer',
+			'value' => 'all',
 			'label'=>__('What skill level is this talk?')
 		);
 		
