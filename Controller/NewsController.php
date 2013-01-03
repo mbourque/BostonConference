@@ -20,7 +20,13 @@ class NewsController extends BostonConferenceAppController {
  */
 	public function index() {
 		$this->News->recursive = 0;
-		$this->set('news', $this->paginate());
+		
+		$this->paginate = array('order' => array('News.sticky' => 'desc', 'News.created' => 'desc'),
+					'conditions' => array( 'News.hide'=> '0' ),
+					);
+		$news = $this->paginate();
+		
+		$this->set(compact('news'));
 
 		//Controller::loadModel('Track');
 		Controller::loadModel('Track');

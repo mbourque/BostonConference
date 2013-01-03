@@ -145,7 +145,7 @@ foreach( $tracks AS $key => $track ) {
 				<td>
 				<?php echo $feedbackButton; ?>
 
-				<?php if( $this->action == 'by_keyword' || sizeof( $talks ) > 1 ) echo $this->Html->tag('h3', $talkLink) ;?>
+				<?php if( $this->action == 'by_keyword' || sizeof( $talks ) >= 1 ) echo $this->Html->tag('h3', $talkLink) ;?>
 
 				<p class='talk-details'>By: <?php echo $speakerLink; ?>
 

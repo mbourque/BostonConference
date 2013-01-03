@@ -51,6 +51,20 @@ class Talk extends BostonConferenceAppModel {
 				'required' => true,
 			),
 		),
+		'abstract' => array(
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'Please provide an abstract.',
+				'allowEmpty' => false,
+				'required' => true,
+			),
+			'minlength' => array(
+				'rule' => array('minlength',255),
+				'message' => 'Abstract must be longer than a few sentences.',
+				'allowEmpty' => false,
+				'required' => true,
+			),
+		),
 		'start_time' => array(
 			'datetime' => array(
 				'rule' => array('datetime'),

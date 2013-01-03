@@ -70,7 +70,7 @@ class Speaker extends BostonConferenceAppModel {
 			'email' => array(
 				'rule' => array('email'),
 				'message' => 'Please supply a valid email address.',
-				'allowEmpty' => true,
+				'allowEmpty' => false,
 				'required' => false,
 			),
 			'isUnique' => array(

@@ -4,6 +4,8 @@
 		<legend><?php echo __('Admin Add News'); ?></legend>
 	<?php
 		echo $this->Form->input('title');
+		echo $this->Form->input('sticky');
+		echo $this->Form->input('hide');		
 		echo $this->ContentManagement->richtext('News.body');
 	?>
 	</fieldset>

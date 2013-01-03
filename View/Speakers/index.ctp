@@ -33,7 +33,7 @@ $this->set('title_for_layout',  $title );
 					?>
 				</td>
 				<td>
-				<?php if( sizeof( $speakers ) > 1 ) : ?>
+				<?php if( sizeof( $speakers ) >= 1 ) : ?>
 					<h3><?php echo $this->Html->link($speaker['Speaker']['display_name'], $speakerLink);?></h3>
 				<?php endif; ?>
 

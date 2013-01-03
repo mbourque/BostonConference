@@ -61,6 +61,11 @@ Router::connect(
 );
 
 Router::connect(
+	$prefix.'/propose',
+	array( 'plugin' => 'BostonConference', 'controller' => 'talks', 'action' => 'propose' )
+);
+
+Router::connect(
 	$prefix.'/schedule',
 	array( 'plugin' => 'BostonConference', 'controller' => 'talks', 'action' => 'schedule' )
 );

@@ -21,7 +21,7 @@ class TalksController extends BostonConferenceAppController {
  * @return void
  */
 	public function beforeFilter() {
-		$this->Auth->allow(array('agenda','schedule', 'by_keyword', 'by_track', 'like'));
+		$this->Auth->allow(array('agenda','schedule', 'by_keyword', 'by_track', 'like', 'propose'));
 		return parent::beforeFilter();
 	}
 
@@ -199,6 +199,33 @@ class TalksController extends BostonConferenceAppController {
 		$this->render('index');
 
 	}
+	
+/**
+ * admin_add method
+ *
+ * @return void
+ */
+	public function propose( ) {
+		if ($this->request->is('post')) {
+
+			$this->Talk->Speaker->create();
+			$this->Talk->Speaker->save( $this->request->data );
+			$speakerId = $this->Talk->Speaker->id;
+						
+			$this->Talk->create();
+			$this->Talk->set('speaker_id',$speakerId);
+			if ($this->Talk->save($this->request->data)) {
+				$this->Session->setFlash(__('Your Proposal has been sent. Thank you!'));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The Proposal could not be saved. Please, try again.'));
+			}
+		}
+		$events = $this->Talk->Event->find('list');
+		$speakers = $this->Talk->Speaker->find('list');
+		$tracks = $this->Talk->Track->find('list');
+		$this->set(compact('events', 'speakers', 'tracks'));
+	}
 
 
 /**
@@ -265,7 +292,7 @@ class TalksController extends BostonConferenceAppController {
  * @returns void
  */
 	public function admin_schedule() {
-		$this->setAction('schedule');
+		$this->setAction('admin_index');
 	}
 
 /**
