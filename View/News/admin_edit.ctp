@@ -6,6 +6,8 @@
 		echo $this->Form->input('id');
 		echo $this->Form->input('user_id');
 		echo $this->Form->input('title');
+		echo $this->Form->input('path', array('label'=>'URL', 'after'=>'Examples: food, food/allergies, food/menu'));
+		echo $this->Form->input('sidebar', array('label'=>'Sidebar URL', 'after'=>'Examples: food/sidebar'));
 		echo $this->Form->input('sticky');
 		echo $this->Form->input('hide');
 		echo $this->ContentManagement->richtext('News.body');

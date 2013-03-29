@@ -54,13 +54,14 @@ if ( $elements )
 		echo $this->Html->meta('icon');
 
 		echo $this->Html->css('/boston_conference/css/base.css');
-
 		echo $this->fetch('css');
+
+		echo $this->Html->script('//ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js', array('inline' => true));
 		echo $this->fetch('script');
 		echo $this->fetch('before_closing_head');
 	?>
 </head>
-<body>
+<body id='<?php echo $this->params->controller; ?>'>
 	<div id="container">
 		<div id="header">
 		<?php

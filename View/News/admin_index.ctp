@@ -23,7 +23,7 @@ $this->end();
 		<td>
 			<?php echo $this->Html->link($news['User']['last_name'], array('controller' => 'users', 'action' => 'view', $news['User']['id'])); ?>
 		</td>
-		<td><?php echo h($news['News']['title']); ?>&nbsp;</td>
+		<td><?php echo h($news['News']['title']); ?><br>.../<?php echo $news['News']['path']; ?></td>
 		<td><?php echo h($news['News']['modified']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $news['News']['id'])); ?>

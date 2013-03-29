@@ -21,7 +21,13 @@ class TalksController extends BostonConferenceAppController {
  * @return void
  */
 	public function beforeFilter() {
-		$this->Auth->allow(array('agenda','schedule', 'by_keyword', 'by_track', 'like', 'propose'));
+		$this->Auth->allow(array('agenda',
+					 'schedule',
+					 'by_keyword',
+					 'by_track',
+					 'like',
+					 'propose_talk',
+					 'propose_workshop'));
 		return parent::beforeFilter();
 	}
 
@@ -56,6 +62,25 @@ class TalksController extends BostonConferenceAppController {
 
 	}
 
+
+	public function workshops( $options = array() ) {
+		
+		if( !is_array($options) ) $options = array();
+
+		$default_options['conditions'][] = array('Talk.speaker_id not' => null);
+		$default_options['order'] = array('Talk.start_time'=>'asc','Track.position','Talk.topic');
+
+		$options = array_merge_recursive( $default_options, $options );
+
+		$talks = $this->Talk->forCurrentEvent( true, $options );
+		$all_keywords = $this->Talk->keywords( $talks );
+		$tracks = $this->Talk->Track->find( 'list' );
+
+		$this->set( compact('talks', 'tracks', 'all_keywords') );
+		$this->render('index');
+
+		
+	}
 /**
  * index method
  * Return talks that have speakers associated
@@ -201,32 +226,79 @@ class TalksController extends BostonConferenceAppController {
 	}
 	
 /**
- * admin_add method
+ * propose
  *
+ * Used to submit a proposal for a talk
+ * 
  * @return void
  */
-	public function propose( ) {
-		if ($this->request->is('post')) {
+	public function propose_talk( ) {
+		
+		$this->loadModel('Speaker');
+				
+		if ( $this->request->is('post') ) {
 
-			$this->Talk->Speaker->create();
-			$this->Talk->Speaker->save( $this->request->data );
-			$speakerId = $this->Talk->Speaker->id;
+			// Grab all the requested data
+			$data = $this->request->data;
+		
+			// Check to see if this is an existing speaker?
+			$speakerId = $this->Talk->Speaker->findByEmail( $data['Speaker']['email'] );
+			
+			if( $speakerId == false ) { //
 						
-			$this->Talk->create();
-			$this->Talk->set('speaker_id',$speakerId);
-			if ($this->Talk->save($this->request->data)) {
-				$this->Session->setFlash(__('Your Proposal has been sent. Thank you!'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The Proposal could not be saved. Please, try again.'));
+				// Create a new record
+				$this->Talk->Speaker->create();
+			
+				// Save the data from the form			
+				$saved = $this->Talk->Speaker->save( $this->request->data );
+				$speakerId = $this->Talk->Speaker->id;
+			
+			} else { // This email already exists
+
+				$speakerId = $speakerId['Speaker']['id'];
+				$saved = TRUE;	
+			}
+
+			
+			if ( $saved ) { // Did we save the data?
+								
+			
+				// Create a new talk
+				$this->Talk->create();
+				
+				// Set the speaker_id
+				$this->Talk->set('speaker_id', $speakerId);
+				//$this->Talk->set('speaker_id', 444);
+				
+				// Try to save the talk data
+				$saved = $this->Talk->save( $this->request->data );
+				
+				if ( $saved ) { // Did we save the data?
+					$this->Session->setFlash(__('Your Proposal has been sent. Thank you!'));
+					$this->redirect( '/' );
+				} else {  // I guess not
+					$this->Session->setFlash(__('The Proposal could not be saved. Please, try again.'));
+				}
+			
+			} else { // I guess not
+				$this->Session->setFlash(__('The Proposal could not be saved. Please, try again.'));													
 			}
 		}
+	
+		// Prepare to show form	
 		$events = $this->Talk->Event->find('list');
 		$speakers = $this->Talk->Speaker->find('list');
 		$tracks = $this->Talk->Track->find('list');
 		$this->set(compact('events', 'speakers', 'tracks'));
+		//$this->set('title_for_layout', __('Propose Talk'));
+		
 	}
 
+	public function propose_workshop( ) {
+		$this->autoRender = false;
+		$this->setAction('propose_talk');
+		$this->render('propose_workshop');
+	}
 
 /**
  * admin_add_multiple method

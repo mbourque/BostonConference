@@ -36,7 +36,7 @@ form { clear: none; }
 dl { width: 100%; }
 
 /** Headers **/
-h2 {
+h2, h2 a, h2 a:hover {
 	color: #AA0000;
 	background-color: transparent;
 }
@@ -407,6 +407,7 @@ label {
 	display: block;
 	font-size: 110%;
 	margin-bottom:3px;
+	font-weight: bold;
 }
 input, textarea {
 	clear: left;

@@ -34,6 +34,67 @@ class NewsController extends BostonConferenceAppController {
 		$this->set('tracks', $this->Track->find('list', array('Track.track_id not null')));
 	}
 
+	/**
+	 * Displays a view
+	 *
+	 * @param mixed What page to display
+	 * @return void
+	 */
+		public function display() {
+			$path = func_get_args();
+	
+			$count = count($path); 
+			if (!$count) {
+				$this->redirect('/');
+			}
+			$page = $subpage = $title_for_layout = null;
+	
+			if (!empty($path[0])) {
+				$page = $path[0];
+			}
+			if (!empty($path[1])) {
+				$subpage = $path[1];
+			}
+			if (!empty($path[$count - 1])) {
+				$title_for_layout = Inflector::humanize($path[$count - 1]);
+			}
+			$this->set(compact('page', 'subpage', 'title_for_layout'));
+			$this->render(implode('/', $path));
+		}
+	
+	
+/**
+ * super view method
+ *
+ * @param string $id
+ * @return void
+ */
+	public function view() {
+		
+		$path = func_get_args(); // debug( $path ); // Debug
+				
+		$path = implode( '/', $path );
+
+		if( $this->News->findByPath( $path ) )  {
+			$news = $this->News->findByPath($path);
+			$this->set(compact('news')); 
+		} elseif( $this->News->findById( $path ) )  {
+			$news = $this->News->findById($path);
+		} else {
+			throw new NotFoundException(__('Invalid news'));
+		}
+				
+		$this->set(compact('news')); 
+
+		// Get a sidebar
+		if( !empty($news['News']['sidebar'])) {
+			$this->set('sidebars', $this->News->findAllByPath($news['News']['sidebar']));			
+		}
+
+		
+	}
+
+
 /**
  * admin_index method
  *
