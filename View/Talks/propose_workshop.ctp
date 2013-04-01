@@ -27,7 +27,7 @@
 
 		$userdefined3Options = array(
 		'after' => 'Example: <i>Join me as I show you the tricks of the trade on "How to become a PHP Web Developer"!</i>',
-			'label'=>__('Describe your Talk in <count id="charCount">140</count> characters or less.'),
+			'label'=>__('Describe your Talk in <count class="charCount2">140</count> characters or less.'),
 			'limit'=>'140'
 		);
 
@@ -35,7 +35,7 @@
 			'label'=>__('Photo or Glamor Shot URL'),
 			'placeholder'=>null,
 			'type'=>'http://',
-			'after' => 'Provide us a URL to your photo, or an EMAIL address associated with your <a target="blank" href="http://gravatar.com">Gravatar</a>.</i>',
+			'after' => 'Provide us a URL to your photo, or an EMAIL address associated with your <a target="blank" href="http://gravatar.com">Gravatar</a>. Please make sure it is square 100px x 100px PNG file.',
 		);
 		
 		
@@ -56,7 +56,7 @@ your propopsal.</p>
 							    'after'=>'Example: Learn how to start a blog.',
 							    'label'=>__('What is the title of your Workshop?')));
 		echo $this->Form->input('Talk.abstract', array(
-							       'label' => __('Describe your Workshop, what you will cover, why attendees should attend, etc.'),
+							       'label' => __('Describe your Workshop, what you will cover, why attendees should attend, etc. <count class="charCount">255</count> characters or less.'),
 									   )
 				       );
 		echo $this->Form->input('Talk.track_id',array('empty'=>false, 'label'=>'What track best fits this Workshop?'));
@@ -74,6 +74,7 @@ your propopsal.</p>
 		echo $this->Form->input('Speaker.bio', array('label'=>'Biography', 'after'=>__('Have some fun with this, and don\'t be boring. Tell us who you are, what you do, why and how you do. Be creative! This will be used on our website when your Talk is chosen.')));
 		echo $this->Form->input('Speaker.website', array('label'=>__('Do you have a Website or Blog? Let us know, we would love to check it out.'),'placeholder'=>null,'after'=>__('Please include http://')));
 		echo $this->Form->input('Speaker.twitter', array('label'=>__('Do you tweet? If so, please provide your Twitter handle.'),'placeholder'=>null));
+		echo $this->Form->input('Speaker.joindin_id', array('after'=>"Ex: http://joind.in/user/view/<strong>18970</strong> <<-- Enter this code only. Check out <a href='//joind.in' target='_blank'>Joind.in</a> for more information.",'type'=>'text','label'=>__('Please enter your Joindin User ID'),'placeholder'=>null));
 
 		echo $this->Form->input('Talk.userdefined4', $userdefined4Options );
 				
@@ -123,4 +124,21 @@ your propopsal.</p>
 <?php echo $this->Html->link('Propose a Talk', array('action'=>'propose_talk'), array('class'=>'button')); ?>
 
 </div>
-<?php $this->end();
+<?php $this->end(); ?>
+<?php $code = "$(document).ready(function() {
+				function updateCountdown() {
+				    
+				    // 140 is the max message length
+				    var remaining = 140 - $(this).val().length;
+				    jQuery('#charCount').text(remaining);
+				    
+				    
+				}
+
+				updateCountdown($('#TalkUserdefined2'));
+				$('#TalkUserdefined2').change(updateCountdown);
+				$('#TalkUserdefined2').keyup(updateCountdown);
+
+				})";
+						?>
+<?php $this->Html->scriptBlock($code, array('inline' => false, 'defer'=>true, 'safe'=>false)); ?>

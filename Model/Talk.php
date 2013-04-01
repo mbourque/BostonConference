@@ -60,7 +60,7 @@ class Talk extends BostonConferenceAppModel {
 			),
 			'minlength' => array(
 				'rule' => array('minlength',255),
-				'message' => 'Abstract must be longer than a few sentences.',
+				'message' => 'Abstract must be longer than a few sentences (255 Characters).',
 				'allowEmpty' => false,
 				'required' => true,
 			),

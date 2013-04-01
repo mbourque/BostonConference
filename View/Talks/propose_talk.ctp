@@ -35,7 +35,7 @@
 			'label'=>__('Photo or Glamor Shot URL'),
 			'placeholder'=>null,
 			'type'=>'http://',
-			'after' => 'Provide us a URL to your photo, or an EMAIL address associated with your <a target="blank" href="http://gravatar.com">Gravatar</a>.</i>',
+			'after' => 'Provide us a URL to your photo, or an EMAIL address associated with your <a target="blank" href="http://gravatar.com">Gravatar</a>. Please make sure it is square 100px x 100px PNG file.',
 		);
 		
 ?>
@@ -77,6 +77,7 @@ We look forward to receiving your propopsal.</p>
 		echo $this->Form->input('Speaker.bio', array('label'=>'Biography', 'after'=>__('Have some fun with this, and don\'t be boring. Tell us who you are, what you do, why and how you do. Be creative! This will be used on our website when your Talk is chosen.')));
 		echo $this->Form->input('Speaker.website', array('label'=>__('Do you have a Website or Blog? Let us know, we would love to check it out.'),'placeholder'=>null,'after'=>__('Please include http://')));
 		echo $this->Form->input('Speaker.twitter', array('label'=>__('Do you tweet? If so, please provide your Twitter handle.'),'placeholder'=>null));
+		echo $this->Form->input('Speaker.joindin_id', array('after'=>"Check out <a href='//joind.in' target='_blank'>Joindin.com</a> for more information.",'type'=>'text','label'=>__('Please enter your Joindin ID'),'placeholder'=>null));
 
 		echo $this->Form->input('Talk.userdefined4', $userdefined4Options );
 				
@@ -126,14 +127,17 @@ We look forward to receiving your propopsal.</p>
 
 <?php $code = "$(document).ready(function() {
 				function updateCountdown() {
+				    
 				    // 140 is the max message length
-				    var remaining = 140 - jQuery('#TalkUserdefined3').val().length;
+				    var remaining = 140 - $(this).val().length;
 				    jQuery('#charCount').text(remaining);
+				    
+				    
 				}
 
-				updateCountdown();
-				$('#TalkUserdefined3').change(updateCountdown);
-				$('#TalkUserdefined3').keyup(updateCountdown);
+				updateCountdown($('#TalkUserdefined2'));
+				$('#TalkUserdefined2').change(updateCountdown);
+				$('#TalkUserdefined2').keyup(updateCountdown);
 
 				})";
 						?>
