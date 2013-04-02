@@ -83,12 +83,12 @@ We look forward to receiving your propopsal.</p>
 		echo $this->Form->input('Speaker.last_name');
 		echo $this->Form->input('Speaker.email', array('after'=>'We may need to email you to ask questions about your proposal or your travel arrangements. We promise not to spam you.'));
 
-		echo $this->Form->input('Speaker.github_username', array('after'=>"Ex: https://github.com/<strong>northeastphp/</strong> <<-- Enter this part. <a href='//github.com' target='_blank'>github.com</a> for more information.",'type'=>'text','label'=>__('Enter enter your GitHub Username'),'placeholder'=>null));
+		echo $this->Form->input('Speaker.github_username', array('after'=>"Ex: https://github.com/<strong>northeastphp</strong> <<-- Enter this part. <a href='//github.com' target='_blank'>github.com</a> for more information.",'type'=>'text','label'=>__('Enter enter your GitHub Username'),'placeholder'=>null));
 
 		echo $this->Form->input('Talk.userdefined2', $userdefined2Options );
 		echo $this->Form->input('Speaker.bio', array('label'=>'Biography', 'after'=>__('Have some fun with this, and don\'t be boring. Tell us who you are, what you do, why and how you do. Be creative! This will be used on our website when your Talk is chosen.')));
 		echo $this->Form->input('Speaker.website', array('label'=>__('Do you have a Website or Blog? If so, provide a link so we can publish it!' ),'placeholder'=>null,'after'=>__('Please include http://')));
-		echo $this->Form->input('Speaker.twitter', array('label'=>__('Do you tweet? If so, please provide your Twitter handle ;-)'),'placeholder'=>null));
+		echo $this->Form->input('Speaker.twitter', array('label'=>__('Do you tweet? If so, please provide your Twitter handle.'), 'after'=>'Ex: @nephp','placeholder'=>null));
 		echo $this->Form->input('Speaker.joindin_id', array('after'=>"Ex: http://joind.in/user/view/<strong>18970</strong> <<-- Enter this code only. Check out <a href='//joind.in' target='_blank'>Joind.in</a> for more information.",'type'=>'text','label'=>__('Please enter your Joind.in User ID'),'placeholder'=>null));
 
 		echo $this->Form->input('Talk.userdefined4', $userdefined4Options );
