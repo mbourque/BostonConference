@@ -20,15 +20,20 @@
 
 		$userdefined2Options = array(
 		'after' => 'Example: <i>Larry is a writer, Web and software developer, trainer, instructor, speaker, and consultant.</i>',
-			'label'=>__('Describe yourself in <count id="charCount">140</count> characters or less.'),
-			'limit'=>'140', 'type'=>'textarea',
-			'field'=>'Talk.userdefined2'
+			'label'=>__('Describe yourself in 140 characters or less.'),
+			'limit'=>'140',
+			'type'=>'textarea',
+			'field'=>'Talk.userdefined2',
+				'after' => '<span><span class="counter">no</span> characters so far</span>',
+			'class' => 'word_count'
 		);
 
 		$userdefined3Options = array(
 		'after' => 'Example: <i>Join me as I show you the tricks of the trade on "How to become a PHP Web Developer"!</i>',
-			'label'=>__('Describe your Talk in <count id="charCount">140</count> characters or less.'),
-			'limit'=>'140'
+		'class'=>'word_count',				
+			'label'=>__('Describe your Talk in 140 characters or less.'),
+			'limit'=>'140',
+				'after' => '<span><span class="counter">no</span> characters so far</span>',
 		);
 
 		$userdefined4Options = array(
@@ -56,14 +61,19 @@ We look forward to receiving your propopsal.</p>
 							    'after'=>'Keep it short and sweet. Example: <i>How to Become a Web Developer</i>',
 							    'label'=>__('What is the title of your Talk?')));
 		echo $this->Form->input('Talk.abstract', array(
-							       'label' => __('Describe your Talk & Topic'),
-									   'after' => 'Example: <i>I will provide a blueprint for how one becomes a Web developer considering the current standards, technologies, and business environment of 2012 and ...</i>'
+								'class'=>'word_count',				
+							       'label' => __('Describe your Talk 255 characters or less.'),
+								'after' => 'Example: <i>I will provide a blueprint for how one becomes a Web developer considering the current standards, technologies, and business environment of 2012 and ...</i>',
+								'after' => '<span><span class="counter">no</span> characters so far</span>',
 									   )
 				       );
+		
+				
 		echo $this->Form->input('Talk.userdefined1', $userdefined1Options );
 		echo $this->Form->input('Talk.userdefined3', $userdefined3Options );
 		echo $this->Form->input('Talk.track_id',array('empty'=>false, 'label'=>'Which Track best fits your Talk?'));
 		echo $this->Form->input('Talk.keywords', array('label'=>__('What Keywords best describe your Talk?'),'after'=>'Separated by commas. Examples: <i>Javascript, PHP, Cloud, UX, jQuery, ...</i>'));
+		echo $this->Form->input('Talk.comments', array('label'=>__('Comments? Questions? Requirements?'),'after'=>''));
 				
 				
 
@@ -75,9 +85,9 @@ We look forward to receiving your propopsal.</p>
 
 		echo $this->Form->input('Talk.userdefined2', $userdefined2Options );
 		echo $this->Form->input('Speaker.bio', array('label'=>'Biography', 'after'=>__('Have some fun with this, and don\'t be boring. Tell us who you are, what you do, why and how you do. Be creative! This will be used on our website when your Talk is chosen.')));
-		echo $this->Form->input('Speaker.website', array('label'=>__('Do you have a Website or Blog? Let us know, we would love to check it out.'),'placeholder'=>null,'after'=>__('Please include http://')));
-		echo $this->Form->input('Speaker.twitter', array('label'=>__('Do you tweet? If so, please provide your Twitter handle.'),'placeholder'=>null));
-		echo $this->Form->input('Speaker.joindin_id', array('after'=>"Check out <a href='//joind.in' target='_blank'>Joindin.com</a> for more information.",'type'=>'text','label'=>__('Please enter your Joindin ID'),'placeholder'=>null));
+		echo $this->Form->input('Speaker.website', array('label'=>__('Do you have a Website or Blog? If so, provide a link so we can publish it!' ),'placeholder'=>null,'after'=>__('Please include http://')));
+		echo $this->Form->input('Speaker.twitter', array('label'=>__('Do you tweet? If so, please provide your Twitter handle ;-)'),'placeholder'=>null));
+		echo $this->Form->input('Speaker.joindin_id', array('after'=>"Ex: http://joind.in/user/view/<strong>18970</strong> <<-- Enter this code only. Check out <a href='//joind.in' target='_blank'>Joind.in</a> for more information.",'type'=>'text','label'=>__('Please enter your Joind.in User ID'),'placeholder'=>null));
 
 		echo $this->Form->input('Talk.userdefined4', $userdefined4Options );
 				
@@ -125,20 +135,30 @@ We look forward to receiving your propopsal.</p>
 </div>
 <?php $this->end(); ?>
 
-<?php $code = "$(document).ready(function() {
-				function updateCountdown() {
-				    
-				    // 140 is the max message length
-				    var remaining = 140 - $(this).val().length;
-				    jQuery('#charCount').text(remaining);
-				    
-				    
-				}
+<?php $code = "$(document).ready(function(){
 
-				updateCountdown($('#TalkUserdefined2'));
-				$('#TalkUserdefined2').change(updateCountdown);
-				$('#TalkUserdefined2').keyup(updateCountdown);
+/**
+ * Character Counter for inputs and text areas
+ */
+$('.word_count').each(function(){
+	// get current number of characters
+	var length = $(this).val().length;
+	// get current number of words
+	//var length = $(this).val().split(/\b[\s,\.-:;]*/).length;
+	// update characters
+	$(this).parent().find('.counter').html( length + ' characters');
+	// bind on key up event
+	$(this).keyup(function(){
+		// get new length of characters
+		var new_length = $(this).val().length;
+		// get new length of words
+		//var new_length = $(this).val().split(/\b[\s,\.-:;]*/).length;
+		// update
+		$(this).parent().find('.counter').html( new_length + ' characters');
+	});
+});
 
-				})";
+});
+";
 						?>
 <?php $this->Html->scriptBlock($code, array('inline' => false, 'defer'=>true, 'safe'=>false)); ?>
