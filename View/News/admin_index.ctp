@@ -10,23 +10,20 @@ $this->end();
 <div class="news index">
 	<table>
 	<tr>
-			<th><?php echo $this->Paginator->sort('id');?></th>
-			<th><?php echo $this->Paginator->sort('user_id');?></th>
 			<th><?php echo $this->Paginator->sort('title');?></th>
-			<th><?php echo $this->Paginator->sort('modified');?></th>
+			<th><?php echo $this->Paginator->sort('path');?></th>
+			<th><?php echo $this->Paginator->sort('sidebar');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
 	<?php
 	foreach ($news as $news): ?>
 	<tr>
-		<td><?php echo h($news['News']['id']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($news['User']['last_name'], array('controller' => 'users', 'action' => 'view', $news['User']['id'])); ?>
-		</td>
-		<td><?php echo h($news['News']['title']); ?><br>.../<?php echo $news['News']['path']; ?></td>
-		<td><?php echo h($news['News']['modified']); ?>&nbsp;</td>
+		<td><strong><?php echo $this->Html->link($news['News']['title'], array('action' => 'view', $news['News']['id'],'admin'=>false)); ?></strong>
+			<br/><?php echo strip_tags($this->Text->truncate($news['News']['body'],100,array('html'=>false)));?></td>
+		
+		<td><?php echo h($news['News']['path']); ?></td>
+		<td><?php echo h($news['News']['sidebar']); ?></td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $news['News']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $news['News']['id'])); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $news['News']['id']), null, __('Are you sure you want to delete # %s?', $news['News']['id'])); ?>
 		</td>

@@ -102,6 +102,12 @@ class NewsController extends BostonConferenceAppController {
  */
 	public function admin_index() {
 		$this->News->recursive = 0;
+		$this->paginate = array(
+					 'order' => array(
+							  'News.sticky'=>'desc',
+							  'News.created'=>'desc',
+							  )
+					 );
 		$this->set('news', $this->paginate());
 	}
 
