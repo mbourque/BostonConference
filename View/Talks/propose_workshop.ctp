@@ -75,7 +75,9 @@ your propopsal.</p>
 		
 		echo $this->Form->input('Speaker.first_name');
 		echo $this->Form->input('Speaker.last_name');
+
 		echo $this->Form->input('Speaker.email', array('after'=>'We may need to email you to ask questions about your proposal or your travel arrangements. We promise not to spam you.'));
+		echo $this->Form->input('Speaker.github_username', array('after'=>"Ex: https://github.com/<strong>northeastphp/</strong> <<-- Enter this part. <a href='//github.com' target='_blank'>github.com</a> for more information.",'type'=>'text','label'=>__('Enter enter your GitHub Username'),'placeholder'=>null));
 
 		echo $this->Form->input('Talk.userdefined2', $userdefined2Options );
 		echo $this->Form->input('Talk.userdefined4', $userdefined4Options );
