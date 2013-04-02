@@ -62,7 +62,7 @@ your propopsal.</p>
 							    'label'=>__('What is the title of your Workshop?')));
 		echo $this->Form->input('Talk.abstract', array(
 								'class'=>'word_count',				
-							       'label' => __('Describe your Workshop in 255 characters or less. What you will cover, why attendees should attend, etc.'),
+							       'label' => __('Describe your Workshop in approximately 300 characters. What you will cover, why attendees should attend, etc.'),
 								'after' => '<span><span class="counter">255</span> characters so far</span>',
 									   )
 				       );

@@ -62,7 +62,7 @@ We look forward to receiving your propopsal.</p>
 							    'label'=>__('What is the title of your Talk?')));
 		echo $this->Form->input('Talk.abstract', array(
 								'class'=>'word_count',				
-							       'label' => __('Describe your Talk 255 characters or less.'),
+							       'label' => __('Describe your Talk in approximately 300 characters.'),
 								'after' => 'Example: <i>I will provide a blueprint for how one becomes a Web developer considering the current standards, technologies, and business environment of 2012 and ...</i>',
 								'after' => '<span><span class="counter">no</span> characters so far</span>',
 									   )
