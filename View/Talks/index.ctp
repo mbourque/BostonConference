@@ -44,6 +44,8 @@
 <?php
 if( $this->action == 'by_keyword' && isset($keyword) ) :
 	$title = $keyword . ' ' .  __('Talks');
+elseif( $this->action == 'proposals') :
+	$title = 'Talk Proposals';
 elseif( $this->action == 'by_track' && isset($track) ) :
 	$title = 'Track : ' . $track;
 elseif( $this->action == 'view' ) :
@@ -143,7 +145,7 @@ foreach( $tracks AS $key => $track ) {
 			<tr>
 				<td><?php echo $gravatarImage ;?></td>
 				<td>
-				<?php echo $feedbackButton; ?>
+				<?php // echo $feedbackButton; ?>
 
 				<?php if( $this->action == 'by_keyword' || sizeof( $talks ) >= 1 ) echo $this->Html->tag('h3', $talkLink) ;?>
 

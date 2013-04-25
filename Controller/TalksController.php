@@ -96,13 +96,40 @@ class TalksController extends BostonConferenceAppController {
 
 		$options = array_merge_recursive( $default_options, $options );
 
-		$talks = $this->Talk->forCurrentEvent( true, $options );
+		$talks = $this->Talk->forCurrentEvent( false, $options );
 		$all_keywords = $this->Talk->keywords( $talks );
 		$tracks = $this->Talk->Track->find( 'list' );
 
 		$this->set( compact('talks', 'tracks', 'all_keywords') );
 
 	}
+
+/**
+ * proposals method
+ * Return talks proposals
+ * @param array $options Optional. Array of find options
+ * @returns void
+ */
+	public function proposals( $options = array() ) {
+
+		if( !is_array($options) ) $options = array();
+
+		$default_options['conditions'][] = array('Talk.speaker_id not' => null);
+		$default_options['order'] = array('Talk.start_time'=>'asc','Track.position','Talk.topic');
+
+		$options = array_merge_recursive( $default_options, $options );
+
+		$talks = $this->Talk->forCurrentEvent( false, $options );
+		$all_keywords = $this->Talk->keywords( $talks );
+		$tracks = $this->Talk->Track->find( 'list' );
+
+		$this->set( compact('talks', 'tracks', 'all_keywords') );
+		$this->set('title_for_layout', 'Talk Proposals' );
+		$this->render('index');
+
+	}
+
+
 
 /**
  * view method.
