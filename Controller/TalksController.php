@@ -97,7 +97,7 @@ class TalksController extends BostonConferenceAppController {
 		$options = array_merge_recursive( $default_options, $options );
 
 		// Temp show non approved
-		$talks = $this->Talk->forCurrentEvent( false, $options );
+		$talks = $this->Talk->forCurrentEvent( true, $options );
 		$all_keywords = $this->Talk->keywords( $talks );
 		$tracks = $this->Talk->Track->find( 'list' );
 

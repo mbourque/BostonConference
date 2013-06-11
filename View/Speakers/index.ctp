@@ -41,6 +41,8 @@ $this->set('title_for_layout',  $title );
 					<?php
 						$talks = array();
 						foreach( $speaker['Talk'] as $talk ) {
+							//debug( $talk );
+							if( $talk['approved'] == false ) continue;
 							$talks[] = $this->Html->link($talk['topic'], array('controller'=>'talks','action'=>'view', $talk['id']));
 						}
 					?>
