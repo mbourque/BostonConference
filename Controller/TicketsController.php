@@ -36,7 +36,7 @@ class TicketsController extends BostonConferenceAppController {
 	public function index() {
 
 		if ( !$this->Auth->loggedIn() ) {
-			$this->redirect('/register');
+			$this->redirect('/pages/tickets'); // Important place to go
 		}
 
 		if ($this->request->is('post')) {
