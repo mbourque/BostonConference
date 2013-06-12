@@ -1,4 +1,7 @@
 <?php
+
+shuffle ( $talks );
+
 	$this->Html->script('BostonConference.jquery_1.7.2.min', array('inline'=>false));
 	$this->Html->script('//joind.in/widget/widget.php', array('inline'=>false));
 	//$this->Html->scriptBlock("var disqus_identifier = '{$this->here}';var disqus_developer = 1; var disqus_shortname = 'nephp';(function () {var s = document.createElement('script'); s.async = true;s.type = 'text/javascript';s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);}());", array('inline'=>false));
@@ -103,9 +106,9 @@ foreach( $tracks AS $key => $track ) {
 				//$likeButton = $this->Html->link('Rate', array('action'=>'like', $id), array('update' => "#like-{$id} span",'id'=>"like-{$id}",'class'=>'button like', 'style'=>'float:right', 'escape'=>false,'rel'=>'nofollow'));
 
 				if( strtotime($talk['Talk']['start_time']) <= strtotime('now') ) {
-					$feedbackButton = $this->Html->link( 'Rate this talk', 'http://joind.in/talk/view/'.$talk['Talk']['joindin_id'], array('class'=>'button feedback-on', 'style'=>'float:right', 'escape'=>false,'rel'=>'nofollow') );
+					$feedbackButton = $this->Html->link( 'Rate', 'http://joind.in/talk/view/'.$talk['Talk']['joindin_id'], array('class'=>'button feedback-on', 'style'=>'float:right', 'escape'=>false,'rel'=>'nofollow') );
 				} else {
-					$feedbackButton = $this->Html->link( 'Rate this talk', 'javascript:void(0)', array('class'=>'button feedback-off', 'target'=>'_blank', 'style'=>'float:right', 'title'=>'You can rate this talk when it starts', 'escape'=>false,'rel'=>'nofollow'),'You can rate this talk when it starts' );
+					$feedbackButton = $this->Html->link( 'Rate', 'javascript:void(0)', array('class'=>'button feedback-off', 'target'=>'_blank', 'style'=>'float:right', 'title'=>'You can rate this talk when it starts', 'escape'=>false,'rel'=>'nofollow'),'You can rate this talk when it starts' );
 				}
 
 				// $disqusComments = $this->Html->link($topic, array_merge($talkUrl, array('#'=>'disqus_thread')));

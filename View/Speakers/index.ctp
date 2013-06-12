@@ -1,4 +1,7 @@
 <?php
+
+shuffle ( $speakers );
+
 if( $this->action == 'view' ) :
 	$title = 'Speaker : ' . $speakers[0]['Speaker']['display_name'];
 else :
@@ -49,7 +52,7 @@ $this->set('title_for_layout',  $title );
 				<p class='talk-details'><?php echo __n('Talk:','Talks:', count($talks));?>&nbsp;<?php echo implode(', ', $talks); ?></p>
 				<? endif; ?>
 
-				<p class='speaker-bio'><?php echo $this->Html->clean($speaker['Speaker']['bio']);?></p>
+				<p class='speaker-bio'><?php echo nl2br($this->Html->clean($speaker['Speaker']['bio']));?></p>
 
 				</td>
 			</tr>
