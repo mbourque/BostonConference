@@ -61,6 +61,7 @@ endif;
 <?php $this->append('header'); ?>
 <div class="talks index">
 	<h2><?php echo $title;?></h2>
+	<p>Note: Talks are subject to change.</p>
 </div>
 <?php $this->end();?>
 
@@ -142,7 +143,9 @@ endif;
 
 				<?php if( $this->action == 'by_keyword' || sizeof( $talks ) >= 1 ) echo $this->Html->tag('h3', $talkLink) ;?>
 
-				<p class='talk-details'>By: <?php echo $speakerLink; ?>
+				<p class='talk-details'>
+
+					By: <?php echo $speakerLink; ?>
 
 				<?php if( $track ) : ?>
 					<br/> Track: <?php echo $trackLink; ?>
@@ -150,10 +153,15 @@ endif;
 				<?php if( $keywords ) : ?>
 					<br/> Keywords:	<?php echo $keywords; ?>
 				<?php endif; ?>
-					<br/>When:	<?php echo $time; ?>
-					<br/>Where:	<?php echo $where; ?>
+<!--					<br/>When:	<?php // echo $time; ?>
+					
+					<br/>Where:	<?php // echo $where; ?>
+-->
 				</p>
-				<div class='talk-abstract'><?php echo $abstract;?></div>
+				<div class='talk-abstract'>
+					<p><?php echo $talk['Talk']['userdefined3'];?></p>
+					<?php echo $abstract;?>
+				</div>
 				<?php // echo $disqusComments; ?>
 				</td>
 			</tr>
@@ -214,7 +222,7 @@ function _keyword_links( $keywords, $view ) {
 		} else {
 			//$keyword = strtolower( $keyword );			
 		}
-		$key = str_replace(' ', '', $keyword );
+		$key = strtolower(str_replace(' ', '', $keyword ));
 		$ret[$key] = $view->Html->link($keyword, array('action'=>'by_keyword', $keyword ));
 	}
 
