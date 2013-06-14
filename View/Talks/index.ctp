@@ -50,9 +50,9 @@ if( $this->action == 'by_keyword' && isset($keyword) ) :
 elseif( $this->action == 'proposals') :
 	$title = 'Talk Proposals';
 elseif( $this->action == 'by_track' && isset($track) ) :
-	$title = 'Track : ' . $track;
+	$title = $track;
 elseif( $this->action == 'view' ) :
-	$title = 'Talk : ' . $talks[0]['Talk']['topic'];
+	$title = $talks[0]['Talk']['topic'];
 else :
 	$title = __('Talks');
 endif;
@@ -65,17 +65,6 @@ endif;
 <?php $this->end();?>
 
 
-<?php $this->append('after-sidebar'); ?>
-<div class='sidebar-box'>
-	<h3>Tracks</h3>
-<?php
-foreach( $tracks AS $key => $track ) {
-	$talkLinks[] = $this->Html->link($track, array('action'=>'by_track', $key) );
-}
-?>
-<?php echo $this->Html->nestedList( $talkLinks, array( 'class'=>'track-list' ) ); ?>
-</div>
-<?php $this->end();?>
 
 <div class="talks listing">
 	<table>
@@ -86,7 +75,8 @@ foreach( $tracks AS $key => $track ) {
 				$id = $talk['Talk']['id'];
 
 				$topic = $this->Html->clean( $talk['Talk']['topic'] );
-				$abstract = $this->Html->clean( $talk['Talk']['abstract'] );
+				//$abstract = $this->Html->clean( $talk['Talk']['abstract'] );
+				$abstract = $this->Html->clean( nl2br($talk['Talk']['abstract'] ));
 				$speaker = $this->Html->clean($talk['Speaker']['display_name']);
 				$time = $this->Time->format( "D M jS \a\\t g:ia", $talk['Talk']['start_time']);
 				$where = $this->Html->clean( $talk['Talk']['room']);
@@ -168,11 +158,28 @@ foreach( $tracks AS $key => $track ) {
 				</td>
 			</tr>
 			<?php endforeach; ?>
+
 		</tbody>
 	</table>
 </div>
-<?php
 
+<?php $this->append('a-sidebar'); ?>
+	<div class='sidebar-box'>
+		<h3>Tracks</h3>
+		<?php
+		
+		foreach( $tracks AS $key => $track ) {
+			$talkLinks[] = $this->Html->link($track, array('action'=>'by_track', $key) );
+		}
+		
+		echo $this->Html->nestedList( $talkLinks, array( 'class'=>'track-list' ) );
+		
+		?>
+	</div>
+<?php $this->end();?>
+
+
+<?
 // More about...
 if( $this->action == 'view' &&
    (!empty( $talks[0]['Speaker']['website'] ) || !empty( $talks[0]['Speaker']['twitter'] ) ) ) {
@@ -180,11 +187,14 @@ if( $this->action == 'view' &&
 	$this->append('before-sidebar'); ?>
 
 <div class='sidebar-box'>
-	<h3>More about <?php echo $talks[0]['Speaker']['display_name']?></h3>
-	<ul>
-		<?php echo (!empty($talks[0]['Speaker']['website'])) ? $this->Html->tag('li', $this->Html->link('Website',$talks[0]['Speaker']['website'], array('target'=>'_new'))) : null;?>
-		<?php echo (!empty($talks[0]['Speaker']['twitter'])) ? $this->Html->tag('li', 'Follow ' . $this->Html->link('@'.$talks[0]['Speaker']['twitter'],'http://twitter.com/'.$talks[0]['Speaker']['twitter'])) : null;?>
-	</ul>
+	<h3><?php echo $talks[0]['Speaker']['display_name'];?></h3>
+<?php
+	$talkLink = array( 'action'=>'view', $talks[0]['Speaker']['id'] );
+	$speakerLink = $talkLink;
+?>
+	<div class='talk-excerpt'><?php echo $talks[0]['Speaker']['bio'];?></div>
+
+	
 </div>
 
 	<?php $this->end();
@@ -198,7 +208,14 @@ function _keyword_links( $keywords, $view ) {
 
 	$keywords = (is_array( $keywords )) ? $keywords : explode(',', $keywords);
 	foreach( $keywords AS $keyword) {
-		$ret[] = $view->Html->link($keyword, array('action'=>'by_keyword', $keyword ));
+		$keyword = trim( $keyword );
+		if( $keyword != strtoupper( $keyword ) ) {
+			$keyword = ucwords( $keyword );						
+		} else {
+			//$keyword = strtolower( $keyword );			
+		}
+		$key = str_replace(' ', '', $keyword );
+		$ret[$key] = $view->Html->link($keyword, array('action'=>'by_keyword', $keyword ));
 	}
 
 	return $ret;
