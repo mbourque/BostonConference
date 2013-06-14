@@ -192,7 +192,7 @@ if( $this->action == 'view' &&
 	$talkLink = array( 'action'=>'view', $talks[0]['Speaker']['id'] );
 	$speakerLink = $talkLink;
 ?>
-	<div class='talk-excerpt'><?php echo $talks[0]['Speaker']['bio'];?></div>
+	<div class='talk-excerpt'><?php echo nl2br($talks[0]['Speaker']['bio']);?></div>
 
 	
 </div>
