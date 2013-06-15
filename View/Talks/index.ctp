@@ -4,7 +4,7 @@ shuffle ( $talks );
 
 	$this->Html->script('BostonConference.jquery_1.7.2.min', array('inline'=>false));
 	$this->Html->script('//joind.in/widget/widget.php', array('inline'=>false));
-	$this->Html->scriptBlock("var disqus_identifier = '{$this->here}';var disqus_developer = 1; var disqus_shortname = 'nephp';(function () {var s = document.createElement('script'); s.async = true;s.type = 'text/javascript';s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);}());", array('inline'=>false));
+	$this->Html->scriptBlock("var disqus_identifier = '{$this->here}';var disqus_developer = 0; var disqus_shortname = 'nephp';(function () {var s = document.createElement('script'); s.async = true;s.type = 'text/javascript';s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);}());", array('inline'=>false));
 
 	$disqusIdentifier[] = $this->params['controller'];
 	$disqusIdentifier[] = ( isset($this->params['action']) ) ? $this->params['action'] : null;
