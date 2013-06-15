@@ -1,6 +1,7 @@
 <?php if ( count( $tickets ) > 0 ) : ?>
 <h2><?php echo __('Your Tickets');?></h2>
-<p><?php echo __('You are registered for the conference. Your tickets are below.');?></p>
+<p><?php echo __('You are registered for the conference. Your tickets are below.');?>
+<span class='button right'><?php echo $this->Html->link('Print',array('admin'=>false,'plugin'=>null,'controller'=>'tickets', 'action'=>'print_tickets')); ?></span></p>
 <table>
 	<thead>
 		<tr>
@@ -39,7 +40,7 @@
 	</thead>
 	<tbody>
 	<?php foreach ($ticketOptions as $ticketOption): ?>
-		<tr>
+		<tr class='<?php echo ($ticketOption['TicketOption']['disable_purchase']) ? 'disabled' : null; ?>'>
 			<td><span class='ticket-option'><?php echo h($ticketOption['TicketOption']['label']); ?></span>
 			<span class='ticket-description'><?php echo h($ticketOption['TicketOption']['description']); ?></span></td>
 			<td><?php

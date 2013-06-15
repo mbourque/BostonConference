@@ -144,7 +144,7 @@ class TicketsController extends BostonConferenceAppController {
 		if( count( $tickets ) == 0 ) { // No tickets
 			$this->redirect(array('controller'=>'news'));
 		}
-		$ticketQuestions = $this->Ticket->TicketAnswer->TicketQuestion->find('all');
+		$ticketQuestions = $this->Ticket->TicketAnswer->TicketQuestion->find('all', array('contain'=>true));
 		$this->set(compact('tickets', 'ticketQuestions', 'options'));
 	}
 
