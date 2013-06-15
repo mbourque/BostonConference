@@ -4,45 +4,45 @@ shuffle ( $talks );
 
 	$this->Html->script('BostonConference.jquery_1.7.2.min', array('inline'=>false));
 	$this->Html->script('//joind.in/widget/widget.php', array('inline'=>false));
-	//$this->Html->scriptBlock("var disqus_identifier = '{$this->here}';var disqus_developer = 1; var disqus_shortname = 'nephp';(function () {var s = document.createElement('script'); s.async = true;s.type = 'text/javascript';s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);}());", array('inline'=>false));
+	$this->Html->scriptBlock("var disqus_identifier = '{$this->here}';var disqus_developer = 1; var disqus_shortname = 'nephp';(function () {var s = document.createElement('script'); s.async = true;s.type = 'text/javascript';s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);}());", array('inline'=>false));
 
-//	$disqusIdentifier[] = $this->params['controller'];
-//	$disqusIdentifier[] = ( isset($this->params['action']) ) ? $this->params['action'] : null;
-//	$disqusIdentifier[] = ( isset($this->params['pass'][0]) ) ? $this->params['pass'][0] : null;
-//	$disqusIdentifier = implode(DS, array_filter($disqusIdentifier));
-//
-//$disqusCommentCode = <<<EOD
-//	var disqus_developer = 1;
-//	var disqus_shortname = 'nephp';
-//	var disqus_category_id = '1555478';
-//	var disqus_identifier = '{$disqusIdentifier}';
-//    /* * * DON'T EDIT BELOW THIS LINE * * */
-//    (function() {
-//        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-//        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-//        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-//    })();
-//EOD;
-//
-//$disqusCommentCountCode = <<<EOD
-//	var disqus_developer = 1;
-//	var disqus_shortname = 'nephp';
-//	var disqus_category_id = '1555478';
-//	var disqus_identifier = '{$disqusIdentifier}';
-//    /* * * DON'T EDIT BELOW THIS LINE * * */
-//	(function () {
-//		var s = document.createElement('script');
-//		s.async = true;
-//		s.type = 'text/javascript';
-//		s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-//		(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-//	}());
-//EOD;
-//
-//	$disqusCode = ( $this->action == 'view' ) ? $disqusCommentCode : $disqusCommentCountCode ;
-//
-//	$this->Html->scriptBlock($disqusCode, array('inline'=>false));
-//
+	$disqusIdentifier[] = $this->params['controller'];
+	$disqusIdentifier[] = ( isset($this->params['action']) ) ? $this->params['action'] : null;
+	$disqusIdentifier[] = ( isset($this->params['pass'][0]) ) ? $this->params['pass'][0] : null;
+	$disqusIdentifier = implode(DS, array_filter($disqusIdentifier));
+
+$disqusCommentCode = <<<EOD
+	var disqus_developer = 0;
+	var disqus_shortname = 'nephp';
+	var disqus_category_id = '1555478';
+	var disqus_identifier = '{$disqusIdentifier}';
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+EOD;
+
+$disqusCommentCountCode = <<<EOD
+	var disqus_developer = 0;
+	var disqus_shortname = 'nephp';
+	var disqus_category_id = '1555478';
+	var disqus_identifier = '{$disqusIdentifier}';
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+	(function () {
+		var s = document.createElement('script');
+		s.async = true;
+		s.type = 'text/javascript';
+		s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+		(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+	}());
+EOD;
+
+	$disqusCode = ( $this->action == 'view' ) ? $disqusCommentCode : $disqusCommentCountCode ;
+
+	$this->Html->scriptBlock($disqusCode, array('inline'=>false));
+
 ?>
 <?php
 if( $this->action == 'by_keyword' && isset($keyword) ) :
@@ -61,7 +61,9 @@ endif;
 <?php $this->append('header'); ?>
 <div class="talks index">
 	<h2><?php echo $title;?></h2>
+	<?php if( count( $talks ) > 1 ) : ?>
 	<p>Note: Talks are subject to change.</p>
+	<?php endif; ?>
 </div>
 <?php $this->end();?>
 
@@ -93,7 +95,7 @@ endif;
 				$likesLabel = $this->Html->tag('span',$likes);
 				$likesLabel = ($likes > 1) ? $likesLabel . ' Likes' : $likesLabel . ' Like' ;
 
-				//$likeButton = $this->Js->link($likesLabel, array('action'=>'like', $id), array('update' => "#like-{$id} span",'id'=>"like-{$id}",'class'=>'button like', 'style'=>'float:right', 'escape'=>false,'rel'=>'nofollow'));
+				$likeButton = $this->Js->link($likesLabel, array('action'=>'like', $id), array('update' => "#like-{$id} span",'id'=>"like-{$id}",'class'=>'button feedback-off', 'style'=>'float:right', 'escape'=>false,'rel'=>'nofollow'));
 				//$likeButton = $this->Html->link('Rate', array('action'=>'like', $id), array('update' => "#like-{$id} span",'id'=>"like-{$id}",'class'=>'button like', 'style'=>'float:right', 'escape'=>false,'rel'=>'nofollow'));
 
 				if( strtotime($talk['Talk']['start_time']) <= strtotime('now') ) {
@@ -102,7 +104,7 @@ endif;
 					$feedbackButton = $this->Html->link( 'Rate', 'javascript:void(0)', array('class'=>'button feedback-off', 'target'=>'_blank', 'style'=>'float:right', 'title'=>'You can rate this talk when it starts', 'escape'=>false,'rel'=>'nofollow'),'You can rate this talk when it starts' );
 				}
 
-				// $disqusComments = $this->Html->link($topic, array_merge($talkUrl, array('#'=>'disqus_thread')));
+				$disqusComments = $this->Html->link($topic, array_merge($talkUrl, array('#'=>'disqus_thread')));
 
 				// Track
 				if( !empty($talk['Track']['id']) ) {
@@ -140,6 +142,7 @@ endif;
 				<td><?php echo $gravatarImage ;?></td>
 				<td>
 				<?php // echo $feedbackButton; ?>
+				<?php  echo $likeButton; ?>
 
 				<?php if( $this->action == 'by_keyword' || sizeof( $talks ) >= 1 ) echo $this->Html->tag('h3', $talkLink) ;?>
 
@@ -150,6 +153,8 @@ endif;
 				<?php if( $track ) : ?>
 					<br/> Track: <?php echo $trackLink; ?>
 				<?php endif; ?>
+				<br/>Discussion: <?php echo $disqusComments; ?>
+
 				<?php if( $keywords ) : ?>
 					<br/> Keywords:	<?php echo $keywords; ?>
 				<?php endif; ?>
@@ -162,7 +167,7 @@ endif;
 					<p><?php echo $talk['Talk']['userdefined3'];?></p>
 					<?php echo $abstract;?>
 				</div>
-				<?php // echo $disqusComments; ?>
+				
 				</td>
 			</tr>
 			<?php endforeach; ?>
@@ -194,19 +199,37 @@ if( $this->action == 'view' &&
 
 	$this->append('before-sidebar'); ?>
 
-<div class='sidebar-box'>
-	<h3><?php echo $talks[0]['Speaker']['display_name'];?></h3>
-<?php
-	$talkLink = array( 'action'=>'view', $talks[0]['Speaker']['id'] );
-	$speakerLink = $talkLink;
-?>
-	<div class='talk-excerpt'><?php echo nl2br($talks[0]['Speaker']['bio']);?></div>
+	<div class='sidebar-box'>
+		<h3><?php echo $talks[0]['Speaker']['display_name'];?></h3>
+	<?php
+		$talkLink = array( 'action'=>'view', $talks[0]['Speaker']['id'] );
+		$speakerLink = $talkLink;
+	?>
+		<div class='talk-excerpt'><?php echo nl2br($talks[0]['Speaker']['bio']);?>		
 
+	<p>
+	<?php if( $talks[0]['Speaker']['website'] ) : ?>		
+		Visit <?php echo $talk['Speaker']['first_name'] ?>'s <?php echo $this->Html->link('website', $talks[0]['Speaker']['website'], array('target'=>'extra')); ?>
+	<?php endif; ?>
 	
-</div>
+	<?php if( $talks[0]['Speaker']['website'] || $talks[0]['Speaker']['twitter']) : ?>
+		or follow <?php echo $this->Html->link('@'.$talks[0]['Speaker']['twitter'],'http://twitter.com/'.$talks[0]['Speaker']['twitter'], array('target'=>'extra')); ?>		
+	<?php else : ?>
+		Follow me <?php echo $this->Html->link('@'.$talks[0]['Speaker']['twitter'],'http://twitter.com/'.$talks[0]['Speaker']['twitter'], array('target'=>'extra')); ?>		
+	<?php endif; ?>
 
+	<?php if( $talks[0]['Speaker']['twitter'] ) : ?>		
+	 
+	<?php endif; ?>
+	</p>	
+
+	</div>
+	</div>
 	<?php $this->end();
 }
+
+
+
 
 // Keywords...
 
@@ -217,13 +240,14 @@ function _keyword_links( $keywords, $view ) {
 	$keywords = (is_array( $keywords )) ? $keywords : explode(',', $keywords);
 	foreach( $keywords AS $keyword) {
 		$keyword = trim( $keyword );
-		if( $keyword != strtoupper( $keyword ) ) {
+		if( $keyword != strtoupper( $keyword ) && (strlen($keyword)>3)) {
 			$keyword = ucwords( $keyword );						
 		} else {
-			//$keyword = strtolower( $keyword );			
+			$keyword = strtoupper( $keyword );			
 		}
 		$key = strtolower(str_replace(' ', '', $keyword ));
-		$ret[$key] = $view->Html->link($keyword, array('action'=>'by_keyword', $keyword ));
+		//$keyword = str_replace(' ', '&nbsp;', $keyword );
+		$ret[$key] = $view->Html->link(str_replace(' ', '&nbsp;', $keyword ), array('action'=>'by_keyword', str_replace(' ', '_', $keyword ) ), array('escape'=>false));
 	}
 
 	return $ret;

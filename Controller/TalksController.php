@@ -68,15 +68,17 @@ class TalksController extends BostonConferenceAppController {
 		if( !is_array($options) ) $options = array();
 
 		$default_options['conditions'][] = array('Talk.speaker_id not' => null);
+		$default_options['conditions'][] = array('Talk.duration' => '120');
+		$default_options['conditions'][] = array('Talk.approved' => '1' );
 		$default_options['order'] = array('Talk.start_time'=>'asc','Track.position','Talk.topic');
 
 		$options = array_merge_recursive( $default_options, $options );
 
 		$talks = $this->Talk->forCurrentEvent( true, $options );
-		$all_keywords = $this->Talk->keywords( $talks );
+		//$all_keywords = $this->Talk->keywords( $talks );
 		$tracks = $this->Talk->Track->find( 'list' );
 
-		$this->set( compact('talks', 'tracks', 'all_keywords') );
+		$this->set( compact('talks', 'tracks') );
 		$this->render('index');
 
 		
@@ -183,6 +185,7 @@ class TalksController extends BostonConferenceAppController {
 		$options = array();
 
 		if( $keyword ) {
+			$keyword = str_replace('_', ' ', $keyword );
 			$keyword = Sanitize::clean( $keyword );
 			$options['conditions'] = array( "LOCATE('{$keyword}', Talk.keywords)");
 		} else {
