@@ -25,7 +25,9 @@ class TalksController extends BostonConferenceAppController {
 					 'schedule',
 					 'by_keyword',
 					 'by_track',
+					 'workshops',
 					 'like',
+					 'workshops',
 					 'propose_talk',
 					 'propose_workshop'));
 		return parent::beforeFilter();
