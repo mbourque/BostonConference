@@ -69,7 +69,7 @@
 					} else {
 						$availableToBuy = true;
 						$options = array();
-						for ( $i=0; $i <= $canBuy && $i <= 10; $i++ ) {
+						for ( $i=0; $i <= $canBuy && $i <= 5; $i++ ) {
 							$options[] = number_format($i,0);
 						}
 
