@@ -112,14 +112,14 @@ else if ( isset($skinny_sidebar) && $skinny_sidebar )
 
     					if ( !empty($authentication['login_url']) ) {
     						if( !Configure::read('BostonConference.hide_login_menu') ) {
-    							echo $this->Html->link('Create an account',$authentication['register_url']);
+    							echo $this->Html->link(__('Create an account'),$authentication['register_url']);
     							echo "</li><li>";
-    							echo $this->Html->link('Login',$authentication['login_url']);
+    							echo $this->Html->link(__('Login'),$authentication['login_url']);
     						}
     					}
 
     					if ( !empty($authentication['logout_url']) ) {
-    						echo $this->Html->link('Logout',$authentication['logout_url'], array('class'=>'logout'));
+    						echo $this->Html->link(__('Logout'),$authentication['logout_url'], array('class'=>'logout'));
     					} ?>
     					</li>
 					</ul>
