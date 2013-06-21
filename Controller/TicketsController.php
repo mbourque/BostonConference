@@ -103,12 +103,10 @@ class TicketsController extends BostonConferenceAppController {
 
 		$tickets = $this->Ticket->find('all',array(
 			'order'=>array('Ticket.badge_name','Ticket.id'),
-			'conditions'=>array('Ticket.user_id' => $this->Auth->user('id'),
-								'Ticket.paid' => 1,
-								),
+			'conditions'=>array('Ticket.user_id' => $this->Auth->user('id')),
 			'recursive' => 1
 		));
-
+		
 		if( count( $tickets ) == 0 ) { // No tickets
 			$this->redirect(array('controller'=>'news'));
 		}
