@@ -7,10 +7,10 @@ if ( count( $tracks ) > 0 )
 	$this->append('sidebar');
 ?>
 
-<div class='sidebar-box'>
+<!--<div class='sidebar-box'>
 	Download the schedule <?php echo $this->Html->link('here', '/uploads/pdf/nephp-agenda.pdf', array('class'=>'red')); ?>.
 </div>
-
+-->
 <div class='sidebar-box'>
 	<h3>Tracks</h3>
 	<ul class="tracks">
@@ -47,16 +47,16 @@ if ( count( $tracks ) > 0 )
 	$day2 = array_pop( $days );
 	$day1 = array_pop( $days );
 	unset( $days );
-	$days[20120812] = $day2;
-	$days[20120811] = $day1;
+	$days[20130817] = $day1;
+	$days[20130818] = $day2;
 
 
 ?>
-<a  class='button' style='float:right' href='#day1'>Jump to day 1</a>
+<a  class='button' style='float:right' href='#day2'>Jump to day 2</a>
 <div class='agenda'>
-<?php $i = 3;?>
+<?php $i = 0;?>
 <?php foreach( $days as $day => $times ) : ?>
-<?php $i--; ?>
+<?php $i++; ?>
 	<a name='day<?php echo $i;?>'/></a>
 	<h3>Day <?php echo $i;?> - <?php echo date( 'l, F jS', strtotime($day)); ?></h3>
 	<table>
