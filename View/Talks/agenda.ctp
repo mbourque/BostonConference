@@ -100,6 +100,7 @@ if ( count( $tracks ) > 0 )
 					foreach( $talk_blocks AS $talk ) {
 						if ( $talk['Talk']['room'] == $room ) {
 							echo '<div class="talk '.$this->Schedule->getTalkClass($talk,$talks, $key).'"><p>';
+							echo $this->Gravatar->image($talk['Speaker']['email'], 70, array('style'=>'float:left;'));
 							echo $this->Html->link($talk['Talk']['topic'], array('action'=>'view', $talk['Talk']['id']), array('class'=>'agenda-topic'));
 							echo "<br/>";
 							echo $this->Html->link($talk['Speaker']['first_name'] . " " . $talk['Speaker']['last_name'], array('controller'=>'speakers','action'=>'view', $talk['Speaker']['id']));
