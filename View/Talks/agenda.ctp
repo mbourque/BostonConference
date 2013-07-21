@@ -73,6 +73,7 @@ if ( count( $tracks ) > 0 )
 			<tr>
 				<td><nobr><?php echo date('g:i a', strtotime( $number ));?></nobr></td>
 				<?php
+				
 				$talk_blocks = $this->Schedule->getTalksInBlock( strtotime($number), $talks );
 				if( count( $talk_blocks ) == 1 && empty($talk_blocks[0]['Talk']['track_id']) ) {
 					echo '<td class="" colspan="' . count($rooms) . '">';
@@ -100,7 +101,11 @@ if ( count( $tracks ) > 0 )
 					foreach( $talk_blocks AS $talk ) {
 						if ( $talk['Talk']['room'] == $room ) {
 							echo '<div class="talk '.$this->Schedule->getTalkClass($talk,$talks, $key).'"><p>';
-							echo $this->Gravatar->image($talk['Speaker']['email'], 70, array('style'=>'float:left;'));
+							if( $talk['Speaker']['portrait_url'] ) {
+								echo $this->Html->image( $talk['Speaker']['portrait_url'], array( 'style'=>'width:70px;float:left;') );
+							} else {								
+								echo $this->Gravatar->image( $talk['Speaker']['email'], 70, array('style'=>'float:left;'));
+							}
 							echo $this->Html->link($talk['Talk']['topic'], array('action'=>'view', $talk['Talk']['id']), array('class'=>'agenda-topic'));
 							echo "<br/>";
 							echo $this->Html->link($talk['Speaker']['first_name'] . " " . $talk['Speaker']['last_name'], array('controller'=>'speakers','action'=>'view', $talk['Speaker']['id']));
