@@ -9,7 +9,7 @@
 
 		foreach( $ticketQuestions AS $key => $question ) {
 
-			$options = array();
+			$options = array('value'=>'0');
 
 			if( !empty($question['TicketQuestion']['options']) ) {
 				$options['options'] = array_map('trim',explode("\r",$question['TicketQuestion']['options']));
@@ -30,7 +30,7 @@
 			$map[2] = array('type'=>'radio','label'=>true, 'value'=>key($options['options']),'legend'=>$options['label']);
 			$map[3] = array('type'=>'select');
 			$type = $map[(min(sizeof($options['options']),sizeof($map)-1))];
-			$options = array_merge( $options, $type );
+			$options = array_merge( $type, $options );
 
 			$row[$key]['question'] = $this->Html->tag('strong',$question['TicketQuestion']['label']);
 			$row[$key]['question'] .= $this->Html->tag('br');
