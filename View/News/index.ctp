@@ -9,7 +9,7 @@ if ( count( $news ) > 0 )
 ?>
 <article>
 	<h2><?php echo $this->Html->link($news['News']['title'], array('controller'=>'pages','action'=>$news['News']['path'],'plugin'=>null)); ?></h2>
-	<p><?php echo $this->Html->clean($news['News']['body']); ?>&nbsp;</p>
+	<p><?php echo $news['News']['body']; ?>&nbsp;</p>
 	<time datetime="<?php echo date('Y-m-d', strtotime($news['News']['created']));?>">Posted on <?php echo date(Configure::read('BostonConference.dateFormat'),strtotime($news['News']['created'])); ?></time>
 </article>
 <?php
