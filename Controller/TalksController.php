@@ -65,26 +65,6 @@ class TalksController extends BostonConferenceAppController {
 	}
 
 
-	public function workshops( $options = array() ) {
-		
-		if( !is_array($options) ) $options = array();
-
-		$default_options['conditions'][] = array('Talk.speaker_id not' => null);
-		$default_options['conditions'][] = array('Talk.duration' => '120');
-		$default_options['conditions'][] = array('Talk.approved' => '1' );
-		$default_options['order'] = array('Talk.start_time'=>'asc','Track.position','Talk.topic');
-
-		$options = array_merge_recursive( $default_options, $options );
-
-		$talks = $this->Talk->forCurrentEvent( true, $options );
-		//$all_keywords = $this->Talk->keywords( $talks );
-		$tracks = $this->Talk->Track->find( 'list' );
-
-		$this->set( compact('talks', 'tracks') );
-		$this->render('index');
-
-		
-	}
 /**
  * index method
  * Return talks that have speakers associated

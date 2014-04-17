@@ -46,13 +46,16 @@ if ( count( $tracks ) > 0 )
 
 	$day2 = array_pop( $days );
 	$day1 = array_pop( $days );
+	$day0 = array_pop( $days );
+
 	unset( $days );
+	$days[20130816] = $day0;
 	$days[20130817] = $day1;
 	$days[20130818] = $day2;
 
 
 ?>
-<a  class='button' style='float:right' href='#day2'>Jump to day 2</a>
+<a  class='button' style='float:right' href='#day2'>Purchase workshop tickets</a>
 <div class='agenda'>
 <?php $i = 0;?>
 <?php foreach( $days as $day => $times ) : ?>
