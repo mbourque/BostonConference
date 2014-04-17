@@ -134,37 +134,37 @@ class MenuComponent extends Component {
 		}
 
 		// Schedule link (30)
-		$this->addLink(
-			'Schedule',
-			array(
-				'plugin' => 'BostonConference',
-				'controller' => 'talks',
-				'action' => 'schedule'
-			),
-			30
-		);
+		// $this->addLink(
+		// 	'Schedule',
+		// 	array(
+		// 		'plugin' => 'BostonConference',
+		// 		'controller' => 'talks',
+		// 		'action' => 'schedule'
+		// 	),
+		// 	30
+		// );
 
 		// Admin tickets link (40)
-		$this->addLink(
-			'Tickets',
-			array(
-				'plugin' => 'BostonConference',
-				'controller' => 'tickets',
-				'action' => 'index'
-			),
-			40
-		);
+		// $this->addLink(
+		// 	'Tickets',
+		// 	array(
+		// 		'plugin' => 'BostonConference',
+		// 		'controller' => 'tickets',
+		// 		'action' => 'index'
+		// 	),
+		// 	40
+		// );
 
 		// Sponsors link (50)
-		$this->addLink(
-			'Sponsors',
-			array(
-				'plugin' => 'BostonConference',
-				'controller' => 'sponsors',
-				'action' => 'index'
-			),
-			50
-		);
+		// $this->addLink(
+		// 	'Sponsors',
+		// 	array(
+		// 		'plugin' => 'BostonConference',
+		// 		'controller' => 'sponsors',
+		// 		'action' => 'index'
+		// 	),
+		// 	50
+		// );
 
 		// Vanue link (60)
 		$this->addLink(
