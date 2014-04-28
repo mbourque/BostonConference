@@ -73,9 +73,7 @@ We look forward to receiving your propopsal.</p>
 		echo $this->Form->input('Talk.userdefined3', $userdefined3Options );
 		echo $this->Form->input('Talk.track_id',array('empty'=>false, 'label'=>'Which Track best fits your Talk?'));
 		echo $this->Form->input('Talk.keywords', array('label'=>__('What Keywords best describe your Talk?'),'after'=>'Separated by commas. Examples: <i>Javascript, PHP, Cloud, UX, jQuery, ...</i>'));
-		echo $this->Form->input('Talk.comments', array('label'=>__('Comments? Questions? Requirements?'),'after'=>''));
-				
-				
+		echo $this->Form->input('Talk.comments', array('label'=>__('Comments? Questions? Requirements?'),'after'=>''));				
 
 		echo $this->Html->tag('h2', "Tell us a little about yourself");
 		
@@ -87,6 +85,9 @@ We look forward to receiving your propopsal.</p>
 
 		echo $this->Form->input('Talk.userdefined2', $userdefined2Options );
 		echo $this->Form->input('Speaker.bio', array('label'=>'Biography', 'after'=>__('Have some fun with this, and don\'t be boring. Tell us who you are, what you do, why and how you do. Be creative! This will be used on our website when your Talk is chosen.')));
+
+		echo $this->Form->input('Speaker.travel', array('label'=>'Are you traveling from outside of the greater Boston area and will you need hotel accommodations?','options'=>array(0=>'No',1=>'Yes - I am traveling and need hotel')));
+		
 		echo $this->Form->input('Speaker.website', array('label'=>__('Do you have a Website or Blog? If so, provide a link so we can publish it!' ),'placeholder'=>null,'after'=>__('Please include http://')));
 		echo $this->Form->input('Speaker.twitter', array('label'=>__('Do you tweet? If so, please provide your Twitter handle.'), 'after'=>'Ex: @nephp','placeholder'=>null));
 		echo $this->Form->input('Speaker.joindin_id', array('after'=>"Ex: http://joind.in/user/view/<strong>18970</strong> <<-- Enter this code only. Check out <a href='//joind.in' target='_blank'>Joind.in</a> for more information.",'type'=>'text','label'=>__('Please enter your Joind.in User ID'),'placeholder'=>null));
@@ -102,38 +103,41 @@ We look forward to receiving your propopsal.</p>
 
 				
 		<h4>What is a Talk?</h4>
-		<p>A Talk should be about 45 minutes long and can cover any topic within the tracks we have specified. You can involve the audience as much as you like, but the basic format is lecture-style. Feel free to incorporate time at the end for audience Q&A at the end.</p>
+		<p>A Talk should be about 45 minutes long and can cover any topic within the tracks we have specified. You can involve the audience as much as you like, but the basic format is lecture-style. Feel free to incorporate time at the end for audience Q&A.</p>
 		<?php
 			foreach( $tracks AS $key => $track ) {
-				$talkLinks[] = $this->Html->link($track, array('action'=>'by_track', $key) );
+				// $talkLinks[] = $this->Html->link($track, array('action'=>'by_track', $key) );
+				$talkLinks[] = $track;
 			}
 		
-		echo $this->Html->nestedList( $talkLinks, array( 'class'=>'track-list' ) );
+		echo $this->Html->nestedList( $talkLinks, array( 'class'=>'bold track-list' ) );
 		
 		?>
 		<br />
-		<p><a href='http://2012.nephp.org'>Examples of Talks</a> from last years conference.</p>
+		<p><a href='http://2013.northeastphp.org/talks'>Examples of Talks</a> from last years conference.</p>
 		<?php // echo $this->Html->image("http://www.ptc.com/images/product/training/instructor-led-training/tab1.png", array('style'=>'width:100%'));?>
 		
 		<h4>What is the duration of Talk?</h4>
-		<p>A Talk is 45 minutes. If you need more time then perhaps you can
-		<?php echo $this->Html->link('Propose a Workshop', array('action'=>'propose_workshop')); ?>
-		or
-		<?php echo $this->Html->link('Propose a Keynote', array('action'=>'propose_keynote')); ?>
-		
+		<p>A Talk is 45 minutes including Q&A. 
 		<h4>When are submissions due?</h4>
-		<p>All submissions are due by <strong>April 30, 2013</strong>.
+		<p>All submissions are due by <strong>June 1st, 2014</strong>.
 		
 		<h4>When will I know if my Talk has been accepted?</H4>
-		<p>Our board will review all proposals from March through May 2013. If you've submitted a proposal, we will let you know either way whether your Talk is accepted by <strong>May 31, 2013</strong>.</li>
+		
+
+		<p>Our board will review all proposals until the deadline of June 1st. If you've submitted a proposal, we will let you know either way whether your Talk is accepted by <strong>June 15</strong>.</li>
 		
 		<h4>What should I expect if I am selected as a speaker?</h4>
 		<p>We will be communicating with you on a semi-regular basis to make sure any questions are answered, you know what is expected of you in terms of your Talk, and you have the most up-to-date information on what is happening for the conference.
 				
 		<h4>Is there compensation involved for speakers?</h4>
-		<p>One of the best things about the Northeast PHP conference is the community that brings the event together, creating a low-cost, high-quality event through fully volunteer effort. As a part of that, we ask our speakers to also volunteer their time.
-		
-		<p>This year, we hope to be able to cover a portion of travel costs for those who are not local to Boston. We can cover <strong>up to $600</strong> per speaker in approved travel expenses. Once you have been selected, we will explain the process for travel reimbursement.</p>
+		<p>The Northeast PHP Conference is a non-profit, community event. Our goal is to create a great conference experience with an inexpensive ticket price. To this end, we offer a limited speaker package. For speakers traveling from outside of the greater Boston area we will provide hotel accommodations for one night, regardless of the number of talks accepted. We do not have a budget to compensate speakers for other travel costs.</p> 
+
+		<p>If your talk is accepted and your company will be paying for your travel expenses then they are eligible to be listed as an event sponsor. If your talk is accepted then you will receive a free conference ticket and a discount code to share with your friends.</p>
+	
+		<h4>Get a free sponsorship, just for flying</h4>
+		<p>Will your company be paying for your travel expenses? If so, your company can be listed as an event sponsor. We will contact you to coordinate this sponsorship if you answer "yes" to this question and your talk is accepted.</p>	
+	
 </div>
 <?php $this->end(); ?>
 

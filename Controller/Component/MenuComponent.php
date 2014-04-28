@@ -209,7 +209,7 @@ class MenuComponent extends Component {
 			$a['logout_url'] = array( 'plugin' => 'BostonConference', 'controller' => 'boston_conference', 'action' => 'logout', 'admin' => false );
 			$a['greeting'] = Configure::read('BostonConference.greeting');
 		} else {
-			$a['register_url'] = array( 'plugin' => null, 'controller' => 'users', 'action' => 'add', 'admin' => false );
+//			$a['register_url'] = array( 'plugin' => null, 'controller' => 'users', 'action' => 'add', 'admin' => false );
 			$a['login_url'] = $controller->Auth->loginAction;
 		}
 
