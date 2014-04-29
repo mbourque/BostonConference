@@ -67,7 +67,7 @@ Router::connect(
 
 Router::connect(
 	$prefix.'/conduct',
-	array( 'plugin' => 'BostonConference', 'controller' => 'pages', 'action' => 'display', 'conduct' )
+	array( 'plugin' => 'BostonConference', 'controller' => 'pages', 'action' => 'conduct' )
 );
 
 Router::connect(
