@@ -48,9 +48,16 @@
 <?php echo $this->Form->create('Talk');?>
 
 <h2><?php echo __('Propose a Talk'); ?></h2>
-<p>We feel everyone has something to say. No matter what it is, we want to hear about it. Thank you for offering to speak at our conference.
-We look forward to receiving your propopsal.</p>
+<p>To learn is smart. To teach is brilliance. Thank you for offering to speak at our conference. We look forward to receiving your proposal.</p>
 
+<ul>
+<li>All talks are 45 minutes</li>
+<li>Deadline is June 1st. Decision by June 15</li>
+<li>Multiple talks are welcome</li>
+<li>We like to include first time presenters, don't be shy</li>
+<li>Enjoy Boston with our limited speaker package</li>
+<li>Spread the word</li>
+</ul>
 
 	<?php	
 		echo $this->Form->hidden('Talk.event_id');
