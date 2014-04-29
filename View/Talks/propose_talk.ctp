@@ -1,9 +1,9 @@
 <?php
 		$durationOptions = array(
 			'options' => array(
-				50  => '50 Minute Talk (Aug 17-18th)',
+				45  => '45 Minute Talk',
 			),
-			'value' => 50,
+			'value' => 45,
 			'label'=>__('What sort of Talk is this?')
 		);
 
