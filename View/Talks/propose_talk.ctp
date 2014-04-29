@@ -51,12 +51,12 @@
 <p>To learn is smart. To teach is brilliance. Thank you for offering to speak at our conference. We look forward to receiving your proposal.</p>
 
 <ul>
-<li>All talks are 45 minutes</li>
+<li>Talks are 45 minutes including Q&A</li>
 <li>Deadline is June 1st. Decision by June 15</li>
 <li>Multiple talks are welcome</li>
 <li>We like to include first time presenters, don't be shy</li>
 <li>Enjoy Boston with our limited speaker package</li>
-<li>Spread the word</li>
+<li>Please help spread the word :)</li>
 </ul>
 
 	<?php	
