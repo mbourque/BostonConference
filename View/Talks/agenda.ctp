@@ -105,7 +105,7 @@ if ( count( $tracks ) > 0 )
 							echo "<br/>";
 							echo $this->Html->link($talk['Speaker']['first_name'] . " " . $talk['Speaker']['last_name'], array('controller'=>'speakers','action'=>'view', $talk['Speaker']['id']));
 							echo '</p>';
-							echo $talk['Talk']['room'] . ', ' . ($talk['Talk']['duration']-15) . ' Minutes';
+							echo $talk['Talk']['room'] . ', ' . ($talk['Talk']['duration']) . ' Minutes';
 							echo '</div>';
 						}
 					}
