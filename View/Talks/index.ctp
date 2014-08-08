@@ -41,7 +41,7 @@ EOD;
 
 	$disqusCode = ( $this->action == 'view' ) ? $disqusCommentCode : $disqusCommentCountCode ;
 
-	$this->Html->scriptBlock($disqusCode, array('inline'=>false));
+	//$this->Html->scriptBlock($disqusCode, array('inline'=>false));
 
 ?>
 <?php
@@ -213,9 +213,9 @@ if( $this->action == 'view' &&
 	<?php endif; ?>
 	
 	<?php if( $talks[0]['Speaker']['website'] || $talks[0]['Speaker']['twitter']) : ?>
-		or follow <?php echo $this->Html->link('@'.$talks[0]['Speaker']['twitter'],'http://twitter.com/'.$talks[0]['Speaker']['twitter'], array('target'=>'extra')); ?>		
+		or follow <?php echo $this->Html->link(''.$talks[0]['Speaker']['twitter'],'http://twitter.com/'.$talks[0]['Speaker']['twitter'], array('target'=>'extra')); ?>		
 	<?php else : ?>
-		Follow me <?php echo $this->Html->link('@'.$talks[0]['Speaker']['twitter'],'http://twitter.com/'.$talks[0]['Speaker']['twitter'], array('target'=>'extra')); ?>		
+		Follow me <?php echo $this->Html->link(''.$talks[0]['Speaker']['twitter'],'http://twitter.com/'.$talks[0]['Speaker']['twitter'], array('target'=>'extra')); ?>		
 	<?php endif; ?>
 
 	<?php if( $talks[0]['Speaker']['twitter'] ) : ?>		

@@ -44,18 +44,10 @@ if ( count( $tracks ) > 0 )
 	}
 	$rooms = array_unique( array_filter(Set::extract('{n}/Talk/room', $talks) ) );
 
-	$day2 = array_pop( $days );
-	$day1 = array_pop( $days );
-	$day0 = array_pop( $days );
-
-	unset( $days );
-	$days[20130816] = $day0;
-	$days[20130817] = $day1;
-	$days[20130818] = $day2;
-
+	$day0 = 20140906;
+	$day1 = 20140907;
 
 ?>
-<a  class='button' style='float:right' href='#day2'>Purchase workshop tickets</a>
 <div class='agenda'>
 <?php $i = 0;?>
 <?php foreach( $days as $day => $times ) : ?>
