@@ -7,10 +7,10 @@ if ( count( $tracks ) > 0 )
 	$this->append('sidebar');
 ?>
 
-<!--<div class='sidebar-box'>
-	Download the schedule <?php echo $this->Html->link('here', '/uploads/pdf/nephp-agenda.pdf', array('class'=>'red')); ?>.
+<div class='sidebar-box'>
+	Download the schedule <?php echo $this->Html->link('here', 'http://2014.northeastphp.org/uploads/pdfs/nephp-agenda.pdf', array('class'=>'red')); ?>.
 </div>
--->
+
 <div class='sidebar-box'>
 	<h3>Tracks</h3>
 	<ul class="tracks">
@@ -43,7 +43,7 @@ if ( count( $tracks ) > 0 )
 		$days[$date][] = $time;
 	}
 	$rooms = array_unique( array_filter(Set::extract('{n}/Talk/room', $talks) ) );
-
+	
 	$day0 = 20140906;
 	$day1 = 20140907;
 
