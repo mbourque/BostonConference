@@ -88,7 +88,7 @@
 		echo $this->Form->input('Speaker.last_name');
 		echo $this->Form->input('Speaker.email', array('after'=>'We may need to email you to ask questions about your proposal or your travel arrangements. We promise not to spam you.'));
 
-		echo $this->Form->input('Speaker.github_username', array('after'=>"Ex: https://github.com/<strong>northeastphp</strong> <<-- Enter this part. <a href='//github.com' target='_blank'>github.com</a> for more information.",'type'=>'text','label'=>__('Enter enter your GitHub Username'),'placeholder'=>null));
+		echo $this->Form->input('Speaker.github_username', array('after'=>"Ex: https://github.com/<strong>northeastphp</strong> <<-- Enter this part. <a href='//github.com' target='_blank'>github.com</a> for more information.",'type'=>'text','label'=>__('Enter your GitHub Username'),'placeholder'=>null));
 
 		echo $this->Form->input('Talk.userdefined2', $userdefined2Options );
 		echo $this->Form->input('Speaker.bio', array('label'=>'Biography', 'after'=>__('Have some fun with this, and don\'t be boring. Tell us who you are, what you do, why and how you do. Be creative! This will be used on our website when your Talk is chosen.')));
@@ -159,7 +159,7 @@ $('.word_count').each(function(){
 	// get current number of words
 	//var length = $(this).val().split(/\b[\s,\.-:;]*/).length;
 	// update characters
-	$(this).parent().find('.counter').html( length + ' characters');
+	$(this).parent().find('.counter').html( length );
 	// bind on key up event
 	$(this).keyup(function(){
 		// get new length of characters
@@ -167,7 +167,7 @@ $('.word_count').each(function(){
 		// get new length of words
 		//var new_length = $(this).val().split(/\b[\s,\.-:;]*/).length;
 		// update
-		$(this).parent().find('.counter').html( new_length + ' characters');
+		$(this).parent().find('.counter').html( new_length );
 	});
 });
 
